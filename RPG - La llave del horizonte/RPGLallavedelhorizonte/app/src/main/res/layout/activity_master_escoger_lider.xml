@@ -43,7 +43,10 @@
             android:id="@+id/caja_jugadores"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:divider="@drawable/empty_tall_divider"
+            android:dividerPadding="15dp"
+            android:orientation="vertical"
+            android:showDividers="middle">
             <!-- Content here -->
         </LinearLayout>
     </ScrollView>

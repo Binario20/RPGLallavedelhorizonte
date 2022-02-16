@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
+
 public class MasterEscogerLider extends AppCompatActivity {
 
     private LinearLayout caja_jugadores;
@@ -18,9 +20,14 @@ public class MasterEscogerLider extends AppCompatActivity {
     }
 
     private void initJugadores() {
-        for (int i=0; i<20; i++) {
+
+        caja_jugadores.addView(new NuevoJugador(this, Data.MASTER));
+
+        for (int i=1; i<=20; i++) {
             caja_jugadores.addView(new NuevoJugador(this, String.valueOf(i)));
         }
+
+        Data.setLider_layout(caja_jugadores);
     }
 
     private void initComponents() {
