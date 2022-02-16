@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RPGLaLlaveDelHorizonte">
         <activity
+            android:name=".MasterEscogerLider"
+            android:exported="false" />
+        <activity
             android:name=".ElecionRol"
             android:exported="false" />
         <activity
