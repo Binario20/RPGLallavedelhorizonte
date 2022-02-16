@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RPG - La llave del horizonte</string>
+    <string name="master">Master</string>
+    <string name="jugador">Jugador</string>
 </resources>
