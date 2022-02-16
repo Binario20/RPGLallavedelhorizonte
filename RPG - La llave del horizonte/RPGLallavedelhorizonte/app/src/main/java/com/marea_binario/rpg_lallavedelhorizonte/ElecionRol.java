@@ -2,6 +2,7 @@ package com.marea_binario.rpg_lallavedelhorizonte;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +30,9 @@ public class ElecionRol extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Data.setRol(Data.MASTER);
-                showRol();
+                startActivity(new Intent(getApplicationContext(), MasterEscogerLider.class));
+//                showRol();
+
             }
         });
 
@@ -37,7 +40,7 @@ public class ElecionRol extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Data.setRol(Data.JUGADOR);
-                showRol();
+//                showRol();
             }
         });
     }

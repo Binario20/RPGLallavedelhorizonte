@@ -25,6 +25,6 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
 
     private void cambiarLider() {
         lider = !lider;
-        Toast.makeText(getContext(), String.valueOf(lider), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), lider + " " + nombre, Toast.LENGTH_SHORT).show();
     }
 }

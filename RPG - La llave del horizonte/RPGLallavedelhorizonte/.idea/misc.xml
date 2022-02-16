@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_elecion_rol.xml" value="0.25" />
+        <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_master_escoger_lider.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_elecion_rol.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/activity_master_escoger_lider.xml" value="0.35572916666666665" />
       </map>
     </option>
   </component>

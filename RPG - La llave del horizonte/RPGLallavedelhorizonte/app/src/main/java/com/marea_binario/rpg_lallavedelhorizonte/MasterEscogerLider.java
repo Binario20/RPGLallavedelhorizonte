@@ -1,12 +1,13 @@
 package com.marea_binario.rpg_lallavedelhorizonte;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 public class MasterEscogerLider extends AppCompatActivity {
-    private ConstraintLayout caja_jugadores;
+
+    private LinearLayout caja_jugadores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +18,7 @@ public class MasterEscogerLider extends AppCompatActivity {
     }
 
     private void initJugadores() {
-        for (int i=0; i<5; i++) {
+        for (int i=0; i<20; i++) {
             caja_jugadores.addView(new NuevoJugador(this, String.valueOf(i)));
         }
     }
