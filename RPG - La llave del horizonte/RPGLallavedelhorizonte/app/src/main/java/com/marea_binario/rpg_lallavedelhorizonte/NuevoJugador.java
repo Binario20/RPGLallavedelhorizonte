@@ -30,7 +30,7 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
     }
 
     private void setColorBut() {
-        if (this.nombre == Data.MASTER) {
+        if (this.nombre.equals(Data.MASTER)) {
             this.setBackground(getContext().getDrawable(R.drawable.master));
         }else {
             this.setBackground(getContext().getDrawable(R.drawable.jugador));
@@ -51,7 +51,7 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
         if (this.lider) {
             this.setBackground(getContext().getDrawable(R.drawable.jugador_seleccionado));
         } else {
-            this.setBackground(getContext().getDrawable(R.drawable.jugador));
+            setColorBut();
         }
     }
 
