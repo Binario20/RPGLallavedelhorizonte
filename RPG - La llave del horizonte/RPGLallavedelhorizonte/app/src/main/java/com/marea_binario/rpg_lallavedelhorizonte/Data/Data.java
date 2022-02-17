@@ -8,7 +8,7 @@ public class Data {
 
     private static String rol = Data.JUGADOR;
 
-    private static LinearLayout lider_layout;
+    private static LinearLayout lider_layout, master_layout;
 
     public static void setRol(String rol){
         Data.rol = rol;

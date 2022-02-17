@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 
 public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
@@ -17,7 +18,7 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
         super(context);
         this.nombre = nombre;
         this.setText(this.nombre);
-        this.setBackground(getContext().getDrawable(R.drawable.jugador));
+        setColorBut();
         this.setHeight(30);
 
         this.setOnClickListener(new OnClickListener() {
@@ -26,6 +27,14 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
                 cambiarLider();
             }
         });
+    }
+
+    private void setColorBut() {
+        if (this.nombre == Data.MASTER) {
+            this.setBackground(getContext().getDrawable(R.drawable.master));
+        }else {
+            this.setBackground(getContext().getDrawable(R.drawable.jugador));
+        }
     }
 
     private void cambiarLider() {
@@ -37,11 +46,11 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
         return lider;
     }
 
-    public void setLider(boolean lider){
+    public void setLider(boolean lider) {
         this.lider = lider;
-        if(this.lider){
+        if (this.lider) {
             this.setBackground(getContext().getDrawable(R.drawable.jugador_seleccionado));
-        }else{
+        } else {
             this.setBackground(getContext().getDrawable(R.drawable.jugador));
         }
     }
