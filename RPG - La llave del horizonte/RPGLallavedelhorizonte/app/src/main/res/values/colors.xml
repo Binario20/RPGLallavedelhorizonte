@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- Day colors theme. -->
+    <color name="day1">#C7F9CC</color>
+    <color name="day2">#80ED99</color>
+    <color name="day3">#57CC99</color>
+    <color name="day4">#34A3A5</color>
+    <color name="day5">#22577A</color>
+    <!-- Night colors theme. -->
+    <color name="night1">#212922</color>
+    <color name="night2">#294936</color>
+    <color name="night3">#3E6259</color>
+    <color name="night4">#5B8266</color>
+    <color name="night5">#AEF6C7</color>
 </resources>

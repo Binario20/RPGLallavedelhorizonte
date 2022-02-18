@@ -2,15 +2,17 @@
     <!-- Base application theme. -->
     <style name="Theme.RPGLaLlaveDelHorizonte" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/night4</item>
+        <item name="colorPrimaryVariant">@color/night5</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/night2</item>
+        <item name="colorSecondaryVariant">@color/night3</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Status background color. -->
+        <item name="android:colorBackground">@color/night1</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>
