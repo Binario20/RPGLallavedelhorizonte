@@ -26,26 +26,12 @@ public class ElecionRol extends AppCompatActivity {
         master_but = this.findViewById(R.id.master_but);
         jugador_but = this.findViewById(R.id.jugador_but);
 
-        master_but.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Data.setRol(Data.MASTER);
-                startActivity(new Intent(getApplicationContext(), MasterEscogerLider.class));
-//                showRol();
+        master_but.setOnClickListener(view -> {
+            Data.setRol(Data.MASTER);
+            startActivity(new Intent(getApplicationContext(), MasterEscogerLider.class));
 
-            }
         });
 
-        jugador_but.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Data.setRol(Data.JUGADOR);
-//                showRol();
-            }
-        });
-    }
-
-    private void showRol(){
-        Toast.makeText(this, Data.getRol(), Toast.LENGTH_SHORT).show();
+        jugador_but.setOnClickListener(view -> Data.setRol(Data.JUGADOR));
     }
 }
