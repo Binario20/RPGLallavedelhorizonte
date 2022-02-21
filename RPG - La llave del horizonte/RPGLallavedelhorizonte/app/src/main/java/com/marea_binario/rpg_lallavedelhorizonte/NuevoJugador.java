@@ -43,8 +43,8 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
 
     public void setLider(boolean lider) {
         this.lider = lider;
-        Data.setLider(nombre);
         if (this.lider) {
+            Data.setLider(nombre);
             this.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.jugador_seleccionado));
             this.setTextColor(ContextCompat.getColor(getContext(), R.color.liderText));
         } else {

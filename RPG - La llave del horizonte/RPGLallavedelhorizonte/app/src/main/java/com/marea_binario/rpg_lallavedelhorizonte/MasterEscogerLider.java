@@ -6,10 +6,12 @@ import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 
@@ -44,6 +46,8 @@ public class MasterEscogerLider extends AppCompatActivity {
     }
 
     private void alertaConfirmacion() {
+        Toast.makeText(this, Data.getLider(), Toast.LENGTH_SHORT).show();
+        Log.e("lider", Data.getLider());
         AlertDialog.Builder builder = new AlertDialog.Builder(MasterEscogerLider.this);
             builder.setCancelable(true);
             View alertEraseView = getLayoutInflater().inflate(R.layout.confirmacion, null);
