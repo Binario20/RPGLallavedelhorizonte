@@ -5,6 +5,7 @@ import android.widget.LinearLayout;
 public class Data {
 
     public static String JUGADOR = "Jugador", MASTER = "Master", LIDER = "Lider";
+    private static String lider = "";
 
     private static String rol = Data.JUGADOR;
 
@@ -24,5 +25,13 @@ public class Data {
 
     public static void setLider_layout(LinearLayout lider_layout) {
         Data.lider_layout = lider_layout;
+    }
+
+    public static String getLider() {
+        return lider;
+    }
+
+    public static void setLider(String lider) {
+        Data.lider = lider;
     }
 }

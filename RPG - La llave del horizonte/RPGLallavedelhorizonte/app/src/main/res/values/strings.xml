@@ -5,4 +5,9 @@
     <string name="masterHola">Bienvenido al juego Master!</string>
     <string name="masterTodos">Ya estamos todos</string>
     <string name="masterAceptaLider">Aceptar Lider</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="acceptMaster">¿Estas seguro  que quieres ser el Lider, Master?</string>
+    <string name="acceptJugador">Este jugador serà el Lider durante el resto de la partida.
+        ¿Estas seguro de tu decision, Master?</string>
 </resources>

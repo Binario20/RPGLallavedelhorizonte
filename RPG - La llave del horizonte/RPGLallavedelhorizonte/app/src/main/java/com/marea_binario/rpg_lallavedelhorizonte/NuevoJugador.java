@@ -26,7 +26,7 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
     private void setColorBut() {
         if (this.nombre.equals(Data.MASTER)) {
             this.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.master));
-            this.setTextColor(Color.parseColor("#FFFFFF"));
+            this.setTextColor(ContextCompat.getColor(getContext(), R.color.masterText));
         }else {
             this.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.jugador));
         }
@@ -37,14 +37,16 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
 //        Toast.makeText(getContext(), lider + " " + nombre, Toast.LENGTH_SHORT).show();
     }
 
-    public boolean esLider(){
+    /*public boolean esLider(){
         return lider;
-    }
+    }*/
 
     public void setLider(boolean lider) {
         this.lider = lider;
+        Data.setLider(nombre);
         if (this.lider) {
             this.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.jugador_seleccionado));
+            this.setTextColor(ContextCompat.getColor(getContext(), R.color.liderText));
         } else {
             setColorBut();
         }
