@@ -1,6 +1,7 @@
 package com.marea_binario.rpg_lallavedelhorizonte;
 
 import android.content.Context;
+import android.graphics.Color;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -25,6 +26,7 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
     private void setColorBut() {
         if (this.nombre.equals(Data.MASTER)) {
             this.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.master));
+            this.setTextColor(Color.parseColor("#FFFFFF"));
         }else {
             this.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.jugador));
         }
