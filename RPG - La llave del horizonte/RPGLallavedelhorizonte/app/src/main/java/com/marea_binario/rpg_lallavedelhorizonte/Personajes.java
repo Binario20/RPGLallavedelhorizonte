@@ -60,23 +60,58 @@ public class Personajes {
         this.preferencia1 = preferencia1;
         this.preferencia2 = preferencia2;
         this.preferencia3 = preferencia3;
-
-        this.vitalidad = vitalidad;
-        this.resistencia = resistencia;
-        this.fuerza = fuerza;
-        this.velocidad = velocidad;
-        this.inteligencia = inteligencia;
-        this.punteria = punteria;
-        this.magia = magia;
+        if (vitalidad < 1) {
+            new Exception();
+        } else {
+            this.vitalidad = vitalidad;
+        }
+        if (resistencia < 1) {
+            new Exception();
+        } else {
+            this.resistencia = resistencia;
+        }
+        if (fuerza < 1) {
+            new Exception();
+        } else {
+            this.fuerza = fuerza;
+        }
+        if (velocidad < 1) {
+            new Exception();
+        } else {
+            this.velocidad = velocidad;
+        }
+        if (inteligencia < 1) {
+            new Exception();
+        } else {
+            this.inteligencia = inteligencia;
+        }
+        if (punteria < 1) {
+            new Exception();
+        } else {
+            this.punteria = punteria;
+        }
+        if (magia < 1) {
+            new Exception();
+        } else {
+            this.magia = magia;
+        }
         int sumaPuntos = vitalidad + resistencia + fuerza + velocidad + inteligencia + punteria + magia;
         if (sumaPuntos > maxPuntos) {
             new Exception();
         }
         this.destreza = (velocidad + punteria)/2;
         this.objetoInicial = objetoInicial;
-        this.personalidad = personalidad;
+        if(personalidad.trim().equals("")){
+            new Exception();
+        }else{
+            this.personalidad = personalidad;
+        }
         this.habilidades = habilidades;
-        this.fisico = fisico;
+        if(fisico.trim().equals("")){
+            new Exception();
+        }else{
+            this.fisico = fisico;
+        }
     }
 
     public String getNombre() {
