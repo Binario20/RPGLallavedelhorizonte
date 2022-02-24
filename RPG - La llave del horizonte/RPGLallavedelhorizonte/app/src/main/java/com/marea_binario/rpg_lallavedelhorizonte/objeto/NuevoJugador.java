@@ -1,4 +1,4 @@
-package com.marea_binario.rpg_lallavedelhorizonte;
+package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
+import com.marea_binario.rpg_lallavedelhorizonte.R;
 
 public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
     private final String nombre;

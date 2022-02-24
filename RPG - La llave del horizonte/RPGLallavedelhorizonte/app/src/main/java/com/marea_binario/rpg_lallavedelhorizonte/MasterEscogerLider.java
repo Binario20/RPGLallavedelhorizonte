@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoJugador;
 
 public class MasterEscogerLider extends AppCompatActivity {
 

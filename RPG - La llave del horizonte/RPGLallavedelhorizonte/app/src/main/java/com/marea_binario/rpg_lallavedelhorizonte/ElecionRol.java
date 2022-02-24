@@ -32,6 +32,9 @@ public class ElecionRol extends AppCompatActivity {
 
         });
 
-        jugador_but.setOnClickListener(view -> Data.setRol(Data.JUGADOR));
+        jugador_but.setOnClickListener(view -> {
+            Data.setRol(Data.JUGADOR);
+            startActivity(new Intent(getApplicationContext(), EscojerPersonaje.class));
+        });
     }
 }

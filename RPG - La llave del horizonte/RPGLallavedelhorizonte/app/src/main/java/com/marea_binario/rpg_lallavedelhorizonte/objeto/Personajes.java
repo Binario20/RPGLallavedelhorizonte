@@ -1,4 +1,4 @@
-package com.marea_binario.rpg_lallavedelhorizonte;
+package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
 import androidx.annotation.NonNull;
 
@@ -101,17 +101,9 @@ public class Personajes {
         }
         this.destreza = (velocidad + punteria)/2;
         this.objetoInicial = objetoInicial;
-        if(personalidad.trim().equals("")){
-            new Exception();
-        }else{
-            this.personalidad = personalidad;
-        }
+        this.personalidad = personalidad;
         this.habilidades = habilidades;
-        if(fisico.trim().equals("")){
-            new Exception();
-        }else{
-            this.fisico = fisico;
-        }
+        this.fisico = fisico;
     }
 
     public String getNombre() {

@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RPGLaLlaveDelHorizonte">
         <activity
+            android:name=".CrearPersonajeNuevo"
+            android:exported="false" />
+        <activity
+            android:name=".EscojerPersonaje"
+            android:exported="false" />
+        <activity
             android:name=".MasterEscogerLider"
             android:exported="false" />
         <activity

@@ -2,7 +2,7 @@ package com.marea_binario.rpg_lallavedelhorizonte.Data;
 
 import android.widget.LinearLayout;
 
-import com.marea_binario.rpg_lallavedelhorizonte.NuevoJugador;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoJugador;
 
 /**
  * Clase de utilidades random
