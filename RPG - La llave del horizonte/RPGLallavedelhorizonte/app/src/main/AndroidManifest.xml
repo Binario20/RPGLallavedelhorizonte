@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RPGLaLlaveDelHorizonte">
         <activity
+            android:name=".PrimeraPantallaJuego"
+            android:exported="false" />
+        <activity
             android:name=".CrearPersonajeNuevo"
             android:exported="false" />
         <activity

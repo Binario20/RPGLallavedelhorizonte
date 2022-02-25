@@ -31,8 +31,8 @@ public class Personajes {
 
     public Personajes(@NonNull String nombre, @NonNull String procedencia, @NonNull String especie, int edad,
                       float altura, float peso, @NonNull String sexo, @NonNull String preferencia1,
-                      String preferencia2, String preferencia3, int vitalidad, int resistencia, int fuerza,
-                      int velocidad, int inteligencia, int punteria, int magia, String objetoInicial,
+                      int vitalidad, int resistencia, int fuerza, int velocidad, int inteligencia,
+                      int punteria, int magia, String preferencia2, String preferencia3,  String objetoInicial,
                       String personalidad, String habilidades, String fisico) throws Exception {
         if(nombre.trim().equals("")){
             new Exception();
@@ -60,37 +60,37 @@ public class Personajes {
         this.preferencia1 = preferencia1;
         this.preferencia2 = preferencia2;
         this.preferencia3 = preferencia3;
-        if (vitalidad < 1) {
+        if (vitalidad < 1 || vitalidad > 10) {
             new Exception();
         } else {
             this.vitalidad = vitalidad;
         }
-        if (resistencia < 1) {
+        if (resistencia < 1 || resistencia > 10) {
             new Exception();
         } else {
             this.resistencia = resistencia;
         }
-        if (fuerza < 1) {
+        if (fuerza < 1 || fuerza > 10) {
             new Exception();
         } else {
             this.fuerza = fuerza;
         }
-        if (velocidad < 1) {
+        if (velocidad < 1 || velocidad > 10) {
             new Exception();
         } else {
             this.velocidad = velocidad;
         }
-        if (inteligencia < 1) {
+        if (inteligencia < 1 || inteligencia > 10) {
             new Exception();
         } else {
             this.inteligencia = inteligencia;
         }
-        if (punteria < 1) {
+        if (punteria < 0 || punteria > 10) {
             new Exception();
         } else {
             this.punteria = punteria;
         }
-        if (magia < 1) {
+        if (magia < 0 || magia > 10) {
             new Exception();
         } else {
             this.magia = magia;

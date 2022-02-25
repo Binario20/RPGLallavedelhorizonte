@@ -12,13 +12,15 @@
         android:layout_width="77dp"
         android:layout_height="82dp"
         android:textAlignment="center"
-        app:srcCompat="@android:drawable/ic_menu_myplaces" />
+        app:srcCompat="@android:drawable/ic_menu_myplaces"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/tvNombrePersonaje"
-        android:layout_width="77dp"
-        android:layout_height="27dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="TextView"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        tools:ignore="TextContrastCheck" />
 
 </LinearLayout>
