@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/drawable/jugador.xml" value="0.327" />
         <entry key="app/src/main/res/drawable/jugador_seleccionado.xml" value="0.3575" />
         <entry key="app/src/main/res/drawable/master.xml" value="0.327" />
+        <entry key="app/src/main/res/layout/activity_crear_personaje_avanzado.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_crear_personaje_nuevo.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_elecion_rol.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_escojer_personaje.xml" value="0.35625" />

@@ -42,9 +42,9 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
         Button newPerAdvance = findViewById(R.id.newPerAdvance);
         Button saveNewPer = findViewById(R.id.saveNewPer);
-        /*newPerAdvance.setOnClickListener(view -> {
-            startActivity(new Intent(getApplicationContext(), CrearPersonajeAdvance.class));
-        });*/
+        newPerAdvance.setOnClickListener(view -> {
+
+        });
         saveNewPer.setOnClickListener(view -> {
             // Guardar personaje
             savePersonaje();
