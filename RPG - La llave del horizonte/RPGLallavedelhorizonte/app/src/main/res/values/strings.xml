@@ -17,21 +17,21 @@
     <string name="newPerProcedenciaTxt">Procedencia:</string>
     <string name="newPerEspecieTxt">Especie:</string>
     <string name="newPerEdadTxt">Edad:</string>
-    <string name="newPerAlturaTxt">Altura:</string>
+    <string name="newPerAlturaTxt">Altura (m):</string>
     <string name="m">m</string>
-    <string name="newPerPesoTxt">Peso:</string>
+    <string name="newPerPesoTxt">Peso (Kg):</string>
     <string name="kg">Kg</string>
     <string name="newPerSexoTxt">Sexo:</string>
-    <string name="newPerPrefernciaTxt">Preferncia:</string>
-    <string name="newPerTxt">- Los siguientes campos se han de rellanar con un numero del 0 al 10 .
-        \n- Se han de repartir un total de 25 puntos entre ellos.\n- Algunos de los campos han de
-        tener un mínimo de 1 punto.</string>
+    <string name="newPerClaseTxt">Clase:</string>
+    <string name="newPerTxt">- Los siguientes campos se han de rellanar con un numero del 0 al 10.\n- Se han de repartir un total de 25 puntos entre ellos. Algunos de los campos han de tener un mínimo de 1 punto.</string>
     <string name="newPerVitalidadTxt">Vitalidad:</string>
     <string name="newPerResistenciaTxt">Resistencia:</string>
     <string name="newPerFuerzaTxt">Fuerza:</string>
     <string name="newPerVelocidadTxt">Velocidad:</string>
     <string name="newPerInteligenciaTxt">Inteligencia:</string>
-    <string name="nerPerPunteriaTxt">Puntería:</string>
+    <string name="newPerPunteriaTxt">Puntería:</string>
+    <string name="newPerPersonalidadTxt">Personalidad:</string>
+    <string name="newPerFisicoTxt">Fisico:</string>
     <string name="newPerMagiaTxt">Magia:</string>
     <string name="butNewPerAdd">Caracteristicas adicionales</string>
     <string name="butSaveNewPer">Guardar Personaje</string>

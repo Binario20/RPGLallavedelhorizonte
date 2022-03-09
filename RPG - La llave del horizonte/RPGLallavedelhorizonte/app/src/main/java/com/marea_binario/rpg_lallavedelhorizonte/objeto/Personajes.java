@@ -13,9 +13,7 @@ public class Personajes {
     private float altura;
     private float peso;
     private String sexo;
-    private String preferencia1;
-    private String preferencia2 = "";
-    private String preferencia3 = "";
+    private String clase;
     private int vitalidad;
     private int resistencia;
     private int fuerza;
@@ -24,16 +22,13 @@ public class Personajes {
     private int punteria;
     private int magia;
     private int destreza;
-    private String objetoInicial = "";
     private String personalidad = "";
-    private String habilidades = "";
     private String fisico = "";
 
     public Personajes(@NonNull String nombre, @NonNull String procedencia, @NonNull String especie, int edad,
-                      float altura, float peso, @NonNull String sexo, @NonNull String preferencia1,
+                      float altura, float peso, @NonNull String sexo, @NonNull String clase,
                       int vitalidad, int resistencia, int fuerza, int velocidad, int inteligencia,
-                      int punteria, int magia, String preferencia2, String preferencia3,  String objetoInicial,
-                      String personalidad, String habilidades, String fisico) throws Exception {
+                      int punteria, int magia, String personalidad, String fisico) throws Exception {
         if(nombre.trim().equals("")){
             new Exception();
         }else{
@@ -57,9 +52,7 @@ public class Personajes {
             this.peso = peso;
         }
         this.sexo = sexo;
-        this.preferencia1 = preferencia1;
-        this.preferencia2 = preferencia2;
-        this.preferencia3 = preferencia3;
+        this.clase = clase;
         if (vitalidad < 1 || vitalidad > 10) {
             new Exception();
         } else {
@@ -100,10 +93,12 @@ public class Personajes {
             new Exception();
         }
         this.destreza = (velocidad + punteria)/2;
-        this.objetoInicial = objetoInicial;
         this.personalidad = personalidad;
-        this.habilidades = habilidades;
         this.fisico = fisico;
+    }
+
+    public int getMaxPuntos() {
+        return maxPuntos;
     }
 
     public String getNombre() {
@@ -162,28 +157,12 @@ public class Personajes {
         this.sexo = sexo;
     }
 
-    public String getPreferencia1() {
-        return preferencia1;
+    public String getClase() {
+        return clase;
     }
 
-    public void setPreferencia1(String preferencia1) {
-        this.preferencia1 = preferencia1;
-    }
-
-    public String getPreferencia2() {
-        return preferencia2;
-    }
-
-    public void setPreferencia2(String preferencia2) {
-        this.preferencia2 = preferencia2;
-    }
-
-    public String getPreferencia3() {
-        return preferencia3;
-    }
-
-    public void setPreferencia3(String preferencia3) {
-        this.preferencia3 = preferencia3;
+    public void setClase(String clase) {
+        this.clase = clase;
     }
 
     public int getVitalidad() {
@@ -250,28 +229,12 @@ public class Personajes {
         this.destreza = destreza;
     }
 
-    public String getObjetoInicial() {
-        return objetoInicial;
-    }
-
-    public void setObjetoInicial(String objetoInicial) {
-        this.objetoInicial = objetoInicial;
-    }
-
     public String getPersonalidad() {
         return personalidad;
     }
 
     public void setPersonalidad(String personalidad) {
         this.personalidad = personalidad;
-    }
-
-    public String getHabilidades() {
-        return habilidades;
-    }
-
-    public void setHabilidades(String habilidades) {
-        this.habilidades = habilidades;
     }
 
     public String getFisico() {
