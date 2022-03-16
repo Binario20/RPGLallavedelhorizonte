@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="@string/masterHola"
-        android:textColor="@color/black"
+        android:textColor="?attr/colorOnSurface"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +24,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="@string/masterTodos"
-        android:textColor="#3E2723"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -39,7 +38,8 @@
         app:layout_constraintBottom_toTopOf="@+id/lider_but"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hola_master">
+        app:layout_constraintTop_toBottomOf="@+id/hola_master"
+        tools:ignore="SpeakableTextPresentCheck">
 
         <LinearLayout
             android:id="@+id/caja_jugadores"

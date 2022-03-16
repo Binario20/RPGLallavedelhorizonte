@@ -182,7 +182,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/newPerSexso"
+                    android:id="@+id/newPerSexo"
                     android:layout_width="260dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -402,7 +402,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:paddingLeft="5dp"
-                    android:text="@string/newPerEdadTxt"
+                    android:text="@string/newPerPunteriaTxt"
                     android:textSize="20sp" />
 
                 <EditText
@@ -499,7 +499,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView"
-                        tools:ignore="SpeakableTextPresentCheck" />
+                        tools:ignore="SpeakableTextPresentCheck"
+                        android:importantForAutofill="no" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -532,7 +533,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView222"
-                        tools:ignore="SpeakableTextPresentCheck" />
+                        tools:ignore="SpeakableTextPresentCheck"
+                        android:importantForAutofill="no" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
