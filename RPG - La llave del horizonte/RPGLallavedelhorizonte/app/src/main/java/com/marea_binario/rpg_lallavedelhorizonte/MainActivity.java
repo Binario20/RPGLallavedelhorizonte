@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        testConn();
+        //testConn();
 
         Data.setData(this);
         irEleccionRol();

@@ -33,7 +33,7 @@ public class MasterEscogerLider extends AppCompatActivity {
 
         caja_jugadores.addView(new NuevoJugador(this, Data.MASTER));
 
-        for (int i=1; i<=20; i++) {
+        for (int i=1; i<=8; i++) {
             caja_jugadores.addView(new NuevoJugador(this, String.valueOf(i)));
         }
 
