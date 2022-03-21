@@ -14,16 +14,14 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class ConnTask extends AsyncTask {
-    private final Context context;
-    private final ArrayList keys;
+    private final ArrayList<String> keys;
     private final String php;
     private String ret;
-    private final ArrayList values;
+    private final ArrayList<String> values;
 
-    public ConnTask(Context var1, ArrayList var2, ArrayList var3, String var4) {
+    public ConnTask(ArrayList<String> var2, ArrayList<String> var3, String var4) {
         this.keys = var2;
         this.values = var3;
-        this.context = var1;
         this.php = var4;
     }
 
@@ -31,9 +29,9 @@ public class ConnTask extends AsyncTask {
         String toFinalUrl = Data.URL + this.php;
         Uri.Builder uri = new Uri.Builder();
 
-        int var2;
-        for(var2 = 0; var2 < this.keys.size(); ++var2) {
-            uri.appendQueryParameter((String)this.keys.get(var2), (String)this.values.get(var2));
+        int i;
+        for(i = 0; i < this.keys.size(); i++) {
+            uri.appendQueryParameter(keys.get(i), values.get(i));
         }
 
         toFinalUrl += uri.toString();
@@ -41,12 +39,12 @@ public class ConnTask extends AsyncTask {
 
         label35: {
             label34: {
-                BufferedInputStream var11;
+                BufferedInputStream buffer;
                 try {
                     Log.e("TAG", "doInBackground: " + toFinalUrl);
                     URL url = new URL(toFinalUrl);
-                    HttpURLConnection var14 = (HttpURLConnection)url.openConnection();
-                    var11 = new BufferedInputStream(var14.getInputStream());
+                    HttpURLConnection UrlConnection = (HttpURLConnection)url.openConnection();
+                    buffer = new BufferedInputStream(UrlConnection.getInputStream());
                 } catch (IOException e) {
                     e.printStackTrace();
                     break label34;
@@ -54,21 +52,20 @@ public class ConnTask extends AsyncTask {
 
                 while(true) {
                     try {
-                        var2 = var11.read();
+                        i = buffer.read();
                     } catch (IOException var6) {
                         break;
                     }
-                    if (var2 == -1) {
+                    if (i == -1) {
                         break label35;
                     }
-                    var9.append((char)var2);
+                    var9.append((char)i);
                 }
             }
         }
 
-        String var10 = var9.toString();
-        this.ret = var10;
-        return var10;
+        ret = var9.toString();
+        return ret;
     }
 
     public void onPostExecute(String var1) {
