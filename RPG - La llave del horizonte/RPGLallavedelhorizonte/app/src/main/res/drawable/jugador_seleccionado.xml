@@ -2,8 +2,8 @@
 <shape xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <solid
-        android:color="@color/md_theme_light_tertiaryContainer"
-        android:textColor="@color/md_theme_light_onTertiaryContainer"
+        android:color="?attr/colorTertiaryContainer"
+        android:textColor="?attr/colorOnTertiaryContainer"
         tools:ignore="PrivateResource" />
     <corners
         android:radius="13dp" />
