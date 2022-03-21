@@ -12,9 +12,13 @@ import java.util.ArrayList;
 
 public class Data {
 
-    public static String JUGADOR = "Jugador", MASTER = "Master", LIDER = "Lider";
+    public static final String JUGADOR = "Jugador";
+    public static final String MASTER = "Master";
+    public static final String LIDER = "Lider";
+    public static String URL = "http:\\\\192.168._._\\";
     private static String lider = "";
     private static String rol = Data.JUGADOR;
+
 
     private static LinearLayout lider_layout, master_layout;
 
