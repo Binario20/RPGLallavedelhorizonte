@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.opengl.Visibility;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -45,6 +46,8 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         newPerPunteriaIn = this.findViewById(R.id.newPerPunteriaIn);
         newPerMagiaIn = this.findViewById(R.id.newPerMagiaIn);
 
+        setSpinners();
+
         oculto = this.findViewById(R.id.oculto);
         caracteristicasEspeciales = this.findViewById(R.id.caracteristicasEspeciales);
 
@@ -63,6 +66,12 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
                 oculto.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void setSpinners() {
+        ArrayAdapter<CharSequence> newPerSexsoAdapt = ArrayAdapter.createFromResource(this,R.array.newPerSexoSpin, android.R.layout.simple_spinner_item);
+        newPerSexsoAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        newPerSexsoIn.setAdapter(newPerSexsoAdapt);
     }
 
     private void savePersonaje() {

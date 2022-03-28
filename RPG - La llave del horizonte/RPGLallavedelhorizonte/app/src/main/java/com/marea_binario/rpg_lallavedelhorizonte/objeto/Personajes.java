@@ -36,17 +36,17 @@ public class Personajes {
         }
         this.procedencia = procedencia;
         this.especie = especie;
-        if (edad < 2) {
+        if (edad < 14) {
             new Exception();
         } else {
             this.edad = edad;
         }
-        if (altura < 0.15) {
+        if (altura < 0.5) {
             new Exception();
         } else {
             this.altura = altura;
         }
-        if (peso < 0.3) {
+        if (peso < 25) {
             new Exception();
         } else {
             this.peso = peso;

@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //testConn();
+        testConn();
 
         Data.setData(this);
         irEleccionRol();
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private void testConn(){
         ArrayList<String> key = new ArrayList<>(Collections.singletonList("userID"));
         ArrayList<String> value = new ArrayList<>(Collections.singletonList("ivan"));
-        ConnTask connTask = new ConnTask(key, value, "ledoff");
+        ConnTask connTask = new ConnTask(key, value, "rpg");
         connTask.execute();
         try {
             String kk = connTask.get().toString().trim();

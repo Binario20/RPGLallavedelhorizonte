@@ -41,5 +41,12 @@
         puntos."</string>
     <string name="newPerE3Txt">"* Alguno de los campos anteriores està rellenadao con información
         incorrecta."</string>
+    <!-- SPINNERS Personaje Nuevo -->
+    <string-array name="newPerSexoSpin">
+        <item> </item>
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Indefinido</item>
+    </string-array>
 
 </resources>
