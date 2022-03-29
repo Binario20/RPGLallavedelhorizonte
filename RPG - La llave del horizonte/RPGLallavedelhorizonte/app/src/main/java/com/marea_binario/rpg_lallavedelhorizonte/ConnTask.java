@@ -14,35 +14,25 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class ConnTask extends AsyncTask {
-    private final ArrayList<String> keys;
-    private final String php;
+    private final String url;
     private String ret;
-    private final ArrayList<String> values;
 
-    public ConnTask(ArrayList<String> var2, ArrayList<String> var3, String var4) {
-        this.keys = var2;
-        this.values = var3;
-        this.php = var4;
+    public ConnTask(String url) {
+        this.url = url;
     }
 
     protected Object doInBackground(Object[] objects) {
-        String toFinalUrl = Data.URL + this.php;
-        Uri.Builder uri = new Uri.Builder();
 
         int i;
-        for(i = 0; i < this.keys.size(); i++) {
-            uri.appendQueryParameter(keys.get(i), values.get(i));
-        }
 
-        toFinalUrl += uri.toString();
         StringBuilder var9 = new StringBuilder();
 
         label35: {
             label34: {
                 BufferedInputStream buffer;
                 try {
-                    Log.e("TAG", "doInBackground: " + toFinalUrl);
-                    URL url = new URL(toFinalUrl);
+                    Log.e("TAG", "doInBackground: " + Data.URL + url);
+                    URL url = new URL(Data.URL + this.url);
                     HttpURLConnection UrlConnection = (HttpURLConnection)url.openConnection();
                     buffer = new BufferedInputStream(UrlConnection.getInputStream());
                 } catch (IOException e) {

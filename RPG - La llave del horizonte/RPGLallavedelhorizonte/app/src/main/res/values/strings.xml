@@ -35,12 +35,12 @@
     <string name="newPerMagiaTxt">Magia:</string>
     <string name="butNewPerAdd">Caracteristicas adicionales</string>
     <string name="butSaveNewPer">Guardar Personaje</string>
+
     <!-- ERRORES Personaje Nuevo -->
     <string name="newPerE1Txt">"* Falta rellenar alguno de los campos anteriores!"</string>
-    <string name="newPerE2Txt">"* La suma total de los campos anteriores es superior a los 25
-        puntos."</string>
-    <string name="newPerE3Txt">"* Alguno de los campos anteriores està rellenadao con información
-        incorrecta."</string>
+    <string name="newPerE2Txt">"* La suma total de los campos anteriores es superior a los 25 puntos."</string>
+    <string name="newPerE3Txt">"* Alguno de los campos anteriores està rellenadao con información incorrecta."</string>
+
     <!-- SPINNERS Personaje Nuevo -->
     <string-array name="newPerSexoSpin">
         <item> </item>
@@ -48,5 +48,8 @@
         <item>Femenino</item>
         <item>Indefinido</item>
     </string-array>
+
+    <string name="needWifi">"Conectate a la red wifi del dispositivo"</string>
+    <string name="loading">"Cargando..."</string>
 
 </resources>

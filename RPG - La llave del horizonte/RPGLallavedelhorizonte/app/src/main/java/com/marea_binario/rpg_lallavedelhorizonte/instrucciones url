@@ -1,0 +1,6 @@
+001     usuario#yo
+        (master/jugador)=nombre jugador
+        return: si vas a ser master, comprobar si hay algun master antes, si lo hay devolver un no
+                si no hay master meterte a ti
+                si eres jugador entra de una
+        pantalla de esperando a un master
