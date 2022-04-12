@@ -3,19 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/drawable-v24/dialog_bg.xml" value="0.253" />
+        <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/drawable/circle.xml" value="0.251" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/drawable/empty_tall_divider.xml" value="0.1865" />
+        <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/drawable/empty_tall_divider2.xml" value="0.251" />
+        <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/drawable/img.xml" value="0.251" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/drawable/jugador.xml" value="0.2265" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/drawable/jugadorSeleccionado.xml" value="0.1865" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/drawable/jugador_seleccionado.xml" value="0.1865" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_crear_personaje_nuevo.xml" value="0.264" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_elecion_rol.xml" value="0.25" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_escojer_personaje.xml" value="0.25" />
-        <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_main.xml" value="1.0" />
+        <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_master_escoger_lider.xml" value="0.25" />
+        <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_pagina_principal.xml" value="0.536" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_personaje_nuevo_by_ivan.xml" value="0.25" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_primera_pantalla_juego.xml" value="0.25" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/confirmacion.xml" value="0.25" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/display_personaje.xml" value="0.25" />
+        <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/item.xml" value="0.4" />
         <entry key="app/src/main/res/drawable-finger/master.xml" value="0.3575" />
         <entry key="app/src/main/res/drawable-v24/dialog_bg.xml" value="0.19" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3575" />

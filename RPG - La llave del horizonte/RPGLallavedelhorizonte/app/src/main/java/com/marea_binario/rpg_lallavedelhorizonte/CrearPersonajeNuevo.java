@@ -78,7 +78,17 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         //try {
             //Personajes newPer = new Personajes();
             String nombre = String.valueOf(newPerNombreIn.getText());
+            if (true){
+                saveInBD();
+                Intent i = new Intent(this, PaginaPrincipal.class);
+                i.putExtra("Id", 0);
+                startActivity(i);
+            }
         //} except {};
+    }
+
+    private void saveInBD() {
+
     }
 
 }

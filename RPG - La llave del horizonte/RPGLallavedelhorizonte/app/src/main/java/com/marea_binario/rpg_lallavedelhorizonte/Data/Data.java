@@ -18,7 +18,7 @@ public class Data {
     public static String URL = "http://192.168.4.1/rpg?";
     private static String lider = "";
     private static String rol = Data.JUGADOR;
-
+    public static int imgArray[] = {R.drawable.g1, R.drawable.g2, R.drawable.g3, R.drawable.g4, R.drawable.g5, R.drawable.g6};
 
     private static LinearLayout lider_layout, master_layout;
 
@@ -62,4 +62,12 @@ public class Data {
             return null;
         }
     }
+
+    public static int getRandomWallPaper(){
+        int min = 0;
+        int max = imgArray.length-1;
+        int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+        return imgArray[random_int];
+    }
+
 }

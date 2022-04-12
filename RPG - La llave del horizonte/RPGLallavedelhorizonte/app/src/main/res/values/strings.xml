@@ -51,5 +51,6 @@
 
     <string name="needWifi">"Conectate a la red wifi del dispositivo"</string>
     <string name="loading">"Cargando..."</string>
+    <string name="dinero">"Dineros"</string>
 
 </resources>
