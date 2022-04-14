@@ -51,6 +51,18 @@
 
     <string name="needWifi">"Conectate a la red wifi del dispositivo"</string>
     <string name="loading">"Cargando..."</string>
-    <string name="dinero">"Dineros"</string>
+
+    <string name="vitalidad">Vitalidad</string>
+    <string name="resistencia">Resistencia</string>
+    <string name="fuerza">Fuerza</string>
+    <string name="velocidad">Velocidad</string>
+    <string name="inteligencia">Inteligencia</string>
+    <string name="punteria">Punteria</string>
+    <string name="magia">Magia</string>
+    <string name="destreza">Destreza</string>
+
+    <string name="dineros_logo">dineros logo</string>
+    <string name="fondos">fondos</string>
+    <string name="imagen_jugador">imagen Jugador</string>
 
 </resources>

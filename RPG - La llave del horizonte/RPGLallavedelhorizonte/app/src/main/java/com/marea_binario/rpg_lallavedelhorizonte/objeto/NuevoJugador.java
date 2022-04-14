@@ -22,7 +22,6 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
         this.setText(this.nombre);
         setColorBut();
         this.setHeight(30);
-
         this.setOnClickListener(view -> cambiarLider());
     }
 
@@ -39,10 +38,6 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
         Utils.cambiarLider(nombre);
 //        Toast.makeText(getContext(), lider + " " + nombre, Toast.LENGTH_SHORT).show();
     }
-
-    /*public boolean esLider(){
-        return lider;
-    }*/
 
     public void setLider(boolean lider) {
         this.lider = lider;

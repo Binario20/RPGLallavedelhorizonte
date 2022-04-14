@@ -9,11 +9,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Item;
@@ -22,7 +19,7 @@ public class PaginaPrincipal extends AppCompatActivity {
 
     private ImageView imgJugador, fondo, dineros;
     private TextView fuerza, velocidad, destreza, magia, vitalidad, resistencia, inteligencia, punteria;
-    private Item[] items = new Item[4];
+    private final Item[] items = new Item[4];
     private int id = -1;
 
     @Override
@@ -40,6 +37,7 @@ public class PaginaPrincipal extends AppCompatActivity {
     }
 
     private void initListeners() {
+
     }
 
     private void initComponents() {
@@ -76,6 +74,4 @@ public class PaginaPrincipal extends AppCompatActivity {
         dineros.setImageDrawable(roundedBitmapDrawable);
 
     }
-
-
 }
