@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initComponents() {
+        Data.setImg();
         loading = this.findViewById(R.id.loading);
         Glide.with(MainActivity.this).load(R.drawable.loading).into(loading);
 
