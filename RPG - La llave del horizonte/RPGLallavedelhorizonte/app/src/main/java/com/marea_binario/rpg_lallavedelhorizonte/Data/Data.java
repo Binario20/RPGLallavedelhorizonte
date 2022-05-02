@@ -15,7 +15,7 @@ public class Data {
     public static final String JUGADOR = "Jugador";
     public static final String MASTER = "Master";
     public static final String LIDER = "Lider";
-    public static String URL = "http://192.168.4.1/rpg?";
+    public static String URL = "http://192.168.4.1/rpg";
     private static String lider = "";
     private static String rol = Data.JUGADOR;
     public static int imgArray[] = {
@@ -200,6 +200,8 @@ public class Data {
         imgObjetosArray[117] = 0;
         imgObjetosArray[118] = 0;
         imgObjetosArray[119] = 0;
+        imgObjetosArray[120] = 0;
+        imgObjetosArray[121] = 0;
 
     }
 }

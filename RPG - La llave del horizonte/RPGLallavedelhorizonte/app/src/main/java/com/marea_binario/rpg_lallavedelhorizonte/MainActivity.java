@@ -49,14 +49,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String testConn(){
-        Log.e("hola1", "j");
         ConnTask connTask = new ConnTask("001"+Data.MASTER+"*"+"Binario18");
-        Log.e("hola2", "j");
         connTask.execute();
-        Log.e("hola3", "j");
         try {
             String kk = connTask.get().toString().trim();
-            Log.e("res", kk);
             Toast.makeText(this, kk, Toast.LENGTH_SHORT).show();
             return kk;
         } catch (Exception e) {

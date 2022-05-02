@@ -16,7 +16,14 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
     private final String nombre;
     private boolean lider = false;
 
-    public NuevoJugador(@NonNull Context context,@NonNull String nombre) {
+//    /rpg/tablas/personajes/get/info?id=
+
+    @Override
+    protected boolean getDefaultEditable() {
+        return super.getDefaultEditable();
+    }
+
+    public NuevoJugador(@NonNull Context context, @NonNull String nombre) {
         super(context);
         this.nombre = nombre;
         this.setText(this.nombre);
