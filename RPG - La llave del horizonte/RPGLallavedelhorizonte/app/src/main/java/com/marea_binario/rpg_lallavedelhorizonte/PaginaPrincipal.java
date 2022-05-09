@@ -44,7 +44,7 @@ public class PaginaPrincipal extends AppCompatActivity {
     private void initData() {
         String j = String.valueOf(id);
         j = "1";
-        ConnTask connTask = new ConnTask("/tablas/personajes/info?id=" + j);
+        ConnTask connTask = new ConnTask("/get/personaje?id=" + j);
         connTask.execute();
         try {
             String kk = connTask.get().toString().trim();
