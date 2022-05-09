@@ -25,6 +25,14 @@ public class MasterEscogerLider extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master_escoger_lider);
+        ConnTask connTask2 = new ConnTask("put/set_master-on");
+        connTask2.execute();
+        try{
+            String kk2 = connTask2.get().toString().trim();
+            Log.e("fonko?", kk2);
+        }catch (Exception e2){
+            e2.printStackTrace();
+        }
         initComponents();
         initJugadores();
     }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -28,7 +29,20 @@ public class ElecionRol extends AppCompatActivity {
 
         master_but.setOnClickListener(view -> {
             Data.setRol(Data.MASTER);
-            startActivity(new Intent(getApplicationContext(), MasterEscogerLider.class));
+            ConnTask connTask = new ConnTask("get/hay-master");
+            connTask.execute();
+
+            try {
+                String kk = connTask.get().toString().trim();
+                if(kk.contains("false")){
+                    startActivity(new Intent(getApplicationContext(), MasterEscogerLider.class));
+                }else{
+                    Data.setRol(Data.JUGADOR);
+                    startActivity(new Intent(getApplicationContext(), EscojerPersonaje.class));
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
         });
 
