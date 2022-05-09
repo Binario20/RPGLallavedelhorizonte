@@ -15,7 +15,7 @@ public class Data {
     public static final String JUGADOR = "Jugador";
     public static final String MASTER = "Master";
     public static final String LIDER = "Lider";
-    public static String URL = "http://192.168.4.1/rpg";
+    public static String URL = "http://192.168.4.1/rpg/";
     private static String lider = "";
     private static String rol = Data.JUGADOR;
     public static int imgArray[] = {
@@ -26,7 +26,7 @@ public class Data {
             R.drawable.g5,
             R.drawable.g6};
 
-    public static int imgObjetosArray[] = new int[120];
+    public static int imgObjetosArray[] = new int[122];
 
     private static LinearLayout lider_layout, master_layout;
 
