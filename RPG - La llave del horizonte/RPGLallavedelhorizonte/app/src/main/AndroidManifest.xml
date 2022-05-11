@@ -27,9 +27,6 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".PrimeraPantallaJuego"
-            android:exported="false" />
-        <activity
             android:name=".CrearPersonajeNuevo"
             android:exported="false" />
         <activity
