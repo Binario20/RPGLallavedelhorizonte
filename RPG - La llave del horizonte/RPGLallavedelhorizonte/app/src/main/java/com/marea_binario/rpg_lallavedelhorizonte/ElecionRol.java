@@ -29,16 +29,23 @@ public class ElecionRol extends AppCompatActivity {
 
         master_but.setOnClickListener(view -> {
             Data.setRol(Data.MASTER);
-            ConnTask connTask = new ConnTask("get/hay-master");
+            ConnTask connTask = new ConnTask("get/hay_master");
             connTask.execute();
 
             try {
                 String kk = connTask.get().toString().trim();
-                if(kk.contains("false")){
-                    startActivity(new Intent(getApplicationContext(), MasterEscogerLider.class));
-                }else{
+                if (kk.contains("false") || kk.contains("false*")) {
+                    Toast.makeText(this, "1. no hay master", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MasterEscogerLider.class);
+                    Toast.makeText(this, kk, Toast.LENGTH_SHORT).show();
+                    intent.putExtra("set-master", kk.contains("false*"));
+                    Toast.makeText(this, "2. pasa pagina", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                } else if (kk.contains("true")){
                     Data.setRol(Data.JUGADOR);
                     startActivity(new Intent(getApplicationContext(), EscojerPersonaje.class));
+                } else {
+                    Toast.makeText(this, kk, Toast.LENGTH_SHORT).show();
                 }
             }catch (Exception e){
                 e.printStackTrace();

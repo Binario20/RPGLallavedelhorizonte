@@ -29,7 +29,7 @@ public class EscojerPersonaje extends AppCompatActivity {
           finish();
         };
         View.OnClickListener listenerEstablecerPersonaje = view -> {
-            startActivity(new Intent(this, PrimeraPantallaJuego.class));
+            startActivity(new Intent(this, PaginaPrincipal.class));
             finish();
         };
         tablaPersonajes = findViewById(R.id.tablaPersonajes);

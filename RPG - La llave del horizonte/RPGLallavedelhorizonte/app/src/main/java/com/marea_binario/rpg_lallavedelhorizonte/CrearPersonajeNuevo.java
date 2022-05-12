@@ -55,7 +55,7 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
             // Guardar personaje
             savePersonaje();
             // Empezar a jugar
-            startActivity(new Intent(getApplicationContext(), PrimeraPantallaJuego.class));
+            startActivity(new Intent(getApplicationContext(), PaginaPrincipal.class));
             finish();
         });
 
