@@ -17,6 +17,7 @@ public class Data {
     public static final String LIDER = "Lider";
     public static String URL = "http://192.168.4.1/rpg/";
     private static String lider = "";
+    private static Integer lider_id;
     private static String rol = Data.JUGADOR;
     public static int imgArray[] = {
             R.drawable.g1,
@@ -53,8 +54,13 @@ public class Data {
         return lider;
     }
 
-    public static void setLider(String lider) {
+    public static Integer getLider_id() {
+        return lider_id;
+    }
+
+    public static void setLider(String lider, Integer lider_id) {
         Data.lider = lider;
+        Data.lider_id = lider_id;
     }
 
     public static void setData(Context c) {

@@ -15,6 +15,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.R;
 public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
     private final String nombre;
     private boolean lider = false;
+    private Integer id;
 
 //    /rpg/tablas/personajes/get/info?id=
 
@@ -23,8 +24,9 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
         return super.getDefaultEditable();
     }
 
-    public NuevoJugador(@NonNull Context context, @NonNull String nombre) {
+    public NuevoJugador(@NonNull Context context, @NonNull String nombre, Integer id) {
         super(context);
+        this.id = id;
         this.nombre = nombre;
         this.setText(this.nombre);
         setColorBut();
@@ -49,7 +51,7 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
     public void setLider(boolean lider) {
         this.lider = lider;
         if (this.lider) {
-            Data.setLider(nombre);
+            Data.setLider(nombre, id);
             this.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.jugador_seleccionado));
         } else {
             setColorBut();
@@ -58,5 +60,8 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
 
     public String getNombre(){
         return nombre;
+    }
+    public Integer getID(){
+        return id;
     }
 }

@@ -26,11 +26,8 @@ public class MasterEscogerLider extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master_escoger_lider);
 
-        Toast.makeText(this, "3. nova pagina", Toast.LENGTH_SHORT).show();
         Bundle b = getIntent().getExtras();
-        Toast.makeText(this, b.getBoolean("set-master")+"", Toast.LENGTH_SHORT).show();
         if (!b.getBoolean("set-master")) {
-            Toast.makeText(this, "4. set-master", Toast.LENGTH_SHORT).show();
             setMaster();
         }
         initComponents();
@@ -38,7 +35,6 @@ public class MasterEscogerLider extends AppCompatActivity {
     }
 
     private void setMaster() {
-        Toast.makeText(this, "5. send put", Toast.LENGTH_SHORT).show();
         ConnTask connTask2 = new ConnTask("put/set_master-on");
         connTask2.execute();
         try{
@@ -51,10 +47,10 @@ public class MasterEscogerLider extends AppCompatActivity {
 
     private void initJugadores() {
 
-        caja_jugadores.addView(new NuevoJugador(this, Data.MASTER));
+        caja_jugadores.addView(new NuevoJugador(this, Data.MASTER, 1));
 
         for (int i=1; i<=8; i++) {
-            caja_jugadores.addView(new NuevoJugador(this, String.valueOf(i)));
+            caja_jugadores.addView(new NuevoJugador(this, String.valueOf(i),1));
         }
 
         Data.setLider_layout(caja_jugadores);
@@ -96,6 +92,16 @@ public class MasterEscogerLider extends AppCompatActivity {
 
             leftButton.setOnClickListener(view2 -> {
                 // Aceptar Lider
+                Integer lider = Data.getLider_id();
+                ConnTask connTask = new ConnTask("put/set_lider-on?id="+lider);
+                connTask.execute();
+                try{
+                    String kk = connTask.get().toString().trim();
+                    Toast.makeText(this, kk, Toast.LENGTH_SHORT).show();
+                    Log.e("fonko?", kk);
+                }catch (Exception e2){
+                    e2.printStackTrace();
+                }
                 finish();
             });
             rightButton.setOnClickListener(view2 -> {

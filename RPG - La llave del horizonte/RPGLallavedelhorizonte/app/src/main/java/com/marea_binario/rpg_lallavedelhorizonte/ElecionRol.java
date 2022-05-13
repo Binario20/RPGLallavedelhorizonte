@@ -35,11 +35,8 @@ public class ElecionRol extends AppCompatActivity {
             try {
                 String kk = connTask.get().toString().trim();
                 if (kk.contains("false") || kk.contains("false*")) {
-                    Toast.makeText(this, "1. no hay master", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), MasterEscogerLider.class);
-                    Toast.makeText(this, kk, Toast.LENGTH_SHORT).show();
                     intent.putExtra("set-master", kk.contains("false*"));
-                    Toast.makeText(this, "2. pasa pagina", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 } else if (kk.contains("true")){
                     Data.setRol(Data.JUGADOR);
