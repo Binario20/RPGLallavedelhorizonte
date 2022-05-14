@@ -3,6 +3,7 @@ package com.marea_binario.rpg_lallavedelhorizonte;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -26,11 +27,11 @@ public class MasterEscogerLider extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master_escoger_lider);
 
+        initComponents();
         Bundle b = getIntent().getExtras();
         if (!b.getBoolean("set-master")) {
             setMaster();
         }
-        initComponents();
         initJugadores();
     }
 
@@ -91,6 +92,7 @@ public class MasterEscogerLider extends AppCompatActivity {
             alertEraseAlert.show();
 
             leftButton.setOnClickListener(view2 -> {
+                startActivity(new Intent(getApplicationContext(), PaginaControlMaster.class));
                 // Aceptar Lider
                 Integer lider = Data.getLider_id();
                 ConnTask connTask = new ConnTask("put/set_lider-on?id="+lider);
