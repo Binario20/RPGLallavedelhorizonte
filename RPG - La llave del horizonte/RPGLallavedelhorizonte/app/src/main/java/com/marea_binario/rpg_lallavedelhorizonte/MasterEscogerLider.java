@@ -38,7 +38,16 @@ public class MasterEscogerLider extends AppCompatActivity {
         if (!b.getBoolean("set-master")) {
             setMaster();
         }
-        initJugadores();
+        Thread hilo1 = new Thread(() -> {
+            initJugadores();
+            try {
+                Thread.sleep(2500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        hilo1.start();
     }
 
     private void setMaster() {
