@@ -3,6 +3,7 @@ package com.marea_binario.rpg_lallavedelhorizonte;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -38,17 +39,19 @@ public class MasterEscogerLider extends AppCompatActivity {
         if (!b.getBoolean("set-master")) {
             setMaster();
         }
-        Thread hilo1 = new Thread(() -> {
-            initJugadores();
+
+        Context conte = this;
+        runOnUiThread(() -> {
+            initJugadores(conte);
             try {
                 Thread.sleep(2500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
-
-        hilo1.start();
     }
+
+
 
     private void setMaster() {
         ConnTask connTask2 = new ConnTask("put/set_master-on");
@@ -61,21 +64,29 @@ public class MasterEscogerLider extends AppCompatActivity {
         }
     }
 
-    private void initJugadores() {
+    private void initJugadores(Context conte) {
         ConnTask connTask2 = new ConnTask("get/conectados");
         connTask2.execute();
         try {
             String kk2 = connTask2.get().toString().trim();
             Log.e("fonko?", kk2);
             JSONObject con = new JSONObject(kk2);
-            for (Iterator<String> it = con.keys(); it.hasNext(); ) {
-                JSONObject l = new JSONObject(it.next());
-                Toast.makeText(this, l.toString(), Toast.LENGTH_SHORT).show();
-                if (l.getBoolean("master")) {
-                    caja_jugadores.addView(new NuevoJugador(this, Data.MASTER, l.getInt("id")));
-                } else {
-                    caja_jugadores.addView(new NuevoJugador(this, l.getString("personaje"),l.getInt("id")));
+            int b = 0;
+            while ( true ) {
+                try {
+                    JSONObject l = con.getJSONObject(b+"");
+                    if (l.getString("master").equals("1")) {
+                        caja_jugadores.addView(new NuevoJugador(conte,
+                                Data.MASTER, Integer.valueOf(l.getString("id"))));
+                    } else {
+                        caja_jugadores.addView(new NuevoJugador(conte,
+                                l.getString("personaje"),Integer.valueOf(l.getString("id"))));
+                    }
+                } catch (JSONException ex) {
+                    //ex.printStackTrace();
+                    break;
                 }
+                b++;
             }
         } catch (Exception e) {
             e.printStackTrace();
