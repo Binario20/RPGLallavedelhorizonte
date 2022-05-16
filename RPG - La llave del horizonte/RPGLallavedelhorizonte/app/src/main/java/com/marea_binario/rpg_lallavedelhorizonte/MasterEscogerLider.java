@@ -17,6 +17,12 @@ import android.widget.Toast;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoJugador;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
+import java.util.concurrent.ExecutionException;
+
 public class MasterEscogerLider extends AppCompatActivity {
 
     private LinearLayout caja_jugadores;
@@ -47,13 +53,24 @@ public class MasterEscogerLider extends AppCompatActivity {
     }
 
     private void initJugadores() {
-
-        caja_jugadores.addView(new NuevoJugador(this, Data.MASTER, 1));
-
-        for (int i=1; i<=8; i++) {
-            caja_jugadores.addView(new NuevoJugador(this, String.valueOf(i),1));
+        ConnTask connTask2 = new ConnTask("get/conectados");
+        connTask2.execute();
+        try {
+            String kk2 = connTask2.get().toString().trim();
+            Log.e("fonko?", kk2);
+            JSONObject con = new JSONObject(kk2);
+            for (Iterator<String> it = con.keys(); it.hasNext(); ) {
+                JSONObject l = new JSONObject(it.next());
+                Toast.makeText(this, l.toString(), Toast.LENGTH_SHORT).show();
+                if (l.getBoolean("master")) {
+                    caja_jugadores.addView(new NuevoJugador(this, Data.MASTER, l.getInt("id")));
+                } else {
+                    caja_jugadores.addView(new NuevoJugador(this, l.getString("personaje"),l.getInt("id")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
         Data.setLider_layout(caja_jugadores);
     }
 
