@@ -29,6 +29,14 @@ public class EscojerPersonaje extends AppCompatActivity {
           finish();
         };
         View.OnClickListener listenerEstablecerPersonaje = view -> {
+            ConnTask connTask = new ConnTask("put/set_personaje?id=3");
+            connTask.execute();
+            try{
+                String kk = connTask.get().toString().trim();
+                Log.e("fonko?", kk);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             startActivity(new Intent(this, PaginaPrincipal.class));
             finish();
         };

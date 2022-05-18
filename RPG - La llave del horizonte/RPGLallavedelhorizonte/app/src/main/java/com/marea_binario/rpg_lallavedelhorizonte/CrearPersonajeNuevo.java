@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.opengl.Visibility;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -88,7 +89,14 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
     }
 
     private void saveInBD() {
-
+        ConnTask connTask = new ConnTask("put/set_personaje?id=3");
+        connTask.execute();
+        try{
+            String kk = connTask.get().toString().trim();
+            Log.e("fonko?", kk);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }
