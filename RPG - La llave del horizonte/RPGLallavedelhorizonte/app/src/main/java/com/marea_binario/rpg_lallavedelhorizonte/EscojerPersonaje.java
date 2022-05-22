@@ -9,9 +9,13 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.Toast;
 
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoPersonaje;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
 
 public class EscojerPersonaje extends AppCompatActivity {
     private TableLayout tablaPersonajes;
@@ -28,18 +32,22 @@ public class EscojerPersonaje extends AppCompatActivity {
           startActivity(new Intent(this, CrearPersonajeNuevo.class));
           finish();
         };
-        View.OnClickListener listenerEstablecerPersonaje = view -> {
-            ConnTask connTask = new ConnTask("put/set_personaje?id=3");
-            connTask.execute();
-            try{
-                String kk = connTask.get().toString().trim();
-                Log.e("fonko?", kk);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            startActivity(new Intent(this, PaginaPrincipal.class));
-            finish();
-        };
+        // GET PERSONAJES
+        ConnTask connTask = new ConnTask("get/nombre_personaje");
+        connTask.execute();
+        String personajes = null;
+        JSONObject listP = null;
+        try{
+            personajes = connTask.get().toString().trim();
+            Log.e("fonko?", personajes);
+            listP = new JSONObject(personajes);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        assert listP != null;
+        Iterator<String> iter = listP.keys();
+
+        // CREA TABLA (MOSTRAR PERSONAJES)
         tablaPersonajes = findViewById(R.id.tablaPersonajes);
         for (int i = 0; i < 3; i++) {
             TableRow tr = new TableRow(this);
@@ -50,12 +58,35 @@ public class EscojerPersonaje extends AppCompatActivity {
                     np.setOnClickListener(listenerPersonajeNuevo);
                     tr.addView(np);
                 } else {
-                    NuevoPersonaje np = new NuevoPersonaje(this, i + " " + j, 1);
-                    np.setOnClickListener(listenerEstablecerPersonaje);
-                    tr.addView(np);
+                    // PONER PERSONAJES BD
+                    if (iter.hasNext()) {
+                        NuevoPersonaje np;
+                        try {
+                            JSONObject perso = new JSONObject(personajes).getJSONObject(iter.next());
+                            np = new NuevoPersonaje(this, perso.getString("nombre"), Integer.valueOf(perso.getString("id")));
+                            np.setOnClickListener(listenerEstablecerPersonaje(perso.getString("id")));
+                            tablaPersonajes.addView(tr);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
             tablaPersonajes.addView(tr);
         }
+    }
+
+    private View.OnClickListener listenerEstablecerPersonaje(String id) {
+        ConnTask connTask = new ConnTask("put/set_personaje?id="+id);
+        connTask.execute();
+        try{
+            String kk = connTask.get().toString().trim();
+            Log.e("fonko?", kk);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        startActivity(new Intent(this, PaginaPrincipal.class));
+        finish();
+        return null;
     }
 }
