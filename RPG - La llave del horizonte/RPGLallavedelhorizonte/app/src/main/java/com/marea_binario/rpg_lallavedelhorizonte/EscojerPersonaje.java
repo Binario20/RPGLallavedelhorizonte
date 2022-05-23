@@ -31,23 +31,23 @@ public class EscojerPersonaje extends AppCompatActivity {
           startActivity(new Intent(this, CrearPersonajeNuevo.class));
           finish();
         };
-        View.OnClickListener listenerEstablecerPersonaje = view -> {
-            Integer id = ((NuevoPersonaje)view).getIdPerso();
-            Log.e("np-cl??", String.valueOf(((NuevoPersonaje)view).getIdPerso()));
-            //id=3;
-            ConnTask connTask = new ConnTask("put/set_personaje?id="+id);
-            connTask.execute();
-            try{
-                String kk = connTask.get().toString().trim();
-                Log.e("fonko?", kk);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            Intent i = new Intent(this, PaginaPrincipal.class);
-            i.putExtra("Id", id);
-            startActivity(i);
-            finish();
-        };
+//        View.OnClickListener listenerEstablecerPersonaje = view -> {
+//            Integer id = ((NuevoPersonaje)view).getIdPerso();
+//            Log.e("np-cl??", String.valueOf(((NuevoPersonaje)view).getIdPerso()));
+//            //id=3;
+//            ConnTask connTask = new ConnTask("put/set_personaje?id="+id);
+//            connTask.execute();
+//            try{
+//                String kk = connTask.get().toString().trim();
+//                Log.e("fonko?", kk);
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
+//            Intent i = new Intent(this, PaginaPrincipal.class);
+//            i.putExtra("Id", id);
+//            startActivity(i);
+//            finish();
+//        };
         // GET PERSONAJES
         ConnTask connTask = new ConnTask("get/nombre_personaje");
         connTask.execute();
@@ -81,10 +81,10 @@ public class EscojerPersonaje extends AppCompatActivity {
                         try {
                             JSONObject perso = new JSONObject(personajes).getJSONObject(iter.next());
                             Log.e("JSON??", String.valueOf(perso));
-                            NuevoPersonaje np = new NuevoPersonaje(this, perso.getString("nombre"), Integer.valueOf(perso.getString("id")), 1);
-                            Log.e("np-if??", String.valueOf(NuevoPersonaje.getIdPerso()));
-                            np.setOnClickListener(listenerEstablecerPersonaje);
-                            tr.addView(np);
+//                            NuevoPersonaje np = ;
+//                            Log.e("np-if??", String.valueOf(NuevoPersonaje.getIdPerso()));
+//                            np.setOnClickListener(listenerEstablecerPersonaje);
+                            tr.addView(new NuevoPersonaje(this, perso.getString("nombre"), Integer.valueOf(perso.getString("id")), 1));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
