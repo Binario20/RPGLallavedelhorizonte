@@ -17,7 +17,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.R;
 
 @SuppressLint("ViewConstructor")
 public class NuevoPersonaje extends LinearLayout {
-    private static Integer idPerso;
+    private Integer idPerso;
     private String nombre;
     private int idImagen;
     private TextView tvNombrePersonaje;
@@ -27,8 +27,7 @@ public class NuevoPersonaje extends LinearLayout {
         super(context);
         inflate(getContext(), R.layout.display_personaje, this);
         this.nombre = nombre;
-        NuevoPersonaje.idPerso = idPerso;
-        Log.e("np??", String.valueOf(idPerso));
+        this.idPerso = idPerso;
         this.idImagen = idImagen;
         initComponents();
     }
@@ -58,9 +57,8 @@ public class NuevoPersonaje extends LinearLayout {
                 i.putExtra("Id", idPerso);
                 getContext().startActivity(i);
 //                getContext().finish();
+                Log.e("id", String.valueOf(idPerso));
             }
         });
     }
-
-    public static Integer getIdPerso() { return idPerso; }
 }
