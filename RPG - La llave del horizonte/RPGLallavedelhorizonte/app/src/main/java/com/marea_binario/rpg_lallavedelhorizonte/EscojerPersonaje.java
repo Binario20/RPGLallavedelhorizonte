@@ -83,6 +83,7 @@ public class EscojerPersonaje extends AppCompatActivity {
                             Log.e("JSON??", String.valueOf(perso));
                             np = new NuevoPersonaje(this, perso.getString("nombre"), Integer.valueOf(perso.getString("id")), 1);
                             np.setOnClickListener(listenerEstablecerPersonaje);
+                            tr.addView(np);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
