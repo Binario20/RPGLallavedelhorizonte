@@ -1,7 +1,5 @@
 package com.marea_binario.rpg_lallavedelhorizonte;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -11,7 +9,6 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 public class ConnTask extends AsyncTask {
     private final String url;

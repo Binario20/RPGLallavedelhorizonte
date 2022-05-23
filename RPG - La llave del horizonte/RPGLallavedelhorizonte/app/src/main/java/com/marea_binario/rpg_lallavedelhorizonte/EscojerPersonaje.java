@@ -12,7 +12,6 @@ import android.widget.TableRow;
 
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoPersonaje;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
@@ -34,7 +33,7 @@ public class EscojerPersonaje extends AppCompatActivity {
         };
         View.OnClickListener listenerEstablecerPersonaje = view -> {
             Integer id = NuevoPersonaje.getIdPerso();
-            id=3;
+            id=3;/*
             ConnTask connTask = new ConnTask("put/set_personaje?id="+id);
             connTask.execute();
             try{
@@ -42,7 +41,7 @@ public class EscojerPersonaje extends AppCompatActivity {
                 Log.e("fonko?", kk);
             }catch (Exception e){
                 e.printStackTrace();
-            }
+            }*/
             Intent i = new Intent(this, PaginaPrincipal.class);
             i.putExtra("Id", id);
             startActivity(i);
@@ -81,9 +80,9 @@ public class EscojerPersonaje extends AppCompatActivity {
                         NuevoPersonaje np;
                         try {
                             JSONObject perso = new JSONObject(personajes).getJSONObject(iter.next());
+                            Log.e("JSON??", String.valueOf(perso));
                             np = new NuevoPersonaje(this, perso.getString("nombre"), Integer.valueOf(perso.getString("id")), 1);
                             np.setOnClickListener(listenerEstablecerPersonaje);
-                            tablaPersonajes.addView(tr);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
