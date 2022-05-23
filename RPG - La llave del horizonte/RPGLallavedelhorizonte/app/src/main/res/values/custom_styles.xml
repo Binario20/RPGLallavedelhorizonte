@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="RoindedSquare">
+    <style name="RoindedSquare_10">
         <item name="cornerSize">10%</item>
+    </style>
+    <style name="RoindedSquare_25">
+        <item name="cornerSize">25%</item>
     </style>
 </resources>
