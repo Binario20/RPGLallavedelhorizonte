@@ -3,6 +3,7 @@ package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ public class NuevoPersonaje extends LinearLayout {
         inflate(getContext(), R.layout.display_personaje, this);
         this.nombre = nombre;
         NuevoPersonaje.idPerso = idPerso;
+        Log.e("np??", String.valueOf(idPerso));
         this.idImagen = idImagen;
         initComponents();
     }

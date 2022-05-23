@@ -32,8 +32,9 @@ public class EscojerPersonaje extends AppCompatActivity {
           finish();
         };
         View.OnClickListener listenerEstablecerPersonaje = view -> {
-            Integer id = NuevoPersonaje.getIdPerso();
-            id=3;/*
+            Integer id = ((NuevoPersonaje)view).getIdPerso();
+            Log.e("np-cl??", String.valueOf(((NuevoPersonaje)view).getIdPerso()));
+            //id=3;
             ConnTask connTask = new ConnTask("put/set_personaje?id="+id);
             connTask.execute();
             try{
@@ -41,7 +42,7 @@ public class EscojerPersonaje extends AppCompatActivity {
                 Log.e("fonko?", kk);
             }catch (Exception e){
                 e.printStackTrace();
-            }*/
+            }
             Intent i = new Intent(this, PaginaPrincipal.class);
             i.putExtra("Id", id);
             startActivity(i);
@@ -77,11 +78,11 @@ public class EscojerPersonaje extends AppCompatActivity {
                 } else {
                     // PONER PERSONAJES BD
                     if (iter.hasNext()) {
-                        NuevoPersonaje np;
                         try {
                             JSONObject perso = new JSONObject(personajes).getJSONObject(iter.next());
                             Log.e("JSON??", String.valueOf(perso));
-                            np = new NuevoPersonaje(this, perso.getString("nombre"), Integer.valueOf(perso.getString("id")), 1);
+                            NuevoPersonaje np = new NuevoPersonaje(this, perso.getString("nombre"), Integer.valueOf(perso.getString("id")), 1);
+                            Log.e("np-if??", String.valueOf(NuevoPersonaje.getIdPerso()));
                             np.setOnClickListener(listenerEstablecerPersonaje);
                             tr.addView(np);
                         } catch (Exception e) {
