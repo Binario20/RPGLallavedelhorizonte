@@ -22,6 +22,19 @@ public class ElecionRol extends AppCompatActivity {
         initComponents();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ConnTask connTask = new ConnTask("put/set_master-off");
+            connTask.execute();
+            try{
+                String kk = connTask.get().toString().trim();
+                Log.e("fonko?", kk);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+    }
+
     private void initComponents() {
 
         master_but = this.findViewById(R.id.master_but);

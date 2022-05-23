@@ -1,7 +1,6 @@
 package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,18 +8,18 @@ import android.widget.TextView;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 
-import java.util.ArrayList;
-
 public class NuevoPersonaje extends LinearLayout {
+    private static Integer idPerso;
     private String nombre;
     private int idImagen;
     private TextView tvNombrePersonaje;
     private ImageView ivImagenPersonaje;
 
-    public NuevoPersonaje(Context context, String nombre, int idImagen) {
+    public NuevoPersonaje(Context context, String nombre, Integer idPerso, int idImagen) {
         super(context);
         inflate(getContext(), R.layout.display_personaje, this);
         this.nombre = nombre;
+        this.idPerso = idPerso;
         this.idImagen = idImagen;
         initComponents();
     }
@@ -33,4 +32,6 @@ public class NuevoPersonaje extends LinearLayout {
             ivImagenPersonaje.setImageDrawable(Data.getImageJugador(idImagen));
         }
     }
+
+    public static Integer getIdPerso() { return idPerso; }
 }
