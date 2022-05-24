@@ -5,14 +5,16 @@
     android:id="@+id/layoutPersonaje"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivImagenPersonaje"
         android:layout_width="77dp"
         android:layout_height="82dp"
         android:textAlignment="center"
-        app:srcCompat="@android:drawable/ic_menu_myplaces"
+        app:shapeAppearanceOverlay="@style/RoindedSquare_10"
+        app:srcCompat="@drawable/todoynada"
         tools:ignore="ImageContrastCheck" />
 
     <TextView

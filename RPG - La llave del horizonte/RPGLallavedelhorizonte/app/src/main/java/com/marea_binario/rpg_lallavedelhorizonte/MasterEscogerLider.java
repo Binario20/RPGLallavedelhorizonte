@@ -21,9 +21,6 @@ import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoJugador;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Iterator;
-import java.util.concurrent.ExecutionException;
-
 public class MasterEscogerLider extends AppCompatActivity {
 
     private LinearLayout caja_jugadores;
@@ -97,7 +94,11 @@ public class MasterEscogerLider extends AppCompatActivity {
     private void initComponents() {
         caja_jugadores = this.findViewById(R.id.caja_jugadores);
         todosListos = this.findViewById(R.id.lider_but);
-        todosListos.setOnClickListener(view -> alertaConfirmacion());
+        todosListos.setOnClickListener(view -> {
+            if (!Data.getLider().trim().equals("")) {
+                alertaConfirmacion();
+            }
+        });
     }
 
     private void alertaConfirmacion() {
@@ -143,8 +144,6 @@ public class MasterEscogerLider extends AppCompatActivity {
                 }
                 finish();
             });
-            rightButton.setOnClickListener(view2 -> {
-                alertEraseAlert.cancel();
-            });
+            rightButton.setOnClickListener(view2 -> alertEraseAlert.cancel());
     }
 }

@@ -26,10 +26,10 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
             newPerPunteriaIn, newPerMagiaIn;
     private Spinner newPerProcedenciaIn, newPerEspecieIn, newPerSexsoIn, newPerClaseIn;
     private LinearLayout oculto;
-    private TextView caracteristicasEspeciales;
     private HashMap<String, String> listClases = new HashMap<>();
     private HashMap<String, String> listProcedencias = new HashMap<>();
     private HashMap<String, String> listEspecies = new HashMap<>();
+    private Integer idPer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +59,15 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         setSpinners();
 
         oculto = this.findViewById(R.id.oculto);
-        caracteristicasEspeciales = this.findViewById(R.id.caracteristicasEspeciales);
+        TextView caracteristicasEspeciales = this.findViewById(R.id.caracteristicasEspeciales);
 
         this.findViewById(R.id.saveNewPer).setOnClickListener(view -> {
             // Guardar personaje
-            savePersonaje();
+            saveInBD();
             // Empezar a jugar
-            startActivity(new Intent(getApplicationContext(), PaginaPrincipal.class));
+            Intent i = new Intent(this, PaginaPrincipal.class);
+            i.putExtra("Id", idPer);
+            this.startActivity(i);
             finish();
         });
 
@@ -155,21 +157,12 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         newPerClaseIn.setAdapter(newPerClasAdapt);
     }
 
-    private void savePersonaje() {
-        //try {
-            //Personajes newPer = new Personajes();
-            String nombre = String.valueOf(newPerNombreIn.getText());
-            if (true){
-                saveInBD();
-                Intent i = new Intent(this, PaginaPrincipal.class);
-                i.putExtra("Id", 0);
-                startActivity(i);
-            }
-        //} except {};
-    }
-
     private void saveInBD() {
-        ConnTask connTask = new ConnTask("put/set_personaje?id=3");
+        // Guardar jugador
+        //Get ID jugador
+        idPer = 3;
+        //Set personaje
+        ConnTask connTask = new ConnTask("put/set_personaje?id="+idPer);
         connTask.execute();
         try{
             String kk = connTask.get().toString().trim();
