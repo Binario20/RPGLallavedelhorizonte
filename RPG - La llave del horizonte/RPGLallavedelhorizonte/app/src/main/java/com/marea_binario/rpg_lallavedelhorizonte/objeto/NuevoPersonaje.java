@@ -57,7 +57,7 @@ public class NuevoPersonaje extends LinearLayout {
                 i.putExtra("Id", idPerso);
                 getContext().startActivity(i);
 //                getContext().finish();
-                Log.e("id", String.valueOf(idPerso));
+                //Log.e("id", String.valueOf(idPerso));
             }
         });
     }

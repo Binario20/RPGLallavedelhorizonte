@@ -3,16 +3,21 @@ package com.marea_binario.rpg_lallavedelhorizonte;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.opengl.Visibility;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import org.json.JSONObject;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 public class CrearPersonajeNuevo extends AppCompatActivity {
 
@@ -22,6 +27,9 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
     private Spinner newPerProcedenciaIn, newPerEspecieIn, newPerSexsoIn, newPerClaseIn;
     private LinearLayout oculto;
     private TextView caracteristicasEspeciales;
+    private HashMap<String, String> listClases = new HashMap<>();
+    private HashMap<String, String> listProcedencias = new HashMap<>();
+    private HashMap<String, String> listEspecies = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +55,7 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         newPerPunteriaIn = this.findViewById(R.id.newPerPunteriaIn);
         newPerMagiaIn = this.findViewById(R.id.newPerMagiaIn);
 
+        getLists();
         setSpinners();
 
         oculto = this.findViewById(R.id.oculto);
@@ -69,10 +78,81 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         });
     }
 
+    private void getLists() {
+        ConnTask connTask = new ConnTask("get/personaje/nuevo");
+        connTask.execute();
+        JSONObject listJ = null;
+        try {
+            String kk = connTask.get().toString().trim();
+            //Log.e("Spinners", kk);
+            listJ = new JSONObject(kk);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try {
+            JSONObject proce = listJ.getJSONObject("Procedencia");
+            Log.e("Spinners-P", String.valueOf(proce));
+            Iterator<String> iterP = proce.keys();
+            while (iterP.hasNext()) {
+                JSONObject line = proce.getJSONObject(iterP.next());
+                //Log.e("Spinners-P", String.valueOf(line));
+                String key = line.getString("nombre");
+                String value = line.getString("id");
+                listProcedencias.put(key, value);
+            }
+
+            JSONObject espec = listJ.getJSONObject("Especie");
+            Log.e("Spinners-E", String.valueOf(espec));
+            Iterator<String> iterE = proce.keys();
+            while (iterE.hasNext()) {
+                JSONObject line = espec.getJSONObject(iterE.next());
+                String key = line.getString("nombre");
+                String value = line.getString("id");
+                listEspecies.put(key, value);
+            }
+
+            JSONObject clase = listJ.getJSONObject("Clase");
+            Log.e("Spinners-C", String.valueOf(clase));
+            Iterator<String> iterC = proce.keys();
+            while (iterC.hasNext()) {
+                JSONObject line = clase.getJSONObject(iterC.next());
+                String key = line.getString("clase");
+                String value = line.getString("id");
+                listClases.put(key, value);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void setSpinners() {
-        ArrayAdapter<CharSequence> newPerSexsoAdapt = ArrayAdapter.createFromResource(this,R.array.newPerSexoSpin, android.R.layout.simple_spinner_item);
+        // Spinner sexo
+        ArrayAdapter<CharSequence> newPerSexsoAdapt = ArrayAdapter.createFromResource(this,
+                R.array.newPerSexoSpin, android.R.layout.simple_spinner_item);
         newPerSexsoAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         newPerSexsoIn.setAdapter(newPerSexsoAdapt);
+
+        // Spinner procedencia
+        Set<String> arrayP = listProcedencias.keySet();
+        ArrayAdapter<Set> newPerProceAdapt = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, Collections.singletonList(arrayP));
+        newPerProceAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        newPerProcedenciaIn.setAdapter(newPerProceAdapt);
+
+        // Spinner especie
+        Set<String> arrayE = listEspecies.keySet();
+        ArrayAdapter<Set> newPerEspAdapt = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, Collections.singletonList(arrayE));
+        newPerEspAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        newPerEspecieIn.setAdapter(newPerEspAdapt);
+
+        // Spinner clase
+        Set<String> arrayC = listClases.keySet();
+        ArrayAdapter<Set> newPerClasAdapt = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, Collections.singletonList(arrayC));
+        newPerClasAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        newPerClaseIn.setAdapter(newPerClasAdapt);
     }
 
     private void savePersonaje() {

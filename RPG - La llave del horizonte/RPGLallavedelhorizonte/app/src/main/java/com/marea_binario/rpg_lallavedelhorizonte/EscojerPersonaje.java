@@ -80,7 +80,7 @@ public class EscojerPersonaje extends AppCompatActivity {
                     if (iter.hasNext()) {
                         try {
                             JSONObject perso = new JSONObject(personajes).getJSONObject(iter.next());
-                            Log.e("JSON??", String.valueOf(perso));
+                            //Log.e("JSON??", String.valueOf(perso));
 //                            NuevoPersonaje np = ;
 //                            Log.e("np-if??", String.valueOf(NuevoPersonaje.getIdPerso()));
 //                            np.setOnClickListener(listenerEstablecerPersonaje);
