@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class CrearPersonajeNuevo extends AppCompatActivity {
@@ -136,23 +137,23 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         newPerSexsoIn.setAdapter(newPerSexsoAdapt);
 
         // Spinner procedencia
-        Set<String> arrayP = listProcedencias.keySet();
-        ArrayAdapter<Set> newPerProceAdapt = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, Collections.singletonList(arrayP));
+        String[] arrayP = listProcedencias.keySet().toArray(new String[0]);
+        ArrayAdapter<String> newPerProceAdapt = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, arrayP);
         newPerProceAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         newPerProcedenciaIn.setAdapter(newPerProceAdapt);
 
         // Spinner especie
-        Set<String> arrayE = listEspecies.keySet();
-        ArrayAdapter<Set> newPerEspAdapt = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, Collections.singletonList(arrayE));
+        String[] arrayE = listEspecies.keySet().toArray(new String[0]);
+        ArrayAdapter<String> newPerEspAdapt = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, arrayE);
         newPerEspAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         newPerEspecieIn.setAdapter(newPerEspAdapt);
 
         // Spinner clase
-        Set<String> arrayC = listClases.keySet();
-        ArrayAdapter<Set> newPerClasAdapt = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, Collections.singletonList(arrayC));
+        String[] arrayC = listClases.keySet().toArray(new String[0]);
+        ArrayAdapter<String> newPerClasAdapt = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, arrayC);
         newPerClasAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         newPerClaseIn.setAdapter(newPerClasAdapt);
     }

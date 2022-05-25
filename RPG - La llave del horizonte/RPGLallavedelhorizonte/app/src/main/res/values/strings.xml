@@ -43,14 +43,13 @@
 
     <!-- SPINNERS Personaje Nuevo -->
     <string-array name="newPerSexoSpin">
-        <item> </item>
+        <item>Indefinido</item>
         <item>Masculino</item>
         <item>Femenino</item>
-        <item>Indefinido</item>
     </string-array>
 
     <string name="needWifi">"Conectate a la red wifi del dispositivo"</string>
-    <string name="loading">"Cargando..."</string>
+    <string name="loading">"Cargando…"</string>
 
     <string name="vitalidad">Vitalidad</string>
     <string name="resistencia">Resistencia</string>
