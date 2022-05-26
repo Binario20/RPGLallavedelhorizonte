@@ -39,11 +39,13 @@ public class MasterEscogerLider extends AppCompatActivity {
 
         Context conte = this;
         runOnUiThread(() -> {
-            initJugadores(conte);
-            try {
-                Thread.sleep(2500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            while(true) {
+                initJugadores(conte);
+                try {
+                    Thread.sleep(2500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
