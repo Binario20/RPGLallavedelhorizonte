@@ -44,14 +44,14 @@ public class MasterEscogerLider extends AppCompatActivity {
     }
 
     private void actualizar(Context conte){
-        runOnUiThread(() -> {
+//        runOnUiThread(() -> {
             initJugadores(conte);
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+//            try {
+//                Thread.sleep(10000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        });
     }
 
 
@@ -106,7 +106,8 @@ public class MasterEscogerLider extends AppCompatActivity {
                 alertaConfirmacion();
             }
         });
-        reload.setOnClickListener(view -> actualizar(getApplicationContext()));
+        Context conte = this;
+        reload.setOnClickListener(view -> actualizar(conte));
     }
 
     private void alertaConfirmacion() {
