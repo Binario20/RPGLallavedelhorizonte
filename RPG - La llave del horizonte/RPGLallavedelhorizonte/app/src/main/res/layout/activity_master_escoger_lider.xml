@@ -53,4 +53,12 @@
         </LinearLayout>
     </ScrollView>
 
+    <Button
+        android:id="@+id/reload"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/lider_but"
+        app:layout_constraintEnd_toEndOf="@+id/lider_but" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,7 +24,7 @@ import org.json.JSONObject;
 public class MasterEscogerLider extends AppCompatActivity {
 
     private LinearLayout caja_jugadores;
-    private Button todosListos;
+    private Button todosListos, reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +38,21 @@ public class MasterEscogerLider extends AppCompatActivity {
         }
 
         Context conte = this;
+
+        actualizar(this);
+
+    }
+
+    private void actualizar(Context conte){
         runOnUiThread(() -> {
-            while(true) {
-                initJugadores(conte);
-                try {
-                    Thread.sleep(2500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            initJugadores(conte);
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         });
     }
-
 
 
     private void setMaster() {
@@ -71,6 +74,7 @@ public class MasterEscogerLider extends AppCompatActivity {
             Log.e("fonko?", kk2);
             JSONObject con = new JSONObject(kk2);
             int b = 0;
+            caja_jugadores.removeAllViews();
             while ( true ) {
                 try {
                     JSONObject l = con.getJSONObject(b+"");
@@ -94,6 +98,7 @@ public class MasterEscogerLider extends AppCompatActivity {
     }
 
     private void initComponents() {
+        reload = this.findViewById(R.id.reload);
         caja_jugadores = this.findViewById(R.id.caja_jugadores);
         todosListos = this.findViewById(R.id.lider_but);
         todosListos.setOnClickListener(view -> {
@@ -101,6 +106,7 @@ public class MasterEscogerLider extends AppCompatActivity {
                 alertaConfirmacion();
             }
         });
+        reload.setOnClickListener(view -> actualizar(getApplicationContext()));
     }
 
     private void alertaConfirmacion() {
