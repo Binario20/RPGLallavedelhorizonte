@@ -2,18 +2,23 @@ package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
 import androidx.annotation.NonNull;
 
+import org.json.JSONObject;
+
 public class Personajes {
 
     private final int maxPuntos = 25;
 
     private String nombre;
     private String procedencia;
+    private int id_procedencia;
     private String especie;
+    private int id_especie;
     private int edad;
     private float altura;
     private float peso;
     private String sexo;
     private String clase;
+    private int id_clase;
     private int vitalidad;
     private int resistencia;
     private int fuerza;
@@ -25,8 +30,8 @@ public class Personajes {
     private String personalidad = "";
     private String fisico = "";
 
-    public Personajes(@NonNull String nombre, @NonNull String procedencia, @NonNull String especie, int edad,
-                      float altura, float peso, @NonNull String sexo, @NonNull String clase,
+    public Personajes(@NonNull String nombre, int id_procedencia, int id_especie, int edad,
+                      float altura, float peso, @NonNull String sexo, int id_clase,
                       int vitalidad, int resistencia, int fuerza, int velocidad, int inteligencia,
                       int punteria, int magia, String personalidad, String fisico) throws Exception {
         if(nombre.trim().equals("")){
@@ -34,8 +39,8 @@ public class Personajes {
         }else{
             this.nombre = nombre;
         }
-        this.procedencia = procedencia;
-        this.especie = especie;
+        this.id_procedencia = id_procedencia;
+        this.id_especie = id_especie;
         if (edad < 14) {
             new Exception();
         } else {
@@ -52,7 +57,7 @@ public class Personajes {
             this.peso = peso;
         }
         this.sexo = sexo;
-        this.clase = clase;
+        this.id_clase = id_clase;
         if (vitalidad < 1 || vitalidad > 10) {
             new Exception();
         } else {
@@ -97,6 +102,33 @@ public class Personajes {
         this.fisico = fisico;
     }
 
+    public JSONObject getInputJSON() {
+        JSONObject personaje = new JSONObject();
+        try {
+            personaje.put("nombre", nombre);
+            personaje.put("id_procedencia", id_procedencia);
+            personaje.put("id_especie", id_especie);
+            personaje.put("edad", edad);
+            personaje.put("altura", String.valueOf(altura));
+            personaje.put("peso", String.valueOf(peso));
+            personaje.put("sexo", sexo);
+            personaje.put("id_clase", id_clase);
+            personaje.put("vitalidad", vitalidad);
+            personaje.put("resistencia", resistencia);
+            personaje.put("fuerza", fuerza);
+            personaje.put("velocidad", velocidad);
+            personaje.put("inteligencia", inteligencia);
+            personaje.put("punteria", punteria);
+            personaje.put("magia", magia);
+            personaje.put("destreza", destreza);
+            personaje.put("personalidad", personalidad);
+            personaje.put("fisico", fisico);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return personaje;
+    }
+
     public int getMaxPuntos() {
         return maxPuntos;
     }
@@ -109,21 +141,25 @@ public class Personajes {
         this.nombre = nombre;
     }
 
-    public String getProcedencia() {
-        return procedencia;
+    public int getIdProcedencia() {
+        return id_procedencia;
     }
 
-    public void setProcedencia(String procedencia) {
-        this.procedencia = procedencia;
+    public void setIdProcedencia(int procedencia) {
+        this.id_procedencia = procedencia;
     }
 
-    public String getEspecie() {
-        return especie;
+    public void setProcedencia(String procedencia) { this.procedencia = procedencia; }
+
+    public int getIdEspecie() {
+        return id_especie;
     }
 
-    public void setEspecie(String especie) {
-        this.especie = especie;
+    public void setIdEspecie(int especie) {
+        this.id_especie = especie;
     }
+
+    public void setEspecie(String especie) { this.especie = especie; }
 
     public int getEdad() {
         return edad;
@@ -157,13 +193,15 @@ public class Personajes {
         this.sexo = sexo;
     }
 
-    public String getClase() {
-        return clase;
+    public int getIdClase() {
+        return id_clase;
     }
 
-    public void setClase(String clase) {
-        this.clase = clase;
+    public void setIdClase(int clase) {
+        this.id_clase = clase;
     }
+
+    public void setClase(String clase) { this.clase = clase; }
 
     public int getVitalidad() {
         return vitalidad;

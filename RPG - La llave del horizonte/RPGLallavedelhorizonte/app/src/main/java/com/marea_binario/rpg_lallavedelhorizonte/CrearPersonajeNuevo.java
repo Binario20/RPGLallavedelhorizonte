@@ -12,25 +12,25 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Personajes;
+
 import org.json.JSONObject;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 public class CrearPersonajeNuevo extends AppCompatActivity {
 
     private EditText newPerNombreIn, newPerEdadIn, newPerAlturaIn, newPerPesoIn, newPerVitalidadIn,
             newPerResistenciaIn, newPerFuerzaIn, newPerVelocidadIn, newPerInteligenciaIn,
-            newPerPunteriaIn, newPerMagiaIn;
+            newPerPunteriaIn, newPerMagiaIn, newPerPersonalidadIn, newPerFisicoIn;
     private Spinner newPerProcedenciaIn, newPerEspecieIn, newPerSexsoIn, newPerClaseIn;
     private LinearLayout oculto;
     private HashMap<String, String> listClases = new HashMap<>();
     private HashMap<String, String> listProcedencias = new HashMap<>();
     private HashMap<String, String> listEspecies = new HashMap<>();
     private Integer idPer;
+    private boolean totOK = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,9 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         newPerInteligenciaIn = this.findViewById(R.id.newPerInteligenciaIn);
         newPerPunteriaIn = this.findViewById(R.id.newPerPunteriaIn);
         newPerMagiaIn = this.findViewById(R.id.newPerMagiaIn);
+        newPerPersonalidadIn = this.findViewById(R.id.personalidadTxt);
+        newPerFisicoIn = this.findViewById(R.id.fisicoTxt);
+
 
         getLists();
         setSpinners();
@@ -64,22 +67,27 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
         this.findViewById(R.id.saveNewPer).setOnClickListener(view -> {
             // Guardar personaje
-            saveInBD();
+            Personajes newPersonaje = savePersonaje();
             // Empezar a jugar
-            Intent i = new Intent(this, PaginaPrincipal.class);
-            i.putExtra("Id", idPer);
-            this.startActivity(i);
-            finish();
+            if (totOK) {
+                saveInServer(newPersonaje);
+                Intent i = new Intent(this, PaginaPrincipal.class);
+                i.putExtra("Id", idPer);
+                this.startActivity(i);
+                finish();
+            }
         });
 
         caracteristicasEspeciales.setOnClickListener(view -> {
-            if(oculto.getVisibility() == View.GONE){
+            if (oculto.getVisibility() == View.GONE) {
                 oculto.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 oculto.setVisibility(View.GONE);
             }
         });
     }
+
+
 
     private void getLists() {
         ConnTask connTask = new ConnTask("get/personaje/nuevo");
@@ -89,12 +97,12 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
             String kk = connTask.get().toString().trim();
             //Log.e("Spinners", kk);
             listJ = new JSONObject(kk);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         try {
             JSONObject proce = listJ.getJSONObject("Procedencia");
-            Log.e("Spinners-P", String.valueOf(proce));
+            //Log.e("Spinners-P", String.valueOf(proce));
             Iterator<String> iterP = proce.keys();
             while (iterP.hasNext()) {
                 JSONObject line = proce.getJSONObject(iterP.next());
@@ -105,7 +113,7 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
             }
 
             JSONObject espec = listJ.getJSONObject("Especie");
-            Log.e("Spinners-E", String.valueOf(espec));
+            //Log.e("Spinners-E", String.valueOf(espec));
             Iterator<String> iterE = proce.keys();
             while (iterE.hasNext()) {
                 JSONObject line = espec.getJSONObject(iterE.next());
@@ -115,7 +123,7 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
             }
 
             JSONObject clase = listJ.getJSONObject("Clase");
-            Log.e("Spinners-C", String.valueOf(clase));
+            //Log.e("Spinners-C", String.valueOf(clase));
             Iterator<String> iterC = proce.keys();
             while (iterC.hasNext()) {
                 JSONObject line = clase.getJSONObject(iterC.next());
@@ -138,32 +146,83 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
         // Spinner procedencia
         String[] arrayP = listProcedencias.keySet().toArray(new String[0]);
-        ArrayAdapter<String> newPerProceAdapt = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> newPerProceAdapt = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arrayP);
         newPerProceAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         newPerProcedenciaIn.setAdapter(newPerProceAdapt);
 
         // Spinner especie
         String[] arrayE = listEspecies.keySet().toArray(new String[0]);
-        ArrayAdapter<String> newPerEspAdapt = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> newPerEspAdapt = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arrayE);
         newPerEspAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         newPerEspecieIn.setAdapter(newPerEspAdapt);
 
         // Spinner clase
         String[] arrayC = listClases.keySet().toArray(new String[0]);
-        ArrayAdapter<String> newPerClasAdapt = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> newPerClasAdapt = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, arrayC);
         newPerClasAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         newPerClaseIn.setAdapter(newPerClasAdapt);
     }
 
-    private void saveInBD() {
-        // Guardar jugador
-        //Get ID jugador
-        idPer = 3;
+    private Personajes savePersonaje() {
+        Personajes newPersonaje = null;
+        try {
+            // Get data
+            String name = newPerNombreIn.getText().toString();
+            Integer proc = Integer.valueOf(listProcedencias.get(newPerProcedenciaIn.getSelectedItem()));
+            Integer especie = Integer.valueOf(listEspecies.get(newPerEspecieIn.getSelectedItem()));
+            Integer edad = Integer.valueOf(newPerEdadIn.getText().toString());
+            Float altura = Float.valueOf(newPerAlturaIn.getText().toString());
+            Float peso = Float.valueOf(newPerPesoIn.getText().toString());
+            String sexo = newPerSexsoIn.getSelectedItem().toString();
+            Integer clase = Integer.valueOf(listClases.get(newPerClaseIn.getSelectedItem()));
+
+            Integer vital = Integer.valueOf(newPerVitalidadIn.getText().toString());
+            Integer resis = Integer.valueOf(newPerResistenciaIn.getText().toString());
+            Integer fuerza = Integer.valueOf(newPerFuerzaIn.getText().toString());
+            Integer velo = Integer.valueOf(newPerVelocidadIn.getText().toString());
+            Integer intel = Integer.valueOf(newPerInteligenciaIn.getText().toString());
+            Integer punt = Integer.valueOf(newPerPunteriaIn.getText().toString());
+            Integer magia = Integer.valueOf(newPerMagiaIn.getText().toString());
+
+            String perso = newPerPersonalidadIn.getText().toString();
+            String fisico = newPerFisicoIn.getText().toString();
+
+            newPersonaje = new Personajes(name, proc, especie, edad, altura, peso, sexo, clase,
+                    vital, resis, fuerza, velo, intel, punt, magia, perso, fisico);
+            newPersonaje.setProcedencia(listProcedencias.get(newPerProcedenciaIn.getSelectedItem()));
+            newPersonaje.setEspecie(listEspecies.get(newPerEspecieIn.getSelectedItem()));
+            newPersonaje.setClase(listClases.get(newPerClaseIn.getSelectedItem()));
+            totOK = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            totOK = false;
+        }
+        return newPersonaje;
+    }
+
+    private void saveInServer(Personajes personaje) {
+        // Put data in JSON
+        JSONObject perso_json = personaje.getInputJSON();
+        Log.e("Perso-JSON", String.valueOf(perso_json));
+
+        // Guardar personaje
+        ConnTask connTask = new ConnTask("post/personaje?new="+String.valueOf(perso_json));
+        connTask.execute();
+        try{
+            String kk = connTask.get().toString().trim();
+            Log.e("fonko?", kk);
+            //Get ID Personaje
+            JSONObject persoID = new JSONObject(kk).getJSONObject("0");
+            idPer = persoID.getInt("id");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         //Set personaje
-        ConnTask connTask = new ConnTask("put/set_personaje?id="+idPer);
+        ConnTask connTask2 = new ConnTask("put/set_personaje?id="+idPer);
         connTask.execute();
         try{
             String kk = connTask.get().toString().trim();
@@ -172,5 +231,4 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
 }

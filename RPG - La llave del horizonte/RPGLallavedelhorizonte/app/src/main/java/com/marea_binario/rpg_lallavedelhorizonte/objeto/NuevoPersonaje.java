@@ -44,7 +44,6 @@ public class NuevoPersonaje extends LinearLayout {
             @Override
             public void onClick(View view) {
                 Log.e("np-cl??", String.valueOf(idPerso));
-                //id=3;
                 ConnTask connTask = new ConnTask("put/set_personaje?id="+idPerso);
                 connTask.execute();
                 try{
