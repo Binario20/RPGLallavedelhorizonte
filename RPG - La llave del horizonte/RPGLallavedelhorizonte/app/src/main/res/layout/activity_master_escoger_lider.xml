@@ -58,7 +58,11 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginBottom="20dp"
+        app:icon="@android:drawable/stat_notify_sync_noanim"
+        app:iconPadding="8dp"
+        app:iconSize="40dp"
         app:layout_constraintBottom_toTopOf="@+id/lider_but"
-        app:layout_constraintEnd_toEndOf="@+id/lider_but" />
+        app:layout_constraintEnd_toEndOf="@+id/lider_but"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

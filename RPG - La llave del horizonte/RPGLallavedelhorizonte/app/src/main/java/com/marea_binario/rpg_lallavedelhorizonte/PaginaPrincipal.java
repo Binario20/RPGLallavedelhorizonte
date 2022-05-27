@@ -21,8 +21,8 @@ import org.json.JSONObject;
 
 public class PaginaPrincipal extends AppCompatActivity {
 
-    private ImageView imgJugador, fondo, dineros;
-    private TextView fuerza, velocidad, destreza, magia, vitalidad, resistencia, inteligencia, punteria, nombre;
+    private ImageView imgJugador, fondo, dinerosImg;
+    private TextView fuerza, velocidad, destreza, magia, vitalidad, resistencia, inteligencia, punteria, nombre, dineros;
     private final Item[] items = new Item[4];
     private int id = -1;
 
@@ -67,6 +67,16 @@ public class PaginaPrincipal extends AppCompatActivity {
             Toast.makeText(this, String.valueOf(e.getMessage()), Toast.LENGTH_SHORT).show();
         }
 
+        ConnTask connTask2 = new ConnTask("get/dineros");
+        connTask2.execute();
+        try {
+            String din = connTask2.get().toString().trim();
+            //Log.e("dineros", din);
+            dineros.setText(din);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void initListeners() {
@@ -86,7 +96,8 @@ public class PaginaPrincipal extends AppCompatActivity {
         for (Item item: items) {
             item.setCustomId(i++);
         }
-        dineros = this.findViewById(R.id.dinerosImg);
+        dinerosImg = this.findViewById(R.id.dinerosImg);
+        dineros = this.findViewById(R.id.dineros);
 
         fuerza = this.findViewById(R.id.fuerza);
         velocidad = this.findViewById(R.id.velocidad);
@@ -104,7 +115,7 @@ public class PaginaPrincipal extends AppCompatActivity {
                 R.drawable.dineros);
         RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(this.getResources(), icon);
         roundedBitmapDrawable.setCircular(true);
-        dineros.setImageDrawable(roundedBitmapDrawable);
+        dinerosImg.setImageDrawable(roundedBitmapDrawable);
 
         nombre = this.findViewById(R.id.nombre);
 

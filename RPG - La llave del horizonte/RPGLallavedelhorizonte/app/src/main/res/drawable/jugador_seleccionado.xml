@@ -7,6 +7,9 @@
         tools:ignore="PrivateResource" />
     <corners
         android:radius="13dp" />
+    <stroke
+        android:color="@color/md_theme_light_onTertiaryContainer"
+        android:width="3dp"/>
 
     <size
         android:height="60dp"/>
