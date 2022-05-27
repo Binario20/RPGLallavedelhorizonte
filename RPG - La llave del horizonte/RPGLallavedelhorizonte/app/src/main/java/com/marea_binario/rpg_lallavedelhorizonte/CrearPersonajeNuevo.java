@@ -223,9 +223,9 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
         //Set personaje
         ConnTask connTask2 = new ConnTask("put/set_personaje?id="+idPer);
-        connTask.execute();
+        connTask2.execute();
         try{
-            String kk = connTask.get().toString().trim();
+            String kk = connTask2.get().toString().trim();
             Log.e("fonko?", kk);
         }catch (Exception e){
             e.printStackTrace();
