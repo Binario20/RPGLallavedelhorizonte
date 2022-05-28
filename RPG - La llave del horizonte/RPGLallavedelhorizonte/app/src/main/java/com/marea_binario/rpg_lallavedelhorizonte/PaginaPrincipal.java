@@ -10,11 +10,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Item;
 
 import org.json.JSONObject;
@@ -23,6 +25,7 @@ public class PaginaPrincipal extends AppCompatActivity {
 
     private ImageView imgJugador, fondo, dinerosImg;
     private TextView fuerza, velocidad, destreza, magia, vitalidad, resistencia, inteligencia, punteria, nombre, dineros;
+    private Button reloadPlayer, modDinerosP;
     private final Item[] items = new Item[4];
     private int id = -1;
 
@@ -36,9 +39,10 @@ public class PaginaPrincipal extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-        initListeners();
         initComponents();
+        initListeners();
         initData();
+
     }
 
     private void initData() {
@@ -67,20 +71,20 @@ public class PaginaPrincipal extends AppCompatActivity {
             Toast.makeText(this, String.valueOf(e.getMessage()), Toast.LENGTH_SHORT).show();
         }
 
-        ConnTask connTask2 = new ConnTask("get/dineros");
-        connTask2.execute();
-        try {
-            String din = connTask2.get().toString().trim();
-            //Log.e("dineros", din);
-            dineros.setText(din);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Utils.getDineros(dineros);
 
     }
 
     private void initListeners() {
+        reloadPlayer.setOnClickListener(view -> {
+            Utils.getDineros(dineros);
+        });
 
+        modDinerosP.setOnClickListener(view -> {
+            Utils.addDineros(dineros, 10);
+            Utils.subDineros(dineros, 5);
+            Utils.getDineros(dineros);
+        });
     }
 
     private void initComponents() {
@@ -98,6 +102,9 @@ public class PaginaPrincipal extends AppCompatActivity {
         }
         dinerosImg = this.findViewById(R.id.dinerosImg);
         dineros = this.findViewById(R.id.dineros);
+
+        reloadPlayer = this.findViewById(R.id.reloadPlayer);
+        modDinerosP = this.findViewById(R.id.modDinerosP);
 
         fuerza = this.findViewById(R.id.fuerza);
         velocidad = this.findViewById(R.id.velocidad);

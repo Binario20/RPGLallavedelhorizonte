@@ -1,7 +1,9 @@
 package com.marea_binario.rpg_lallavedelhorizonte.Data;
 
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.marea_binario.rpg_lallavedelhorizonte.ConnTask;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoJugador;
 
 /**
@@ -19,6 +21,42 @@ public class Utils {
                     ((NuevoJugador) lider_layout.getChildAt(i)).setLider(false);
                 }
             }
+        }
+    }
+
+    public static void getDineros(TextView dineros) {
+        ConnTask connTask2 = new ConnTask("get/dineros");
+        connTask2.execute();
+        try {
+            String din = connTask2.get().toString().trim();
+            //Log.e("dineros", din);
+            dineros.setText(din);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addDineros(TextView dineros, int d) {
+        ConnTask connTask2 = new ConnTask("put/dineros?add="+d);
+        connTask2.execute();
+        try {
+            String din = connTask2.get().toString().trim();
+            //Log.e("dineros", din);
+            dineros.setText(din);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void subDineros(TextView dineros, int d) {
+        ConnTask connTask2 = new ConnTask("put/dineros?sup="+d);
+        connTask2.execute();
+        try {
+            String din = connTask2.get().toString().trim();
+            //Log.e("dineros", din);
+            dineros.setText(din);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

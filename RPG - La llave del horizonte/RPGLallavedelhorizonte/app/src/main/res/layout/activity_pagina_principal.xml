@@ -45,7 +45,7 @@
             android:id="@+id/item4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
         </com.marea_binario.rpg_lallavedelhorizonte.objeto.Item>
 
@@ -68,11 +68,11 @@
         android:layout_height="300dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
+        android:contentDescription="@string/fondos"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="@+id/imgJugador"
         app:layout_constraintStart_toStartOf="@+id/dineros"
-        app:layout_constraintTop_toBottomOf="@+id/nombre"
-        android:contentDescription="@string/fondos" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre" />
 
     <ImageView
         android:id="@+id/imgJugador"
@@ -98,13 +98,13 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:padding="6dp"
         app:layout_constraintBottom_toTopOf="@+id/Dock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fondo"
-        android:baselineAligned="false">
+        app:layout_constraintTop_toBottomOf="@+id/fondo">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -286,5 +286,32 @@
         android:contentDescription="@string/dineros_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/reloadPlayer"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="28dp"
+        android:padding="13dp"
+        app:icon="@android:drawable/stat_notify_sync_noanim"
+        app:layout_constraintBottom_toBottomOf="@+id/imgJugador"
+        app:layout_constraintEnd_toStartOf="@+id/imgJugador"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/modDinerosP"
+        app:layout_constraintTop_toTopOf="@+id/imgJugador"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/modDinerosP"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="28dp"
+        android:padding="8dp"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconTint="@color/md_theme_light_onTertiary"
+        app:layout_constraintBottom_toBottomOf="@+id/reloadPlayer"
+        app:layout_constraintStart_toEndOf="@+id/dinerosImg"
+        app:layout_constraintTop_toTopOf="@+id/reloadPlayer"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
