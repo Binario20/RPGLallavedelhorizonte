@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp">
+
+    <Button
+        android:id="@+id/add"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="4dp"
+        android:padding="8dp"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconTint="@color/md_theme_light_onTertiary"
+        app:layout_constraintBottom_toTopOf="@+id/showMore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/showMore"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="20dp"
+        android:padding="14dp"
+        app:icon="@android:drawable/arrow_down_float"
+        app:iconSize="20dp"
+        app:iconTint="@color/md_theme_light_onTertiary"
+        app:layout_constraintBottom_toBottomOf="@+id/miniDescriptionCosa"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageView
+        android:id="@+id/leFoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/anillo_de_kov_lito" />
+
+    <TextView
+        android:id="@+id/cosaName"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:isScrollContainer="true"
+        android:padding="5dp"
+        android:text="Nombre Cosa"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/showMore"
+        app:layout_constraintStart_toEndOf="@+id/leFoto"
+        app:layout_constraintTop_toTopOf="@+id/leFoto" />
+
+    <TextView
+        android:id="@+id/miniDescriptionCosa"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        android:text="Mini Descripcion Cosa"
+        app:layout_constraintBottom_toBottomOf="@+id/leFoto"
+        app:layout_constraintEnd_toEndOf="@+id/cosaName"
+        app:layout_constraintStart_toStartOf="@+id/cosaName"
+        app:layout_constraintTop_toBottomOf="@+id/cosaName" />
+
+    <TextView
+        android:id="@+id/megaDescriptionCosa"
+        android:layout_width="0dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="-5dp"
+        android:padding="5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/showMore"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/leFoto"
+        app:layout_constraintTop_toBottomOf="@+id/miniDescriptionCosa"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
