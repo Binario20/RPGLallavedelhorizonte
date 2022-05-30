@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -76,13 +77,36 @@ public class PaginaPrincipal extends AppCompatActivity {
     }
 
     private void initListeners() {
-        reloadPlayer.setOnClickListener(view -> {
-            Utils.getDineros(dineros);
-        });
+        ConnTask connTask = new ConnTask("get/soy_lider");
+        connTask.execute();
+        String isLider = null;
+        try {
+            isLider = connTask.get().toString().trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        while (!(isLider == null)) {
+            ConnTask connTask2 = new ConnTask("get/soy_lider");
+            connTask2.execute();
+            try {
+                isLider = connTask2.get().toString().trim();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (isLider.equals("true")) {
+            modDinerosP.setVisibility(View.VISIBLE);
 
-        modDinerosP.setOnClickListener(view -> {
-            Utils.addDineros(dineros, 10);
-            Utils.subDineros(dineros, 5);
+            modDinerosP.setOnClickListener(view -> {
+                Utils.addDineros(dineros, 5);
+                Utils.subDineros(dineros, 5);
+                Utils.getDineros(dineros);
+            });
+        } else if (isLider.equals("false")) {
+            modDinerosP.setVisibility(View.GONE);
+        }
+
+        reloadPlayer.setOnClickListener(view -> {
             Utils.getDineros(dineros);
         });
     }

@@ -73,7 +73,24 @@ public class PaginaControlMaster extends AppCompatActivity {
     }
 
     private void setConfigIfLider() {
-        if (Data.getLider().equals(Data.MASTER)) {
+        ConnTask connTask = new ConnTask("get/soy_lider");
+        connTask.execute();
+        String isLider = null;
+        try {
+            isLider = connTask.get().toString().trim();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        while (!(isLider == null)) {
+            ConnTask connTask2 = new ConnTask("get/soy_lider");
+            connTask2.execute();
+            try {
+                isLider = connTask2.get().toString().trim();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (isLider.equals("true")) {
             modDineros.setVisibility(View.VISIBLE);
             reloadMaster.setVisibility(View.GONE);
 
@@ -82,7 +99,7 @@ public class PaginaControlMaster extends AppCompatActivity {
                 Utils.subDineros(dineros, 5);
                 Utils.getDineros(dineros);
             });
-        } else {
+        } else if (isLider.equals("false")) {
             modDineros.setVisibility(View.GONE);
             reloadMaster.setVisibility(View.VISIBLE);
 
