@@ -13,11 +13,11 @@
         android:layout_marginStart="16dp"
         android:gravity="center_vertical"
         android:text="Dineros"
-        app:layout_constraintBottom_toBottomOf="@+id/multiControlM"
+        app:layout_constraintBottom_toBottomOf="@+id/modDinerosM"
         app:layout_constraintEnd_toEndOf="@+id/armasMaster"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/dinerosM"
-        app:layout_constraintTop_toTopOf="@+id/multiControlM"
+        app:layout_constraintTop_toTopOf="@+id/modDinerosM"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -136,11 +136,24 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/multiControlM"
+        android:id="@+id/modDinerosM"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:padding="8dp"
+        android:visibility="gone"
         app:icon="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="@+id/PviewInM"
+        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="@+id/divider"
+        app:layout_constraintTop_toTopOf="@+id/PviewInM"
+        tools:ignore="SpeakableTextPresentCheck,DuplicateClickableBoundsCheck" />
+
+    <Button
+        android:id="@+id/reloadMaster"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="13dp"
+        app:icon="@android:drawable/stat_notify_sync_noanim"
         app:layout_constraintBottom_toBottomOf="@+id/PviewInM"
         app:layout_constraintEnd_toEndOf="@+id/divider"
         app:layout_constraintStart_toStartOf="@+id/divider"

@@ -39,7 +39,7 @@
         <entry key="app/src/main/res/layout/activity_elecion_rol.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_escojer_personaje.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_master_escoger_lider.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/activity_pagina_control_master.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_pagina_control_master.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_pagina_principal.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_personaje_nuevo_by_ivan.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/confirmacion.xml" value="0.35625" />
