@@ -82,6 +82,7 @@ public class PaginaPrincipal extends AppCompatActivity {
         String isLider = null;
         try {
             isLider = connTask.get().toString().trim();
+            Log.e("isLider", isLider);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,6 +91,7 @@ public class PaginaPrincipal extends AppCompatActivity {
             connTask2.execute();
             try {
                 isLider = connTask2.get().toString().trim();
+                Log.e("isLider", isLider);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -106,9 +108,9 @@ public class PaginaPrincipal extends AppCompatActivity {
             modDinerosP.setVisibility(View.GONE);
         }
 
-        reloadPlayer.setOnClickListener(view -> {
-            Utils.getDineros(dineros);
-        });
+        reloadPlayer.setOnClickListener(view -> Utils.getDineros(dineros));
+
+        dinerosImg.setOnClickListener(view -> Utils.getDineros(dineros));
     }
 
     private void initComponents() {
