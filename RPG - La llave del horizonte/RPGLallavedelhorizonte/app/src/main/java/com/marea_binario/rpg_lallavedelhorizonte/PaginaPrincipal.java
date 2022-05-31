@@ -1,17 +1,22 @@
 package com.marea_binario.rpg_lallavedelhorizonte;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,13 +84,13 @@ public class PaginaPrincipal extends AppCompatActivity {
     private void initListeners() {
         ConnTask connTask = new ConnTask("get/soy_lider");
         connTask.execute();
-        String isLider = null;
+        String isLider = "";
         try {
             isLider = connTask.get().toString().trim();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        while (!(isLider == null)) {
+        while (isLider.equals("")) {
             ConnTask connTask2 = new ConnTask("get/soy_lider");
             connTask2.execute();
             try {
@@ -98,8 +103,7 @@ public class PaginaPrincipal extends AppCompatActivity {
             modDinerosP.setVisibility(View.VISIBLE);
 
             modDinerosP.setOnClickListener(view -> {
-                Utils.addDineros(dineros, 5);
-                Utils.subDineros(dineros, 5);
+                creatGestionaDinerosAlert();
                 Utils.getDineros(dineros);
             });
         } else if (isLider.equals("false")) {
@@ -150,5 +154,30 @@ public class PaginaPrincipal extends AppCompatActivity {
 
         nombre = this.findViewById(R.id.nombre);
 
+    }
+    private void creatGestionaDinerosAlert() {
+        AlertDialog.Builder gestiona_dineros_builder = new AlertDialog.Builder(PaginaPrincipal.this);
+        gestiona_dineros_builder.setCancelable(true);
+        View gestionPopup = getLayoutInflater().inflate(R.layout.gestion_dineros_item, null);
+
+        gestiona_dineros_builder.setView(gestionPopup);
+
+        AlertDialog alertEraseAlert = gestiona_dineros_builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        gestionPopup.findViewById(R.id.addDinerosBut).setOnClickListener(view -> {
+            EditText add_num = gestionPopup.findViewById(R.id.addDineros);
+            int add = Integer.parseInt(add_num.getText().toString());
+            Utils.addDineros(dineros, add);
+            alertEraseAlert.cancel();
+        });
+
+        gestionPopup.findViewById(R.id.supDinerosBut).setOnClickListener(view -> {
+            EditText sup_num = gestionPopup.findViewById(R.id.supDineros);
+            int sup = Integer.parseInt(sup_num.getText().toString());
+            Utils.subDineros(dineros, sup);
+            alertEraseAlert.cancel();
+        });
     }
 }
