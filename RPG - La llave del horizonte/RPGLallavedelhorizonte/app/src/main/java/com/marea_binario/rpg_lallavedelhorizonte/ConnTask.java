@@ -9,6 +9,7 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class ConnTask extends AsyncTask {
     private final String url;
@@ -22,7 +23,7 @@ public class ConnTask extends AsyncTask {
 
         int i;
 
-        StringBuilder var9 = new StringBuilder();
+        String var9 = new String();
 
         label35: {
             label34: {
@@ -31,6 +32,8 @@ public class ConnTask extends AsyncTask {
                     Log.e("TAG", "doInBackground: " + Data.URL + url);
                     URL url = new URL(Data.URL + this.url);
                     HttpURLConnection UrlConnection = (HttpURLConnection)url.openConnection();
+                    UrlConnection.setRequestProperty("Accept-Charset", "UTF-16");
+                    UrlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=utf-16");
                     buffer = new BufferedInputStream(UrlConnection.getInputStream());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -46,12 +49,12 @@ public class ConnTask extends AsyncTask {
                     if (i == -1) {
                         break label35;
                     }
-                    var9.append((char)i);
+                    var9 += (char)i;
                 }
             }
         }
 
-        ret = var9.toString();
+        ret = new String(var9.getBytes(), StandardCharsets.UTF_8);
         return ret;
     }
 
