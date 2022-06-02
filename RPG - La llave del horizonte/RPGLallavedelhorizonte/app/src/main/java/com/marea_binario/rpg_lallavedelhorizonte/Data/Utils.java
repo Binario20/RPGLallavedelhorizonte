@@ -9,10 +9,18 @@ import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoJugador;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+
 /**
  * Clase de utilidades random
  */
 public class Utils {
+
+    public static String fixEncode(String dencode) throws UnsupportedEncodingException {
+        byte[] pp = dencode.getBytes("ISO-8859-15");
+        return new String(pp, StandardCharsets.UTF_8);
+    }
 
     public static void cambiarLider(String nombre){
         LinearLayout lider_layout = Data.getLider_layout();

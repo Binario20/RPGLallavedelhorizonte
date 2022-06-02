@@ -14,13 +14,14 @@ import com.marea_binario.rpg_lallavedelhorizonte.ConnTask;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.PaginaPrincipal;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
+import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 
 @SuppressLint("ViewConstructor")
 public class NuevoPersonaje extends LinearLayout {
     private Integer idPerso;
     private String nombre;
     private int idImagen;
-    private TextView tvNombrePersonaje;
+    private SuperText tvNombrePersonaje;
     private ImageView ivImagenPersonaje;
 
     public NuevoPersonaje(Context context, String nombre, Integer idPerso, int idImagen) {
@@ -35,7 +36,7 @@ public class NuevoPersonaje extends LinearLayout {
     private void initComponents() {
         tvNombrePersonaje = findViewById(R.id.tvNombrePersonaje);
         ivImagenPersonaje = findViewById(R.id.ivImagenPersonaje);
-        tvNombrePersonaje.setText(nombre);
+        tvNombrePersonaje.setEncodedText(nombre);
         if (idImagen == 0) {
             ivImagenPersonaje.setImageDrawable(Data.getImageJugador(idImagen));
         }

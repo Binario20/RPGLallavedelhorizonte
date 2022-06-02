@@ -9,11 +9,14 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
             ConnTask connTask = new ConnTask("get/objetos");
             connTask.execute();
             try {
-                String d =  connTask.get().toString().trim();
+                String d = connTask.get().toString().trim();
                 JSONObject objetosConn = new JSONObject(d);
+                Log.e("json", objetosConn.toString());
                 JSONObject objetos = objetosConn.getJSONObject("0");
 
                 int i = 0;
@@ -56,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                Log.e("jeje", d);
             } catch (ExecutionException | InterruptedException | JSONException ex) {
                 ex.printStackTrace();
             }

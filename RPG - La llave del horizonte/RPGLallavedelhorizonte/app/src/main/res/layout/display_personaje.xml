@@ -17,12 +17,11 @@
         app:srcCompat="@drawable/todoynada"
         tools:ignore="ImageContrastCheck" />
 
-    <TextView
+    <com.marea_binario.rpg_lallavedelhorizonte.SuperText
         android:id="@+id/tvNombrePersonaje"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textAlignment="center"
         tools:ignore="TextContrastCheck" />
-
 </LinearLayout>
