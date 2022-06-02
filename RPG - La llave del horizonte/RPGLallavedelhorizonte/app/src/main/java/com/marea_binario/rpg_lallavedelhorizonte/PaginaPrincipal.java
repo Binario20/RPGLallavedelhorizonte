@@ -11,20 +11,26 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.icu.text.Edits;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Item;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Iterator;
 
 public class PaginaPrincipal extends AppCompatActivity {
 
@@ -114,6 +120,13 @@ public class PaginaPrincipal extends AppCompatActivity {
         reloadPlayer.setOnClickListener(view -> loadDataPlayer());
 
         dinerosImg.setOnClickListener(view -> Utils.getDineros(dineros));
+
+        depositoObjetosBut.setOnClickListener(view -> creatDepositoDisplayAlert());
+    }
+
+    private void loadDataPlayer() {
+        Utils.getDineros(dineros);
+        listaDeposito = Utils.getDepositoObjetos();
     }
 
     private void initComponents() {
@@ -158,11 +171,6 @@ public class PaginaPrincipal extends AppCompatActivity {
 
     }
 
-    private void loadDataPlayer() {
-        Utils.getDineros(dineros);
-        listaDeposito = Utils.getDepositoObjetos();
-    }
-
     private void creatGestionaDinerosAlert() {
         AlertDialog.Builder gestiona_dineros_builder = new AlertDialog.Builder(PaginaPrincipal.this);
         gestiona_dineros_builder.setCancelable(true);
@@ -187,5 +195,36 @@ public class PaginaPrincipal extends AppCompatActivity {
             Utils.subDineros(dineros, sup);
             alertEraseAlert.cancel();
         });
+    }
+
+    private void creatDepositoDisplayAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PaginaPrincipal.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
+
+        builder.setView(popupView);
+
+        AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        Iterator<String> iter = listaDeposito.keys();
+        LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
+        caja_objetos.removeAllViews();
+        while (iter.hasNext()) {
+            try {
+                JSONObject object = listaDeposito.getJSONObject(iter.next());
+                //Log.e("Object List", String.valueOf(object));
+                int id_objeto = Integer.parseInt(object.getString("id_objeto"));
+                String cantidad = object.getString("cantidad");
+                int imagen_id = Integer.parseInt(object.getString("imagen_id"));
+                String nombre = object.getString("nombre");
+                String descripcion = object.getString("descripcion");
+                caja_objetos.addView(new DepositoObjetosItem(this, id_objeto, imagen_id,
+                        nombre, descripcion, cantidad));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -10,15 +10,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
+
+import org.json.JSONObject;
+
+import java.util.Iterator;
 
 public class PaginaControlMaster extends AppCompatActivity {
-    private Button modDineros, reloadMaster, armasBut, objetosBut, bestiarioBut, magiaBut, regionesBut;
+    private Button modDineros, reloadMaster, armasBut, objetosBut, bestiarioBut, magiaBut, regionesBut, depositoObjetosBut;
     private TextView dineros;
     private ImageView PviewInM, personajesBut, atributosBut;
+    private JSONObject listaDeposito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +35,7 @@ public class PaginaControlMaster extends AppCompatActivity {
         initContent();
         initListeners();
         setConfigIfLider();
+        listaDeposito = Utils.getDepositoObjetos();
     }
 
     private void initContent() {
@@ -38,6 +46,7 @@ public class PaginaControlMaster extends AppCompatActivity {
         bestiarioBut = this.findViewById(R.id.bestiarioMaster);
         magiaBut = this.findViewById(R.id.magiaMaster);
         regionesBut = this.findViewById(R.id.regionesMaster);
+        depositoObjetosBut = this.findViewById(R.id.dipositoObjetosBut2);
 
         dineros = this.findViewById(R.id.dinerosM);
 
@@ -47,6 +56,10 @@ public class PaginaControlMaster extends AppCompatActivity {
     }
 
     private void initListeners() {
+        depositoObjetosBut.setOnClickListener(view ->
+                creatDepositoDisplayAlert()
+        );
+
         armasBut.setOnClickListener(view -> {
             // mostrar lista de armas
         });
@@ -135,5 +148,35 @@ public class PaginaControlMaster extends AppCompatActivity {
             Utils.getDineros(dineros);
             alertEraseAlert.cancel();
         });
+    }
+
+    private void creatDepositoDisplayAlert() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
+
+        builder.setView(popupView);
+
+        androidx.appcompat.app.AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        Iterator<String> iter = listaDeposito.keys();
+        LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
+        caja_objetos.removeAllViews();
+        while (iter.hasNext()) {
+            try {
+                JSONObject object = listaDeposito.getJSONObject(iter.next());
+                int id_objeto = Integer.parseInt(object.getString("id_objeto"));
+                String cantidad = object.getString("cantidad");
+                int imagen_id = Integer.parseInt(object.getString("imagen_id"));
+                String nombre = object.getString("nombre");
+                String descripcion = object.getString("descripcion");
+                caja_objetos.addView(new DepositoObjetosItem(this, id_objeto, imagen_id,
+                        nombre, descripcion, cantidad));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
