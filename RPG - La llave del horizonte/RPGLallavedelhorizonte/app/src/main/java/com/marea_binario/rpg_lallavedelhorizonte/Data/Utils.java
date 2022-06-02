@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.marea_binario.rpg_lallavedelhorizonte.ConnTask;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoJugador;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**

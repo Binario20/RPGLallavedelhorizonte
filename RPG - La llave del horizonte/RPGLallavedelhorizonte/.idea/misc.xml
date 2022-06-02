@@ -42,13 +42,16 @@
         <entry key="app/src/main/res/layout/activity_elecion_rol.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_escojer_personaje.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_master_escoger_lider.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/activity_pagina_control_master.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_pagina_control_master.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_pagina_principal.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_personaje_nuevo_by_ivan.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/confirmacion.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/custom_styles.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/deposito_objetos_item.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/display_personaje.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/gestiona_dineros_item.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/layout/item.xml" value="0.2786458333333333" />
+        <entry key="app/src/main/res/layout/item_list_display.xml" value="0.2786458333333333" />
         <entry key="app/src/main/res/layout/item_list_item.xml" value="0.35625" />
       </map>
     </option>
