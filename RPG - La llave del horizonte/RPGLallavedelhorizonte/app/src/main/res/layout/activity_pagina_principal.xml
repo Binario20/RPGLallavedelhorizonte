@@ -314,4 +314,17 @@
         app:layout_constraintTop_toTopOf="@+id/reloadPlayer"
         tools:ignore="SpeakableTextPresentCheck" />
 
+    <Button
+        android:id="@+id/dipositoObjetosBut"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        app:icon="?android:attr/actionModeFindDrawable"
+        app:layout_constraintBottom_toTopOf="@+id/fondo"
+        app:layout_constraintEnd_toStartOf="@+id/imgJugador"
+        app:layout_constraintStart_toEndOf="@+id/dinerosImg"
+        app:layout_constraintTop_toBottomOf="@+id/reloadPlayer"
+        tools:ignore="SpeakableTextPresentCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

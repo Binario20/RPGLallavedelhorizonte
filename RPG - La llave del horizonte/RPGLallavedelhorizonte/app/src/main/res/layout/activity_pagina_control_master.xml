@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".PaginaControlMaster">
 
+    <Button
+        android:id="@+id/dipositoObjetosBut2"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        app:icon="?android:attr/actionModeFindDrawable"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/dinerosM"
+        tools:ignore="SpeakableTextPresentCheck" />
+
     <TextView
         android:id="@+id/dinerosImgM"
         android:layout_width="wrap_content"

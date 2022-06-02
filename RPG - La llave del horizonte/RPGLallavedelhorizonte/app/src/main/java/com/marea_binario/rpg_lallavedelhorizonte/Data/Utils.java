@@ -1,10 +1,14 @@
 package com.marea_binario.rpg_lallavedelhorizonte.Data;
 
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.marea_binario.rpg_lallavedelhorizonte.ConnTask;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoJugador;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Clase de utilidades random
@@ -58,5 +62,19 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static JSONObject getDepositoObjetos() {
+        ConnTask connTask2 = new ConnTask("get/obj_grupo");
+        connTask2.execute();
+        JSONObject objList = null;
+        try {
+            String objString = connTask2.get().toString().trim();
+            Log.e("depositoObjetos", objString);
+            objList = new JSONObject(objString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return objList;
     }
 }

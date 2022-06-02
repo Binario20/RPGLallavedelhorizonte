@@ -26,9 +26,10 @@ public class PaginaPrincipal extends AppCompatActivity {
 
     private ImageView imgJugador, fondo, dinerosImg;
     private TextView fuerza, velocidad, destreza, magia, vitalidad, resistencia, inteligencia, punteria, nombre, dineros;
-    private Button reloadPlayer, modDinerosP;
+    private Button reloadPlayer, modDinerosP, depositoObjetosBut;
     private final Item[] items = new Item[4];
     private int id = -1;
+    private JSONObject listaDeposito;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class PaginaPrincipal extends AppCompatActivity {
             Toast.makeText(this, String.valueOf(e.getMessage()), Toast.LENGTH_SHORT).show();
         }
 
-        Utils.getDineros(dineros);
+        loadDataPlayer();
 
     }
 
@@ -108,7 +109,7 @@ public class PaginaPrincipal extends AppCompatActivity {
             modDinerosP.setVisibility(View.GONE);
         }
 
-        reloadPlayer.setOnClickListener(view -> Utils.getDineros(dineros));
+        reloadPlayer.setOnClickListener(view -> loadDataPlayer());
 
         dinerosImg.setOnClickListener(view -> Utils.getDineros(dineros));
     }
@@ -131,6 +132,7 @@ public class PaginaPrincipal extends AppCompatActivity {
 
         reloadPlayer = this.findViewById(R.id.reloadPlayer);
         modDinerosP = this.findViewById(R.id.modDinerosP);
+        depositoObjetosBut = this.findViewById(R.id.dipositoObjetosBut);
 
         fuerza = this.findViewById(R.id.fuerza);
         velocidad = this.findViewById(R.id.velocidad);
@@ -152,5 +154,10 @@ public class PaginaPrincipal extends AppCompatActivity {
 
         nombre = this.findViewById(R.id.nombre);
 
+    }
+
+    private void loadDataPlayer() {
+        Utils.getDineros(dineros);
+        listaDeposito = Utils.getDepositoObjetos();
     }
 }
