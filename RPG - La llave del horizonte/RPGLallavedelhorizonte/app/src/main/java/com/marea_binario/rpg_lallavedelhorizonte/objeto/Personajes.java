@@ -29,6 +29,7 @@ public class Personajes {
     private int destreza;
     private String personalidad = "";
     private String fisico = "";
+    private String lengua1, lengua2;
 
     public Personajes(@NonNull String nombre, int id_procedencia, int id_especie, int edad,
                       float altura, float peso, @NonNull String sexo, int id_clase,
@@ -129,10 +130,6 @@ public class Personajes {
         return personaje;
     }
 
-    public int getMaxPuntos() {
-        return maxPuntos;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -145,63 +142,33 @@ public class Personajes {
         return id_procedencia;
     }
 
-    public void setIdProcedencia(int procedencia) {
-        this.id_procedencia = procedencia;
-    }
-
     public void setProcedencia(String procedencia) { this.procedencia = procedencia; }
+
+    public String getProcedencia() { return procedencia; }
 
     public int getIdEspecie() {
         return id_especie;
     }
 
-    public void setIdEspecie(int especie) {
-        this.id_especie = especie;
-    }
-
     public void setEspecie(String especie) { this.especie = especie; }
 
-    public int getEdad() {
-        return edad;
-    }
+    public String getEspecie() { return especie; }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
+    public int getEdad() { return edad; }
 
-    public float getAltura() {
-        return altura;
-    }
+    public float getAltura() { return altura; }
 
-    public void setAltura(float altura) {
-        this.altura = altura;
-    }
+    public float getPeso() { return peso; }
 
-    public float getPeso() {
-        return peso;
-    }
-
-    public void setPeso(float peso) {
-        this.peso = peso;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
+    public String getSexo() { return sexo; }
 
     public int getIdClase() {
         return id_clase;
     }
 
-    public void setIdClase(int clase) {
-        this.id_clase = clase;
-    }
-
     public void setClase(String clase) { this.clase = clase; }
+
+    public String getClase() { return clase; }
 
     public int getVitalidad() {
         return vitalidad;
@@ -281,5 +248,18 @@ public class Personajes {
 
     public void setFisico(String fisico) {
         this.fisico = fisico;
+    }
+
+    public JSONObject getEstadisticas() {
+        return null;
+    }
+
+    public void setEstadisticas(int vitalidad, int resistencia, int fuerza, int velocidad,
+                                int inteligencia, int punteria, int magia) {
+        int sumaPuntos = vitalidad + resistencia + fuerza + velocidad + inteligencia + punteria + magia;
+        if (sumaPuntos > maxPuntos) {
+            new Exception();
+        }
+        this.destreza = (velocidad + punteria)/2;
     }
 }

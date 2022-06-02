@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ public class PaginaPrincipal extends AppCompatActivity {
     private final Item[] items = new Item[4];
     private int id = -1;
     private JSONObject listaDeposito;
+    private boolean segunda_lengua = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,6 +225,45 @@ public class PaginaPrincipal extends AppCompatActivity {
                 String descripcion = object.getString("descripcion");
                 caja_objetos.addView(new DepositoObjetosItem(this, id_objeto, imagen_id,
                         nombre, descripcion, cantidad));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void creatSegundaLenguaAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PaginaPrincipal.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.escoje_segunda_lengua, null);
+
+        builder.setView(popupView);
+
+        AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        ConnTask connTask2 = new ConnTask("get/lenguas_antiguas");
+        connTask2.execute();
+        String lengList = null;
+        JSONObject lengJson = null;
+        try {
+            lengList = connTask2.get().toString().trim();
+            Log.e("Lenguas Antiguas", lengList);
+            lengJson = new JSONObject(lengList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Iterator<String> iter = lengJson.keys();
+        RadioGroup radioGroup = popupView.findViewById(R.id.lenguaRadioGroup);
+        while (iter.hasNext()) {
+            try {
+                JSONObject object = lengJson.getJSONObject(iter.next());
+                //Log.e("Object List", String.valueOf(object));
+                String nombre = object.getString("nombre");
+                RadioButton radioButton = new RadioButton(this);
+                radioButton.setText(nombre);
+                radioGroup.addView(radioButton);
             } catch (Exception e) {
                 e.printStackTrace();
             }
