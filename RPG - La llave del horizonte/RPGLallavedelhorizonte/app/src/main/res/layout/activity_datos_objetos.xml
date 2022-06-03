@@ -6,7 +6,7 @@
     android:layout_height="450dp"
     android:background="@drawable/dialog_bg">
 
-    <TextView
+    <com.marea_binario.rpg_lallavedelhorizonte.SuperText
         android:id="@+id/texto"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tittulo" />
 
-    <TextView
+    <com.marea_binario.rpg_lallavedelhorizonte.SuperText
         android:id="@+id/tittulo"
         android:layout_width="wrap_content"
         android:layout_height="30dp"

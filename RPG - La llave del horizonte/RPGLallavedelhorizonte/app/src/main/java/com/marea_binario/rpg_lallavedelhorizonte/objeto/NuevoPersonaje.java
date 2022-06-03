@@ -41,24 +41,21 @@ public class NuevoPersonaje extends LinearLayout {
             ivImagenPersonaje.setImageDrawable(Data.getImageJugador(idImagen));
         }
 
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.e("np-cl??", String.valueOf(idPerso));
-                ConnTask connTask = new ConnTask("put/set_personaje?id="+idPerso);
-                connTask.execute();
-                try{
-                    String kk = connTask.get().toString().trim();
-                    Log.e("fonko?", kk);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                Intent i = new Intent(getContext(), PaginaPrincipal.class);
-                i.putExtra("Id", idPerso);
-                getContext().startActivity(i);
-//                getContext().finish();
-                //Log.e("id", String.valueOf(idPerso));
+        this.setOnClickListener(view -> {
+            Log.e("np-cl??", String.valueOf(idPerso));
+            ConnTask connTask = new ConnTask("put/set_personaje?id="+idPerso);
+            connTask.execute();
+            try{
+                String kk = connTask.get().toString().trim();
+                Log.e("fonko?", kk);
+            }catch (Exception e){
+                e.printStackTrace();
             }
+            Intent i = new Intent(getContext(), PaginaPrincipal.class);
+            i.putExtra("Id", idPerso);
+            getContext().startActivity(i);
+//                getContext().finish();
+            //Log.e("id", String.valueOf(idPerso));
         });
     }
 }

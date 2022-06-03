@@ -44,7 +44,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/anillo_de_kov_lito" />
 
-    <TextView
+    <com.marea_binario.rpg_lallavedelhorizonte.SuperText
         android:id="@+id/cosaName"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -58,7 +58,7 @@
         app:layout_constraintStart_toEndOf="@+id/leFoto"
         app:layout_constraintTop_toTopOf="@+id/leFoto" />
 
-    <TextView
+    <com.marea_binario.rpg_lallavedelhorizonte.SuperText
         android:id="@+id/miniDescriptionCosa"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -69,7 +69,7 @@
         app:layout_constraintStart_toStartOf="@+id/cosaName"
         app:layout_constraintTop_toBottomOf="@+id/cosaName" />
 
-    <TextView
+    <com.marea_binario.rpg_lallavedelhorizonte.SuperText
         android:id="@+id/megaDescriptionCosa"
         android:layout_width="0dp"
         android:layout_height="185dp"

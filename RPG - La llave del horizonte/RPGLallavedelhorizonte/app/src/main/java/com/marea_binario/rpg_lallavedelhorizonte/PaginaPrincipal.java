@@ -37,7 +37,7 @@ import java.util.Iterator;
 public class PaginaPrincipal extends AppCompatActivity {
 
     private ImageView imgJugador, fondo, dinerosImg;
-    private TextView fuerza, velocidad, destreza, magia, vitalidad, resistencia, inteligencia, punteria, nombre, dineros;
+    private SuperText fuerza, velocidad, destreza, magia, vitalidad, resistencia, inteligencia, punteria, nombre, dineros;
     private Button reloadPlayer, modDinerosP, depositoObjetosBut;
     private final Item[] items = new Item[4];
     private int id = -1;
@@ -71,15 +71,15 @@ public class PaginaPrincipal extends AppCompatActivity {
             Log.e("jj", kk);
             JSONObject perso = new JSONObject(kk).getJSONObject("0");
             Toast.makeText(this, perso.toString(), Toast.LENGTH_SHORT).show();
-            fuerza.setText(perso.getString("fuerza"));
-            inteligencia.setText(perso.getString("inteligencia"));
-            vitalidad.setText(perso.getString("vitalidad"));
-            resistencia.setText(perso.getString("resistencia"));
-            velocidad.setText(perso.getString("velocidad"));
-            punteria.setText(perso.getString("punteria"));
-            magia.setText(perso.getString("magia"));
-            destreza.setText(perso.getString("destreza"));
-            nombre.setText(perso.getString("nombre"));
+            fuerza.setEncodedText(perso.getString("fuerza"));
+            inteligencia.setEncodedText(perso.getString("inteligencia"));
+            vitalidad.setEncodedText(perso.getString("vitalidad"));
+            resistencia.setEncodedText(perso.getString("resistencia"));
+            velocidad.setEncodedText(perso.getString("velocidad"));
+            punteria.setEncodedText(perso.getString("punteria"));
+            magia.setEncodedText(perso.getString("magia"));
+            destreza.setEncodedText(perso.getString("destreza"));
+            nombre.setEncodedText(perso.getString("nombre"));
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();

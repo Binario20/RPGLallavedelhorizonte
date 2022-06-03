@@ -7,13 +7,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.marea_binario.rpg_lallavedelhorizonte.R;
+import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 
 public class DepositoObjetosItem extends LinearLayout {
 
     private int image_id, id;
     private String nombre, descripcion, cantidad;
 
-    private TextView nom_txt, desc_txt, num_txt;
+    private SuperText nom_txt, desc_txt, num_txt;
     private ImageView obj_img;
 
     public DepositoObjetosItem(Context context, int id, int image_id, String nombre,
@@ -38,9 +39,9 @@ public class DepositoObjetosItem extends LinearLayout {
     }
 
     private void setData() {
-        nom_txt.setText(nombre);
-        desc_txt.setText(descripcion);
-        num_txt.setText(cantidad);
+        nom_txt.setEncodedText(nombre);
+        desc_txt.setEncodedText(descripcion);
+        num_txt.setEncodedText(cantidad);
 
         //Set Img
     }

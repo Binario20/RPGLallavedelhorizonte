@@ -23,7 +23,7 @@ import java.util.Iterator;
 
 public class PaginaControlMaster extends AppCompatActivity {
     private Button modDineros, reloadMaster, armasBut, objetosBut, bestiarioBut, magiaBut, regionesBut, depositoObjetosBut;
-    private TextView dineros;
+    private SuperText dineros;
     private ImageView PviewInM, personajesBut, atributosBut;
     private JSONObject listaDeposito;
 

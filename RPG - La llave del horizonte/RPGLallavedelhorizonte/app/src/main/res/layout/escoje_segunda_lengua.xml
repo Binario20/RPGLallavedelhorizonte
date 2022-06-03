@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/dialog_bg">
 
-    <TextView
+    <com.marea_binario.rpg_lallavedelhorizonte.SuperText
         android:id="@+id/textView6"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

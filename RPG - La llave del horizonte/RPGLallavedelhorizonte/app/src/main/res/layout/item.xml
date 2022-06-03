@@ -14,7 +14,7 @@
         android:layout_weight="1"
         android:contentDescription="Item1enVista" />
 
-    <TextView
+    <com.marea_binario.rpg_lallavedelhorizonte.SuperText
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="20dp"

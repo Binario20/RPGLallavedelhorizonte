@@ -15,12 +15,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.marea_binario.rpg_lallavedelhorizonte.R;
+import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 
 public class Item extends LinearLayout {
 
     private OnLongClickListener item;
     private ImageView img;
-    private TextView text;
+    private SuperText text;
     private String nombreItem = "";
     private int customId = -1;
 

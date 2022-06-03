@@ -10,11 +10,12 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import com.marea_binario.rpg_lallavedelhorizonte.R;
+import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 
 public class ItemListItem  extends LinearLayout {
 
     private ImageView leFoto;
-    private TextView cosaName, miniDescriptionCosa, megaDescriptionCosa;
+    private SuperText cosaName, miniDescriptionCosa, megaDescriptionCosa;
     private Button add, showMore;
     private final String type;
     private final int id;
