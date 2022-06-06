@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.icu.text.Edits;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
@@ -29,7 +27,6 @@ import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Item;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
@@ -39,8 +36,9 @@ public class PaginaPrincipal extends AppCompatActivity {
     private ImageView imgJugador, fondo, dinerosImg;
     private SuperText fuerza, velocidad, destreza, magia, vitalidad, resistencia, inteligencia, punteria, nombre, dineros;
     private Button reloadPlayer, modDinerosP, depositoObjetosBut;
+    private String intel_txt;
     private final Item[] items = new Item[4];
-    private int id = -1;
+    private int id_perso = -1;
     private JSONObject listaDeposito;
     private boolean segunda_lengua = false;
 
@@ -50,29 +48,29 @@ public class PaginaPrincipal extends AppCompatActivity {
         setContentView(R.layout.activity_pagina_principal);
         Intent i = getIntent();
         try{
-            id = i.getIntExtra("Id", -1);
+            id_perso = i.getIntExtra("Id", -1);
         }catch (Exception e){
             e.printStackTrace();
         }
         initComponents();
         initListeners();
         initData();
-
     }
 
     private void initData() {
-        String j = String.valueOf(this.id);
+        String j = String.valueOf(this.id_perso);
         //j = "1";
         ConnTask connTask = new ConnTask("get/personaje?id=" + j);
         connTask.execute();
         try {
             String kk = connTask.get().toString().trim();
-            Toast.makeText(this, kk, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, kk, Toast.LENGTH_SHORT).show();
             Log.e("jj", kk);
             JSONObject perso = new JSONObject(kk).getJSONObject("0");
             Toast.makeText(this, perso.toString(), Toast.LENGTH_SHORT).show();
+            intel_txt = perso.getString("inteligencia");
             fuerza.setEncodedText(perso.getString("fuerza"));
-            inteligencia.setEncodedText(perso.getString("inteligencia"));
+            inteligencia.setEncodedText(intel_txt);
             vitalidad.setEncodedText(perso.getString("vitalidad"));
             resistencia.setEncodedText(perso.getString("resistencia"));
             velocidad.setEncodedText(perso.getString("velocidad"));
@@ -130,6 +128,9 @@ public class PaginaPrincipal extends AppCompatActivity {
     private void loadDataPlayer() {
         Utils.getDineros(dineros);
         listaDeposito = Utils.getDepositoObjetos();
+        if (!segunda_lengua && Integer.parseInt(intel_txt) >= 4) {
+            creatSegundaLenguaAlert();
+        }
     }
 
     private void initComponents() {
@@ -233,8 +234,8 @@ public class PaginaPrincipal extends AppCompatActivity {
 
     private void creatSegundaLenguaAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(PaginaPrincipal.this);
-        builder.setCancelable(true);
-        View popupView = getLayoutInflater().inflate(R.layout.escoje_segunda_lengua, null);
+        builder.setCancelable(false);
+        View popupView = getLayoutInflater().inflate(R.layout.segunda_lengua_escojer, null);
 
         builder.setView(popupView);
 
@@ -248,25 +249,51 @@ public class PaginaPrincipal extends AppCompatActivity {
         JSONObject lengJson = null;
         try {
             lengList = connTask2.get().toString().trim();
-            Log.e("Lenguas Antiguas", lengList);
+            //Log.e("Lenguas Antiguas", lengList);
             lengJson = new JSONObject(lengList);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         Iterator<String> iter = lengJson.keys();
-        RadioGroup radioGroup = popupView.findViewById(R.id.lenguaRadioGroup);
+        RadioGroup rg = popupView.findViewById(R.id.lenguaRadioGroup);
+        rg.setOrientation(RadioGroup.VERTICAL);
         while (iter.hasNext()) {
             try {
                 JSONObject object = lengJson.getJSONObject(iter.next());
-                //Log.e("Object List", String.valueOf(object));
+                Log.e("Lengua List", String.valueOf(object));
                 String nombre = object.getString("nombre");
-                RadioButton radioButton = new RadioButton(this);
-                radioButton.setText(nombre);
-                radioGroup.addView(radioButton);
+                int id = Integer.parseInt(object.getString("id"));
+                Log.d("Id. Lengua", id+". "+nombre);
+                if (id != 3) {
+                    //SegundaLenguaItem rb = new SegundaLenguaItem(this, nombre);
+                    RadioButton rb = new RadioButton(this);
+                    rb.setId(id);
+                    rb.setText(nombre);
+                    rg.addView(rb);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+        Button accept = popupView.findViewById(R.id.acceptLeng);
+        accept.setOnClickListener(view -> {
+            int check = rg.getCheckedRadioButtonId();
+            Log.e("RB checked", String.valueOf(check));
+            if (check != -1) {
+                ConnTask connTask = new ConnTask("post/segunda_lengua?id="+check);
+                connTask.execute();
+                try {
+                    String kk = connTask.get().toString().trim();
+                    Log.e("fonko?", kk);
+                    segunda_lengua = true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                alertEraseAlert.cancel();
+            }
+        });
+
     }
 }
