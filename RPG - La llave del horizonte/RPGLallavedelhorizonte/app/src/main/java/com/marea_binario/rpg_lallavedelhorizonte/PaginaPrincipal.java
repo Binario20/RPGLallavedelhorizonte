@@ -40,7 +40,7 @@ public class PaginaPrincipal extends AppCompatActivity {
     private final Item[] items = new Item[4];
     private int id_perso = -1;
     private JSONObject listaDeposito;
-    private boolean segunda_lengua = false;
+    private int segunda_lengua = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +128,7 @@ public class PaginaPrincipal extends AppCompatActivity {
     private void loadDataPlayer() {
         Utils.getDineros(dineros);
         listaDeposito = Utils.getDepositoObjetos();
-        if (!segunda_lengua && Integer.parseInt(intel_txt) >= 4) {
+        if (segunda_lengua == -1 && Integer.parseInt(intel_txt) >= 4) {
             creatSegundaLenguaAlert();
         }
     }
@@ -267,9 +267,9 @@ public class PaginaPrincipal extends AppCompatActivity {
                 Log.d("Id. Lengua", id+". "+nombre);
                 if (id != 3) {
                     //SegundaLenguaItem rb = new SegundaLenguaItem(this, nombre);
-                    RadioButton rb = new RadioButton(this);
+                    SuperRadioButton rb = new SuperRadioButton(this);
                     rb.setId(id);
-                    rb.setText(nombre);
+                    rb.setEncodedText(nombre);
                     rg.addView(rb);
                 }
             } catch (Exception e) {
@@ -279,15 +279,14 @@ public class PaginaPrincipal extends AppCompatActivity {
 
         Button accept = popupView.findViewById(R.id.acceptLeng);
         accept.setOnClickListener(view -> {
-            int check = rg.getCheckedRadioButtonId();
-            Log.e("RB checked", String.valueOf(check));
-            if (check != -1) {
-                ConnTask connTask = new ConnTask("post/segunda_lengua?id="+check);
+            segunda_lengua  = rg.getCheckedRadioButtonId();
+            Log.e("RB checked", String.valueOf(segunda_lengua));
+            if (segunda_lengua != -1) {
+                ConnTask connTask = new ConnTask("post/segunda_lengua?id="+segunda_lengua);
                 connTask.execute();
                 try {
                     String kk = connTask.get().toString().trim();
                     Log.e("fonko?", kk);
-                    segunda_lengua = true;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
