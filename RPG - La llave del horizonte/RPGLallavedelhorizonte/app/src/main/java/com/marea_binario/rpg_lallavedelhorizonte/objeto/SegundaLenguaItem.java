@@ -4,10 +4,12 @@ import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 
-public class SegundaLenguaItem extends androidx.appcompat.widget.AppCompatRadioButton {
+public class SegundaLenguaItem extends ConstraintLayout {
     private String name;
     private SuperText txt;
 
@@ -19,7 +21,7 @@ public class SegundaLenguaItem extends androidx.appcompat.widget.AppCompatRadioB
     }
 
     private void initComponents() {
-        //inflate(getContext(), R.layout.segunda_lengua_item, this);
+        inflate(getContext(), R.layout.segunda_lengua_item, this);
         txt = this.findViewById(R.id.lenguaChose);
         txt.setEncodedText(name);
     }
