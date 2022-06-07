@@ -89,4 +89,18 @@ public class Utils {
         }
         return objList;
     }
+
+    public static JSONObject getLenguasAntiguas() {
+        ConnTask connTask2 = new ConnTask("get/lenguas_antiguas");
+        connTask2.execute();
+        JSONObject lengJson = null;
+        try {
+            String lengList = connTask2.get().toString().trim();
+            //Log.e("Lenguas Antiguas", lengList);
+            lengJson = new JSONObject(lengList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lengJson;
+    }
 }

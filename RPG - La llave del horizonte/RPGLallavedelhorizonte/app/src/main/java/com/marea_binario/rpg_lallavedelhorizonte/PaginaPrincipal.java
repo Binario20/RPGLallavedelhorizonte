@@ -40,7 +40,8 @@ public class PaginaPrincipal extends AppCompatActivity {
     private final Item[] items = new Item[4];
     private int id_perso = -1;
     private JSONObject listaDeposito;
-    private int segunda_lengua = -1;
+    private JSONObject lengJson;
+    private int segunda_lengua_id = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,8 @@ public class PaginaPrincipal extends AppCompatActivity {
             Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, String.valueOf(e.getMessage()), Toast.LENGTH_SHORT).show();
         }
+
+        lengJson = Utils.getLenguasAntiguas();
 
         loadDataPlayer();
 
@@ -128,7 +131,7 @@ public class PaginaPrincipal extends AppCompatActivity {
     private void loadDataPlayer() {
         Utils.getDineros(dineros);
         listaDeposito = Utils.getDepositoObjetos();
-        if (segunda_lengua == -1 && Integer.parseInt(intel_txt) >= 4) {
+        if (segunda_lengua_id == -1 && Integer.parseInt(intel_txt) >= 4) {
             creatSegundaLenguaAlert();
         }
     }
@@ -243,18 +246,6 @@ public class PaginaPrincipal extends AppCompatActivity {
         alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertEraseAlert.show();
 
-        ConnTask connTask2 = new ConnTask("get/lenguas_antiguas");
-        connTask2.execute();
-        String lengList = null;
-        JSONObject lengJson = null;
-        try {
-            lengList = connTask2.get().toString().trim();
-            //Log.e("Lenguas Antiguas", lengList);
-            lengJson = new JSONObject(lengList);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         Iterator<String> iter = lengJson.keys();
         RadioGroup rg = popupView.findViewById(R.id.lenguaRadioGroup);
         rg.setOrientation(RadioGroup.VERTICAL);
@@ -279,10 +270,10 @@ public class PaginaPrincipal extends AppCompatActivity {
 
         Button accept = popupView.findViewById(R.id.acceptLeng);
         accept.setOnClickListener(view -> {
-            segunda_lengua  = rg.getCheckedRadioButtonId();
-            Log.e("RB checked", String.valueOf(segunda_lengua));
-            if (segunda_lengua != -1) {
-                ConnTask connTask = new ConnTask("post/segunda_lengua?id="+segunda_lengua);
+            segunda_lengua_id = rg.getCheckedRadioButtonId();
+            Log.e("RB checked", String.valueOf(segunda_lengua_id));
+            if (segunda_lengua_id != -1) {
+                ConnTask connTask = new ConnTask("post/segunda_lengua?id="+ segunda_lengua_id);
                 connTask.execute();
                 try {
                     String kk = connTask.get().toString().trim();
@@ -293,6 +284,18 @@ public class PaginaPrincipal extends AppCompatActivity {
                 alertEraseAlert.cancel();
             }
         });
+    }
 
+    private void creatPersonajeDisplayAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PaginaPrincipal.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
+
+        builder.setView(popupView);
+
+        AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+        
     }
 }
