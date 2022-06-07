@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 import androidx.core.content.ContextCompat;
 
 import com.marea_binario.rpg_lallavedelhorizonte.R;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 
 import java.util.ArrayList;
 
@@ -19,6 +21,8 @@ public class Data {
     private static String lider = "";
     private static Integer lider_id;
     private static String rol = Data.JUGADOR;
+    private static ArrayList<Regiones> regiones;
+    private static ArrayList<Objeto> objetos;
     public static int imgArray[] = {
             R.drawable.g1,
             R.drawable.g2,
@@ -208,6 +212,13 @@ public class Data {
         imgObjetosArray[119] = 0;
         imgObjetosArray[120] = 0;
         imgObjetosArray[121] = 0;
+    }
 
+    public static void setRegiones(ArrayList<Regiones> regiones) {
+        Data.regiones = regiones;
+    }
+
+    public static void setObjetos(ArrayList<Objeto> objetos) {
+        Data.objetos = objetos;
     }
 }

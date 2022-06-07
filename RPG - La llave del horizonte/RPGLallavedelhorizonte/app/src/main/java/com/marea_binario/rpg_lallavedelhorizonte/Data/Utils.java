@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 /**
  * Clase de utilidades random
@@ -81,10 +82,11 @@ public class Utils {
         ConnTask connTask2 = new ConnTask(url);
         connTask2.execute();
         try {
-            return connTask2.get().toString().trim();
+            String ret = connTask2.get().toString().trim();
+            return (ret == null) ? "{}" : ret;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            return "{}";
         }
     }
 }
