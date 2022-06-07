@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
-
+            //seteo regiones
             try{
                 JSONObject objetosConn = new JSONObject(Utils.getData("get/regiones/no_foraneas"));
                 JSONObject regiones = objetosConn.getJSONObject("Regiones");
@@ -90,11 +90,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                 }
-
                 while(true){
                     try {
                         JSONObject servicio = servicios.getJSONObject(String.valueOf(i));
-
                         String nombre = servicio.getString("nombre");
                         String descripcion = servicio.getString("descripcion");
                         int id = servicio.getInt("id");
@@ -105,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                                 regionesList.remove(j);
                                 reg.addServicio(new Servicio(id, id_region, nombre, descripcion));
                                 regionesList.add(reg);
+                                break;
                             }
                         }
                     }catch (JSONException e){
@@ -112,12 +111,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                 }
-
-
                 Data.setRegiones(regionesList);
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
+
+
         }).start();
 
     }
