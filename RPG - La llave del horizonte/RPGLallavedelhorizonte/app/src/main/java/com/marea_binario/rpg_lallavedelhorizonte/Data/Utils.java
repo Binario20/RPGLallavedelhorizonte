@@ -17,8 +17,13 @@ import java.nio.charset.StandardCharsets;
  */
 public class Utils {
 
-    public static String fixEncode(String dencode) throws UnsupportedEncodingException {
-        byte[] pp = dencode.getBytes("ISO-8859-15");
+    public static String fixEncode(String dencode) {
+        byte[] pp = new byte[0];
+        try {
+            pp = dencode.getBytes("ISO-8859-15");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return new String(pp, StandardCharsets.UTF_8);
     }
 

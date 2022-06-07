@@ -6,7 +6,7 @@
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.19484412470023982" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/drawable/dialog_bg.xml" value="0.121" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_datos_objetos.xml" value="0.16799999999999998" />
-        <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_elecion_rol.xml" value="0.10989583333333333" />
+        <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_elecion_rol.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_escojer_personaje.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_main.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_master_escoger_lider.xml" value="0.10989583333333333" />
@@ -43,7 +43,6 @@
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/confirmacion.xml" value="0.25" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/display_personaje.xml" value="0.25" />
         <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/item.xml" value="0.4" />
-        <entry key="..\:/Users/ivan1/Documents/GitHub/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/segunda_lengua_item.xml" value="0.29743589743589743" />
         <entry key="app/src/main/res/drawable-finger/master.xml" value="0.3575" />
         <entry key="app/src/main/res/drawable-v24/dialog_bg.xml" value="0.19" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3575" />

@@ -22,10 +22,6 @@ public class SuperRadioButton extends androidx.appcompat.widget.AppCompatRadioBu
     }
 
     public void setEncodedText(String text){
-        try {
-            this.setText(Utils.fixEncode(text));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        this.setText(Utils.fixEncode(text));
     }
 }
