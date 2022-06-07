@@ -12,8 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Personajes;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -90,14 +92,10 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
 
     private void getLists() {
-        ConnTask connTask = new ConnTask("get/personaje/nuevo");
-        connTask.execute();
         JSONObject listJ = null;
         try {
-            String kk = connTask.get().toString().trim();
-            //Log.e("Spinners", kk);
-            listJ = new JSONObject(kk);
-        } catch (Exception e) {
+            listJ = new JSONObject(Utils.getData("get/personaje/nuevo"));
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         try {
@@ -209,25 +207,13 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         Log.e("Perso-JSON", String.valueOf(perso_json));
 
         // Guardar personaje
-        ConnTask connTask = new ConnTask("post/personaje?new="+String.valueOf(perso_json));
-        connTask.execute();
-        try{
-            String kk = connTask.get().toString().trim();
-            Log.e("fonko?", kk);
-            //Get ID Personaje
-            JSONObject persoID = new JSONObject(kk).getJSONObject("0");
-            idPer = persoID.getInt("id");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
 
-        //Set personaje
-        ConnTask connTask2 = new ConnTask("put/set_personaje?id="+idPer);
-        connTask2.execute();
-        try{
-            String kk = connTask2.get().toString().trim();
-            Log.e("fonko?", kk);
-        }catch (Exception e){
+
+        try {
+            JSONObject persoID = new JSONObject(Utils.getData("post/personaje?new="+String.valueOf(perso_json))).getJSONObject("0");
+            idPer = persoID.getInt("id");
+            Utils.getData("put/set_personaje?id="+idPer);
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoPersonaje;
 
 import org.json.JSONObject;
@@ -32,17 +33,16 @@ public class EscojerPersonaje extends AppCompatActivity {
           finish();
         };
         // GET PERSONAJES
-        ConnTask connTask = new ConnTask("get/nombre_personaje");
-        connTask.execute();
         String personajes = null;
         JSONObject listP = null;
+
         try{
-            personajes = connTask.get().toString().trim();
-            Log.e("fonko?", personajes);
+            personajes = Utils.getData("get/nombre_personaje");
             listP = new JSONObject(personajes);
         }catch (Exception e){
             e.printStackTrace();
         }
+
         Iterator<String> iter = null;
         if (listP != null) {
             iter = listP.keys();

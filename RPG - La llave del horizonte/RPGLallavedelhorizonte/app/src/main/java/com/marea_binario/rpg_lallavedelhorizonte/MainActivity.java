@@ -34,11 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData(){
         new Thread(() -> {
-            ConnTask connTask = new ConnTask("get/objetos");
-            connTask.execute();
             try {
-                String d = connTask.get().toString().trim();
-                JSONObject objetosConn = new JSONObject(d);
+                JSONObject objetosConn = new JSONObject(Utils.getData("get/objetos"));
                 Log.e("json", objetosConn.toString());
                 JSONObject objetos = objetosConn.getJSONObject("0");
 
@@ -60,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                 }
-            } catch (ExecutionException | InterruptedException | JSONException ex) {
+            } catch (JSONException ex) {
                 ex.printStackTrace();
             }
         }).start();

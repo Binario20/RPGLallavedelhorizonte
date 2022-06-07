@@ -76,31 +76,15 @@ public class Utils {
         }
     }
 
-    public static JSONObject getDepositoObjetos() {
-        ConnTask connTask2 = new ConnTask("get/obj_grupo");
-        connTask2.execute();
-        JSONObject objList = null;
-        try {
-            String objString = connTask2.get().toString().trim();
-            Log.e("depositoObjetos", objString);
-            objList = new JSONObject(objString);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return objList;
-    }
 
-    public static JSONObject getLenguasAntiguas() {
-        ConnTask connTask2 = new ConnTask("get/lenguas_antiguas");
+    public static String getData(String url){
+        ConnTask connTask2 = new ConnTask(url);
         connTask2.execute();
-        JSONObject lengJson = null;
         try {
-            String lengList = connTask2.get().toString().trim();
-            //Log.e("Lenguas Antiguas", lengList);
-            lengJson = new JSONObject(lengList);
+            return connTask2.get().toString().trim();
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        return lengJson;
     }
 }

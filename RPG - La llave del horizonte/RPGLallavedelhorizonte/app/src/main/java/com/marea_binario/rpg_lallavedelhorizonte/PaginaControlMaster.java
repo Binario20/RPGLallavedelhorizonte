@@ -17,6 +17,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
@@ -35,7 +36,11 @@ public class PaginaControlMaster extends AppCompatActivity {
         initContent();
         initListeners();
         setConfigIfLider();
-        listaDeposito = Utils.getDepositoObjetos();
+        try {
+            listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initContent() {
@@ -90,22 +95,9 @@ public class PaginaControlMaster extends AppCompatActivity {
     }
 
     private void setConfigIfLider() {
-        ConnTask connTask = new ConnTask("get/soy_lider");
-        connTask.execute();
-        String isLider = "";
-        try {
-            isLider = connTask.get().toString().trim();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String isLider = Utils.getData("get/soy_lider");
         while (isLider.equals("")) {
-            ConnTask connTask2 = new ConnTask("get/soy_lider");
-            connTask2.execute();
-            try {
-                isLider = connTask2.get().toString().trim();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            isLider = Utils.getData("get/soy_lider");
         }
         if (isLider.equals("true")) {
             modDineros.setVisibility(View.VISIBLE);

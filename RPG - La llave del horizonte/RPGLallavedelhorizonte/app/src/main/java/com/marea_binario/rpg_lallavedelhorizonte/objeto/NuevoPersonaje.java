@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.marea_binario.rpg_lallavedelhorizonte.ConnTask;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.PaginaPrincipal;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
@@ -43,14 +43,7 @@ public class NuevoPersonaje extends LinearLayout {
 
         this.setOnClickListener(view -> {
             Log.e("np-cl??", String.valueOf(idPerso));
-            ConnTask connTask = new ConnTask("put/set_personaje?id="+idPerso);
-            connTask.execute();
-            try{
-                String kk = connTask.get().toString().trim();
-                Log.e("fonko?", kk);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            Log.e("fonko?", Utils.getData("put/set_personaje?id="+idPerso));
             Intent i = new Intent(getContext(), PaginaPrincipal.class);
             i.putExtra("Id", idPerso);
             getContext().startActivity(i);

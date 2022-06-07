@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoJugador;
 
 import org.json.JSONException;
@@ -37,40 +38,22 @@ public class MasterEscogerLider extends AppCompatActivity {
             setMaster();
         }
 
-        Context conte = this;
-
         actualizar(this);
 
     }
 
     private void actualizar(Context conte){
-//        runOnUiThread(() -> {
-            initJugadores(conte);
-//            try {
-//                Thread.sleep(10000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//        });
+        initJugadores(conte);
     }
 
 
     private void setMaster() {
-        ConnTask connTask2 = new ConnTask("put/set_master-on");
-        connTask2.execute();
-        try{
-            String kk2 = connTask2.get().toString().trim();
-            Log.e("fonko?", kk2);
-        }catch (Exception e2){
-            e2.printStackTrace();
-        }
+        Log.e("fonko?", Utils.getData("put/set_master-on"));
     }
 
     private void initJugadores(Context conte) {
-        ConnTask connTask2 = new ConnTask("get/conectados");
-        connTask2.execute();
         try {
-            String kk2 = connTask2.get().toString().trim();
+            String kk2 = Utils.getData("get/conectados");
             Log.e("fonko?", kk2);
             JSONObject con = new JSONObject(kk2);
             int b = 0;
@@ -142,15 +125,7 @@ public class MasterEscogerLider extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), PaginaControlMaster.class));
                 // Aceptar Lider
                 Integer lider = Data.getLider_id();
-                ConnTask connTask = new ConnTask("put/set_lider-on?id="+lider);
-                connTask.execute();
-                try{
-                    String kk = connTask.get().toString().trim();
-                    Toast.makeText(this, kk, Toast.LENGTH_SHORT).show();
-                    Log.e("fonko?", kk);
-                }catch (Exception e2){
-                    e2.printStackTrace();
-                }
+                Toast.makeText(this, Utils.getData("put/set_lider-on?id="+lider), Toast.LENGTH_SHORT).show();
                 finish();
             });
             rightButton.setOnClickListener(view2 -> alertEraseAlert.cancel());

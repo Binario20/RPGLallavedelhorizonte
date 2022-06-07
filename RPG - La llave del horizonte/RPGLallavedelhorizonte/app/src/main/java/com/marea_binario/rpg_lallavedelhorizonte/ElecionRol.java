@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 
 public class ElecionRol extends AppCompatActivity {
 
@@ -25,14 +26,7 @@ public class ElecionRol extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        ConnTask connTask = new ConnTask("put/set_master-off");
-            connTask.execute();
-            try{
-                String kk = connTask.get().toString().trim();
-                Log.e("fonko?", kk);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        Utils.getData("put/set_master-off");
     }
 
     private void initComponents() {
@@ -42,11 +36,9 @@ public class ElecionRol extends AppCompatActivity {
 
         master_but.setOnClickListener(view -> {
             Data.setRol(Data.MASTER);
-            ConnTask connTask = new ConnTask("get/hay_master");
-            connTask.execute();
 
             try {
-                String kk = connTask.get().toString().trim();
+                String kk = Utils.getData("get/hay_master");
                 if (kk.contains("false") || kk.contains("false*")) {
                     Intent intent = new Intent(getApplicationContext(), MasterEscogerLider.class);
                     intent.putExtra("set-master", kk.contains("false*"));

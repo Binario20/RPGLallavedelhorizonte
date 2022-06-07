@@ -22,11 +22,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.util.Util;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Item;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Iterator;
@@ -61,11 +63,8 @@ public class PaginaPrincipal extends AppCompatActivity {
     private void initData() {
         String j = String.valueOf(this.id_perso);
         //j = "1";
-        ConnTask connTask = new ConnTask("get/personaje?id=" + j);
-        connTask.execute();
         try {
-            String kk = connTask.get().toString().trim();
-            //Toast.makeText(this, kk, Toast.LENGTH_SHORT).show();
+            String kk = Utils.getData("get/personaje?id=" + j);
             Log.e("jj", kk);
             JSONObject perso = new JSONObject(kk).getJSONObject("0");
             Toast.makeText(this, perso.toString(), Toast.LENGTH_SHORT).show();
@@ -85,31 +84,20 @@ public class PaginaPrincipal extends AppCompatActivity {
             Toast.makeText(this, String.valueOf(e.getMessage()), Toast.LENGTH_SHORT).show();
         }
 
-        lengJson = Utils.getLenguasAntiguas();
+        try {
+            lengJson = new JSONObject(Utils.getData("get/lenguas_antiguas"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         loadDataPlayer();
 
     }
 
     private void initListeners() {
-        ConnTask connTask = new ConnTask("get/soy_lider");
-        connTask.execute();
-        String isLider = "";
-        try {
-            isLider = connTask.get().toString().trim();
-            Log.e("isLider", isLider);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String isLider = Utils.getData("get/soy_lider");
         while (isLider.equals("")) {
-            ConnTask connTask2 = new ConnTask("get/soy_lider");
-            connTask2.execute();
-            try {
-                isLider = connTask2.get().toString().trim();
-                Log.e("isLider", isLider);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            isLider = Utils.getData("get/soy_lider");
         }
         if (isLider.equals("true")) {
             modDinerosP.setVisibility(View.VISIBLE);
@@ -130,7 +118,11 @@ public class PaginaPrincipal extends AppCompatActivity {
 
     private void loadDataPlayer() {
         Utils.getDineros(dineros);
-        listaDeposito = Utils.getDepositoObjetos();
+        try {
+            listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         if (segunda_lengua_id == -1 && Integer.parseInt(intel_txt) >= 4) {
             creatSegundaLenguaAlert();
         }
@@ -273,20 +265,13 @@ public class PaginaPrincipal extends AppCompatActivity {
             segunda_lengua_id = rg.getCheckedRadioButtonId();
             Log.e("RB checked", String.valueOf(segunda_lengua_id));
             if (segunda_lengua_id != -1) {
-                ConnTask connTask = new ConnTask("post/segunda_lengua?id="+ segunda_lengua_id);
-                connTask.execute();
-                try {
-                    String kk = connTask.get().toString().trim();
-                    Log.e("fonko?", kk);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Log.e("fonko?", Utils.getData("post/segunda_lengua?id="+ segunda_lengua_id));
                 alertEraseAlert.cancel();
             }
         });
     }
 
-    private void creatPersonajeDisplayAlert() {
+    private void crearPersonajeDisplayAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(PaginaPrincipal.this);
         builder.setCancelable(true);
         View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
