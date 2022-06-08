@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         Integer imagen_id_2 = Integer.valueOf(region.getString("imagen_id_2"));
                         regionesList.add(new Regiones(tipo, nombre, descripcion, nombre_region, id, id_region, imagen_id, imagen_id_2));
 
-                    }catch (JSONException e){
+                    }catch (Exception e){
                         e.printStackTrace();
                         break;
                     }

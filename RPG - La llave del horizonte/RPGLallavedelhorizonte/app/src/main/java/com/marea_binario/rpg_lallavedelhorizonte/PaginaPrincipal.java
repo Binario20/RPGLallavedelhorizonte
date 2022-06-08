@@ -250,14 +250,13 @@ public class PaginaPrincipal extends AppCompatActivity {
         while (iter.hasNext()) {
             try {
                 JSONObject object = lengJson.getJSONObject(iter.next());
-                Log.e("Lengua List", String.valueOf(object));
+                //Log.e("Lengua List", String.valueOf(object));
                 String nombre = object.getString("nombre");
                 int id = Integer.parseInt(object.getString("id"));
                 Log.d("Id. Lengua", id+". "+nombre);
                 lenguas[id] = nombre;
 
                 if (id != 3) {
-                    //SegundaLenguaItem rb = new SegundaLenguaItem(this, nombre);
                     SuperRadioButton rb = new SuperRadioButton(this);
                     rb.setId(id);
                     rb.setEncodedText(nombre);
@@ -348,9 +347,22 @@ public class PaginaPrincipal extends AppCompatActivity {
             } else {
                 fisico.setEncodedText(perso.getString("personalidad"));
             }
-            //JSONObject habil = personaje_info.getJSONObject("Habilidades").getJSONObject("0");
-            habilidadesI.setVisibility(View.GONE);
-            habilidades.setVisibility(View.GONE);
+            JSONObject habil = personaje_info.getJSONObject("Habilidades");
+            if (habil.length() == 0) {
+                habilidadesI.setVisibility(View.GONE);
+                habilidades.setVisibility(View.GONE);
+            } else {
+                Iterator<String> iter = habil.keys();
+                String habil_str = "";
+                while (iter.hasNext()) {
+                    JSONObject object = habil.getJSONObject(iter.next());
+                    habil_str += "- ";
+                    habil_str += object.getString("habilidad");
+                    habil_str += "\n  ";
+                    habil_str += object.getString("descripcion");
+                    habil_str += "\n";
+                }
+            }
 
             vitalidad.setEncodedText(perso_est_actu.getString("vitalidad"));
             resistencia.setEncodedText(perso_est_actu.getString("resistencia"));
