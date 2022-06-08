@@ -18,11 +18,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.bumptech.glide.util.Util;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
@@ -38,12 +36,14 @@ public class PaginaPrincipal extends AppCompatActivity {
     private ImageView imgJugador, fondo, dinerosImg;
     private SuperText fuerza, velocidad, destreza, magia, vitalidad, resistencia, inteligencia, punteria, nombre, dineros;
     private Button reloadPlayer, modDinerosP, depositoObjetosBut;
-    private String intel_txt;
+    private String est_inteligencia;
     private final Item[] items = new Item[4];
     private int id_perso = -1;
+    private JSONObject personaje_info;
+    private JSONObject perso_est_actu;
     private JSONObject listaDeposito;
-    private JSONObject lengJson;
     private int segunda_lengua_id = -1;
+    private String segunda_lengua;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,33 +61,19 @@ public class PaginaPrincipal extends AppCompatActivity {
     }
 
     private void initData() {
-        String j = String.valueOf(this.id_perso);
-        //j = "1";
         try {
-            String kk = Utils.getData("get/personaje?id=" + j);
-            Log.e("jj", kk);
-            JSONObject perso = new JSONObject(kk).getJSONObject("0");
-            Toast.makeText(this, perso.toString(), Toast.LENGTH_SHORT).show();
-            intel_txt = perso.getString("inteligencia");
-            fuerza.setEncodedText(perso.getString("fuerza"));
-            inteligencia.setEncodedText(intel_txt);
-            vitalidad.setEncodedText(perso.getString("vitalidad"));
-            resistencia.setEncodedText(perso.getString("resistencia"));
-            velocidad.setEncodedText(perso.getString("velocidad"));
-            punteria.setEncodedText(perso.getString("punteria"));
-            magia.setEncodedText(perso.getString("magia"));
-            destreza.setEncodedText(perso.getString("destreza"));
+            personaje_info = new JSONObject(Utils.getData("get/personaje?id="+id_perso));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            Log.e("fonko??", String.valueOf(personaje_info));
+            JSONObject perso = personaje_info.getJSONObject("Personaje").getJSONObject("0");
             nombre.setEncodedText(perso.getString("nombre"));
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, String.valueOf(e.getMessage()), Toast.LENGTH_SHORT).show();
-        }
-
-        try {
-            lengJson = new JSONObject(Utils.getData("get/lenguas_antiguas"));
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
 
         loadDataPlayer();
@@ -114,16 +100,28 @@ public class PaginaPrincipal extends AppCompatActivity {
         dinerosImg.setOnClickListener(view -> Utils.getDineros(dineros));
 
         depositoObjetosBut.setOnClickListener(view -> creatDepositoDisplayAlert());
+
+        imgJugador.setOnClickListener(view -> crearPersonajeDisplayAlert());
     }
 
     private void loadDataPlayer() {
         Utils.getDineros(dineros);
         try {
             listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
+            perso_est_actu = new JSONObject(Utils.getData("get/personaje/estadisticas?id="+id_perso)).getJSONObject("0");
+            est_inteligencia = perso_est_actu.getString("inteligencia");
+            fuerza.setEncodedText(perso_est_actu.getString("fuerza"));
+            inteligencia.setEncodedText(est_inteligencia);
+            vitalidad.setEncodedText(perso_est_actu.getString("vitalidad"));
+            resistencia.setEncodedText(perso_est_actu.getString("resistencia"));
+            velocidad.setEncodedText(perso_est_actu.getString("velocidad"));
+            punteria.setEncodedText(perso_est_actu.getString("punteria"));
+            magia.setEncodedText(perso_est_actu.getString("magia"));
+            destreza.setEncodedText(perso_est_actu.getString("destreza"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (segunda_lengua_id == -1 && Integer.parseInt(intel_txt) >= 4) {
+        if (segunda_lengua_id == -1 && Integer.parseInt(est_inteligencia) >= 4) {
             creatSegundaLenguaAlert();
         }
     }
@@ -238,9 +236,17 @@ public class PaginaPrincipal extends AppCompatActivity {
         alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertEraseAlert.show();
 
+        JSONObject lengJson = new JSONObject();
+        try {
+            lengJson = new JSONObject(Utils.getData("get/lenguas_antiguas"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Iterator<String> iter = lengJson.keys();
         RadioGroup rg = popupView.findViewById(R.id.lenguaRadioGroup);
         rg.setOrientation(RadioGroup.VERTICAL);
+        String[] lenguas = new String[lengJson.length()];
         while (iter.hasNext()) {
             try {
                 JSONObject object = lengJson.getJSONObject(iter.next());
@@ -248,6 +254,8 @@ public class PaginaPrincipal extends AppCompatActivity {
                 String nombre = object.getString("nombre");
                 int id = Integer.parseInt(object.getString("id"));
                 Log.d("Id. Lengua", id+". "+nombre);
+                lenguas[id] = nombre;
+
                 if (id != 3) {
                     //SegundaLenguaItem rb = new SegundaLenguaItem(this, nombre);
                     SuperRadioButton rb = new SuperRadioButton(this);
@@ -263,9 +271,10 @@ public class PaginaPrincipal extends AppCompatActivity {
         Button accept = popupView.findViewById(R.id.acceptLeng);
         accept.setOnClickListener(view -> {
             segunda_lengua_id = rg.getCheckedRadioButtonId();
-            Log.e("RB checked", String.valueOf(segunda_lengua_id));
+            //Log.e("RB checked", String.valueOf(segunda_lengua_id));
             if (segunda_lengua_id != -1) {
                 Log.e("fonko?", Utils.getData("post/segunda_lengua?id="+ segunda_lengua_id));
+                segunda_lengua = lenguas[segunda_lengua_id];
                 alertEraseAlert.cancel();
             }
         });
@@ -274,13 +283,86 @@ public class PaginaPrincipal extends AppCompatActivity {
     private void crearPersonajeDisplayAlert() {
         AlertDialog.Builder builder = new AlertDialog.Builder(PaginaPrincipal.this);
         builder.setCancelable(true);
-        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
+        View popupView = getLayoutInflater().inflate(R.layout.info_personaje_display, null);
 
         builder.setView(popupView);
 
         AlertDialog alertEraseAlert = builder.create();
         alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertEraseAlert.show();
-        
+
+        SuperText nombre, especie, procedencia, clase, lengua1, lengua2;
+        SuperText sexo, edad, altura, peso, fisico, personalidad, habilidades;
+        SuperText fisicoI, personalidadI, habilidadesI;
+        SuperText vitalidad, resistencia, fuerza, velocidad, inteligencia, punteria, magia, destreza;
+
+        nombre = popupView.findViewById(R.id.nomPerso);
+        especie = popupView.findViewById(R.id.especiePerso);
+        procedencia = popupView.findViewById(R.id.procedenciaPerso);
+        clase = popupView.findViewById(R.id.clasePerso);
+        lengua1 = popupView.findViewById(R.id.lengua1Perso);
+        lengua2 = popupView.findViewById(R.id.lengua2Perso);
+
+        sexo = popupView.findViewById(R.id.sexoPerso);
+        edad = popupView.findViewById(R.id.edadPerso);
+        altura = popupView.findViewById(R.id.alturaPerso);
+        peso = popupView.findViewById(R.id.pesoPerso);
+        fisicoI = popupView.findViewById(R.id.fisicoPersoI);
+        fisico = popupView.findViewById(R.id.fisicoPerso);
+        personalidadI = popupView.findViewById(R.id.personalidadPersoI);
+        personalidad = popupView.findViewById(R.id.personalidadPerso);
+        habilidadesI = popupView.findViewById(R.id.habilidadesPersoI);
+        habilidades = popupView.findViewById(R.id.habilidadesPerso);
+
+        vitalidad = popupView.findViewById(R.id.vitalidad);
+        resistencia = popupView.findViewById(R.id.resistencia);
+        fuerza = popupView.findViewById(R.id.fuerza);
+        velocidad = popupView.findViewById(R.id.velocidad);
+        inteligencia = popupView.findViewById(R.id.inteligencia);
+        punteria = popupView.findViewById(R.id.punteria);
+        magia = popupView.findViewById(R.id.magia);
+        destreza = popupView.findViewById(R.id.destreza);
+
+        try {
+            JSONObject perso = personaje_info.getJSONObject("Personaje").getJSONObject("0");
+            nombre.setEncodedText(perso.getString("nombre"));
+            especie.setEncodedText(perso.getString("especie"));
+            procedencia.setEncodedText(perso.getString("procedencia"));
+            clase.setEncodedText(perso.getString("clase"));
+            lengua1.setEncodedText(perso.getString("lengua"));
+            lengua2.setEncodedText(segunda_lengua);
+
+            sexo.setEncodedText(perso.getString("sexo"));
+            edad.setEncodedText(perso.getString("edad"));
+            altura.setEncodedText(perso.getString("altura_m"));
+            peso.setEncodedText(perso.getString("peso_kg"));
+            if (perso.getString("fisico").equals("NULL")) {
+                fisicoI.setVisibility(View.GONE);
+                fisico.setVisibility(View.GONE);
+            } else {
+                fisico.setEncodedText(perso.getString("fisico"));
+            }
+            if (perso.getString("personalidad").equals("NULL")) {
+                personalidadI.setVisibility(View.GONE);
+                personalidad.setVisibility(View.GONE);
+            } else {
+                fisico.setEncodedText(perso.getString("personalidad"));
+            }
+            //JSONObject habil = personaje_info.getJSONObject("Habilidades").getJSONObject("0");
+            habilidadesI.setVisibility(View.GONE);
+            habilidades.setVisibility(View.GONE);
+
+            vitalidad.setEncodedText(perso_est_actu.getString("vitalidad"));
+            resistencia.setEncodedText(perso_est_actu.getString("resistencia"));
+            fuerza.setEncodedText(perso_est_actu.getString("fuerza"));
+            velocidad.setEncodedText(perso_est_actu.getString("velocidad"));
+            inteligencia.setEncodedText(perso_est_actu.getString("inteligencia"));
+            punteria.setEncodedText(perso_est_actu.getString("punteria"));
+            magia.setEncodedText(perso_est_actu.getString("magia"));
+            destreza.setEncodedText(perso_est_actu.getString("destreza"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
