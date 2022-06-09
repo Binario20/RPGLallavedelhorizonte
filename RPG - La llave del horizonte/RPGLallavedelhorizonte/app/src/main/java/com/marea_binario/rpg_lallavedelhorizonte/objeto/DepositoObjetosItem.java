@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 
@@ -44,5 +45,11 @@ public class DepositoObjetosItem extends LinearLayout {
         num_txt.setEncodedText(cantidad);
 
         //Set Img
+        int img = Data.getImg(image_id);
+        if (img != 0) {
+            obj_img.setImageResource(img);
+        } else {
+            obj_img.setImageResource(Data.getRandomWallPaper());
+        }
     }
 }

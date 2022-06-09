@@ -23,7 +23,7 @@ public class Data {
     private static String rol = Data.JUGADOR;
     private static ArrayList<Regiones> regiones;
     private static ArrayList<Objeto> objetos;
-    public static int imgArray[] = {
+    public static int[] imgArray = {
             R.drawable.g1,
             R.drawable.g2,
             R.drawable.g3,
@@ -31,7 +31,7 @@ public class Data {
             R.drawable.g5,
             R.drawable.g6};
 
-    public static int imgObjetosArray[] = new int[122];
+    public static int[] imgObjetosArray = new int[122];
 
     private static LinearLayout lider_layout, master_layout;
 
@@ -213,6 +213,8 @@ public class Data {
         imgObjetosArray[120] = 0;
         imgObjetosArray[121] = 0;
     }
+
+    public static int getImg(int img_id) { return imgObjetosArray[img_id]; }
 
     public static void setRegiones(ArrayList<Regiones> regiones) {
         Data.regiones = regiones;
