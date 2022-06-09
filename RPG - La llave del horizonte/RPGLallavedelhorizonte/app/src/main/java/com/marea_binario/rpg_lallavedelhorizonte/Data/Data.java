@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaBlanca;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaNegra;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 
@@ -27,6 +28,7 @@ public class Data {
     private static ArrayList<Objeto> objetos;
     private static ArrayList<ArmaNegra> armasNegras;
     private static ArrayList<ArmaBlanca> armasBlancas;
+    private static ArrayList<Bestia> bestiario;
     public static int[] imgArray = {
             R.drawable.g1,
             R.drawable.g2,
@@ -234,5 +236,9 @@ public class Data {
 
     public static void setArmasNegras(ArrayList<ArmaNegra> armasNegras) {
         Data.armasNegras = armasNegras;
+    }
+
+    public static void setBestiario(ArrayList<Bestia> bestiario) {
+        Data.bestiario = bestiario;
     }
 }

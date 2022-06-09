@@ -11,6 +11,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaBlanca;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaNegra;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Servicio;
@@ -134,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
                         String descripcion = arma.getString("descripcion");
                         Integer objeto_principal = Integer.valueOf(arma.getString("objeto_principal"));
                         Integer objeto_secundario = Integer.valueOf(arma.getString("objeto_secundario"));
-                        negrasList.add(new ArmaNegra(nombre, subtipo,campo1, campo2, ataque, daño, rango, descripcion, id_arma,requisito1, requisito2, normal, imagen_id, objeto_principal, objeto_secundario));
+                        negrasList.add(new ArmaNegra(nombre, subtipo,campo1, campo2, ataque, daño, rango, descripcion,
+                                id_arma,requisito1, requisito2, normal, imagen_id, objeto_principal, objeto_secundario));
 
                     }catch (JSONException e){
                         break;
@@ -162,7 +164,9 @@ public class MainActivity extends AppCompatActivity {
                         String descripcion = arma.getString("descripcion");
                         Integer objeto_principal = Integer.valueOf(arma.getString("objeto_principal"));
                         Integer objeto_secundario = Integer.valueOf(arma.getString("objeto_secundario"));
-                        blancasList.add(new ArmaBlanca(nombre, subtipo, campo, ataque, operacion, suma1_campo, suma2_campo, suma1, suma2, rango, descripcion, id_arma, requisito, requisito_campo, normal, imagen_id, objeto_principal, objeto_secundario));
+                        blancasList.add(new ArmaBlanca(nombre, subtipo, campo, ataque, operacion, suma1_campo, suma2_campo,
+                                suma1, suma2, rango, descripcion, id_arma, requisito, requisito_campo, normal, imagen_id,
+                                objeto_principal, objeto_secundario));
 
                     }catch (JSONException e){
                         break;
@@ -171,6 +175,40 @@ public class MainActivity extends AppCompatActivity {
 
                 Data.setArmasNegras(negrasList);
                 Data.setArmasBlancas(blancasList);
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+
+            try {
+                JSONObject bestiario = new JSONObject(Utils.getData("get/bestiario"));
+                ArrayList<Bestia> bestiasList = new ArrayList<>();
+                int i = 0;
+                while(true){
+                    try {
+                        JSONObject bestia = bestiario.getJSONObject(String.valueOf(i));
+                        int id = bestia.getInt("id");
+                        String nombre = bestia.getString("nombre");
+                        String tipo = bestia.getString("tipo");
+                        String clasificacion = bestia.getString("clasificacion");
+                        boolean montura = bestia.getInt("montura") == 1;
+                        String tamaño = bestia.getString("tamaño");
+                        int daño = bestia.getInt("daño");
+                        int vida = bestia.getInt("vida");
+                        int velocidad = bestia.getInt("velocidad");
+                        int imagen_id = bestia.getInt("imagen_id");
+                        String descripcion = bestia.getString("descripcion");
+                        String clasificacion_add = bestia.getString("clasificacion_add");
+                        int experiencia_derrota = bestia.getInt("experiencia_derrota");
+                        String resistente = bestia.getString("resistente");
+                        String vulnerable = bestia.getString("vulnerable");
+                        String extras = bestia.getString("extras");
+                        bestiasList.add(new Bestia(id, imagen_id, daño, vida, velocidad, experiencia_derrota, nombre,
+                                descripcion, tipo, clasificacion, tamaño, clasificacion_add, resistente, vulnerable, extras, montura));
+                    }catch (JSONException e){
+                        break;
+                    }
+                }
+                Data.setBestiario(bestiasList);
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
