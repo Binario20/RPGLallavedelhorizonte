@@ -43,7 +43,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/newPerNombreTxt" />
+                    android:text="@string/newPerNombreTxt"
+                    android:textStyle="italic" />
 
                 <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                     android:id="@+id/nomPerso"
@@ -63,7 +64,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/newPerEspecieTxt" />
+                    android:text="@string/newPerEspecieTxt"
+                    android:textStyle="italic" />
 
                 <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                     android:id="@+id/especiePerso"
@@ -83,7 +85,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/newPerProcedenciaTxt" />
+                    android:text="@string/newPerProcedenciaTxt"
+                    android:textStyle="italic" />
 
                 <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                     android:id="@+id/procedenciaPerso"
@@ -103,7 +106,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/newPerClaseTxt" />
+                    android:text="@string/newPerClaseTxt"
+                    android:textStyle="italic" />
 
                 <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                     android:id="@+id/clasePerso"
@@ -123,7 +127,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Lengua primaria:" />
+                    android:text="Lengua primaria:"
+                    android:textStyle="italic" />
 
                 <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                     android:id="@+id/lengua1Perso"
@@ -143,7 +148,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Lengua secundaria:" />
+                    android:text="Lengua secundaria:"
+                    android:textStyle="italic" />
 
                 <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                     android:id="@+id/lengua2Perso"
@@ -172,7 +178,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/newPerSexoTxt" />
+                    android:text="@string/newPerSexoTxt"
+                    android:textStyle="italic" />
 
                 <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                     android:id="@+id/sexoPerso"
@@ -192,7 +199,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/newPerEdadTxt" />
+                    android:text="@string/newPerEdadTxt"
+                    android:textStyle="italic" />
 
                 <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                     android:id="@+id/edadPerso"
@@ -212,7 +220,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/newPerAlturaTxt" />
+                    android:text="@string/newPerAlturaTxt"
+                    android:textStyle="italic" />
 
                 <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                     android:id="@+id/alturaPerso"
@@ -232,7 +241,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/newPerPesoTxt" />
+                    android:text="@string/newPerPesoTxt"
+                    android:textStyle="italic" />
 
                 <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                     android:id="@+id/pesoPerso"
@@ -246,7 +256,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Descripción física:" />
+                android:text="Descripción física:"
+                android:textStyle="italic" />
 
             <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                 android:id="@+id/fisicoPerso"
@@ -259,7 +270,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Personalidad:" />
+                android:text="Personalidad:"
+                android:textStyle="italic" />
 
             <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                 android:id="@+id/personalidadPerso"
@@ -272,7 +284,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Habilidades especiales:" />
+                android:text="Habilidades especiales:"
+                android:textStyle="italic" />
 
             <com.marea_binario.rpg_lallavedelhorizonte.SuperText
                 android:id="@+id/habilidadesPerso"

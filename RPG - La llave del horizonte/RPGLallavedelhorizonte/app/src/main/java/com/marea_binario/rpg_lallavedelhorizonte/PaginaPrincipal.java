@@ -43,7 +43,7 @@ public class PaginaPrincipal extends AppCompatActivity {
     private JSONObject perso_est_actu;
     private JSONObject listaDeposito;
     private int segunda_lengua_id = -1;
-    private String segunda_lengua;
+    private String segunda_lengua = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -328,7 +328,12 @@ public class PaginaPrincipal extends AppCompatActivity {
             especie.setEncodedText(perso.getString("especie"));
             procedencia.setEncodedText(perso.getString("procedencia"));
             clase.setEncodedText(perso.getString("clase"));
-            lengua1.setEncodedText(perso.getString("lengua"));
+            String lengua = perso.getString("lengua");
+            if (lengua.equals("NULL")) {
+                lengua1.setEncodedText("");
+            } else {
+                lengua1.setEncodedText(lengua);
+            }
             lengua2.setEncodedText(segunda_lengua);
 
             sexo.setEncodedText(perso.getString("sexo"));
@@ -353,15 +358,16 @@ public class PaginaPrincipal extends AppCompatActivity {
                 habilidades.setVisibility(View.GONE);
             } else {
                 Iterator<String> iter = habil.keys();
-                String habil_str = "";
+                StringBuilder habil_str = new StringBuilder();
                 while (iter.hasNext()) {
                     JSONObject object = habil.getJSONObject(iter.next());
-                    habil_str += "- ";
-                    habil_str += object.getString("habilidad");
-                    habil_str += "\n  ";
-                    habil_str += object.getString("descripcion");
-                    habil_str += "\n";
+                    habil_str.append("- ");
+                    habil_str.append(object.getString("habilidad"));
+                    habil_str.append(":\n   ");
+                    habil_str.append(object.getString("descripcion"));
+                    habil_str.append("\n");
                 }
+                habilidades.setEncodedText(String.valueOf(habil_str));
             }
 
             vitalidad.setEncodedText(perso_est_actu.getString("vitalidad"));

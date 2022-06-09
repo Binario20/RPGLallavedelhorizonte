@@ -66,6 +66,7 @@
         <entry key="app/src/main/res/layout/display_personaje.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/gestion_dineros_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/gestiona_dineros_item.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/layout/info_personaje_display.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item.xml" value="0.2786458333333333" />
         <entry key="app/src/main/res/layout/item_list_display.xml" value="0.2786458333333333" />
         <entry key="app/src/main/res/layout/item_list_item.xml" value="0.35625" />
