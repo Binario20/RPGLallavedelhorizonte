@@ -19,6 +19,7 @@ public class Personajes {
     private String sexo;
     private String clase;
     private int id_clase;
+    private int id_lengua1, id_lengua2;
     private int vitalidad;
     private int resistencia;
     private int fuerza;
@@ -27,12 +28,13 @@ public class Personajes {
     private int punteria;
     private int magia;
     private int destreza;
-    private String personalidad = "";
-    private String fisico = "";
-    private String lengua1, lengua2;
+    private String personalidad;
+    private String fisico;
+    private String habilidades = null;
+    private String lengua1, lengua2 = null;
 
     public Personajes(@NonNull String nombre, int id_procedencia, int id_especie, int edad,
-                      float altura, float peso, @NonNull String sexo, int id_clase,
+                      float altura, float peso, @NonNull String sexo, int id_clase, Integer id_lengua,
                       int vitalidad, int resistencia, int fuerza, int velocidad, int inteligencia,
                       int punteria, int magia, String personalidad, String fisico) throws Exception {
         if(nombre.trim().equals("")){
@@ -59,6 +61,7 @@ public class Personajes {
         }
         this.sexo = sexo;
         this.id_clase = id_clase;
+        this.id_lengua1 = id_lengua;
         if (vitalidad < 1 || vitalidad > 10) {
             new Exception();
         } else {
@@ -114,6 +117,7 @@ public class Personajes {
             personaje.put("peso", String.valueOf(peso));
             personaje.put("sexo", sexo);
             personaje.put("id_clase", id_clase);
+            personaje.put("id_lengua", id_lengua1);
             personaje.put("vitalidad", vitalidad);
             personaje.put("resistencia", resistencia);
             personaje.put("fuerza", fuerza);
@@ -162,13 +166,17 @@ public class Personajes {
 
     public String getSexo() { return sexo; }
 
-    public int getIdClase() {
-        return id_clase;
-    }
+    public int getIdClase() { return id_clase; }
 
     public void setClase(String clase) { this.clase = clase; }
 
     public String getClase() { return clase; }
+
+    public int getIdLengua1() { return id_lengua1; }
+
+    public void setLengua1(String lengua1) { this.lengua1 = lengua1; }
+
+    public String getLengua1() { return lengua1; }
 
     public int getVitalidad() {
         return vitalidad;
@@ -250,9 +258,18 @@ public class Personajes {
         this.fisico = fisico;
     }
 
-    public JSONObject getEstadisticas() {
-        return null;
+    public String getHabilidades() { return habilidades; }
+
+    public void setHabilidades(String habilidades) { this.habilidades = habilidades; }
+
+    public void setLengua2(int id_lengua2, String lengua2) {
+        this.id_lengua2 = id_lengua2;
+        this.lengua2 = lengua2;
     }
+
+    public int getIdLengua2() { return id_lengua2; }
+
+    public String getLengua2() { return lengua2; }
 
     public void setEstadisticas(int vitalidad, int resistencia, int fuerza, int velocidad,
                                 int inteligencia, int punteria, int magia) {

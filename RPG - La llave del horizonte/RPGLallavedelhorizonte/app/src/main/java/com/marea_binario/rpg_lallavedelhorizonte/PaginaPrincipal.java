@@ -19,12 +19,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Item;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Personajes;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,14 +36,12 @@ public class PaginaPrincipal extends AppCompatActivity {
     private ImageView imgJugador, fondo, dinerosImg;
     private SuperText fuerza, velocidad, destreza, magia, vitalidad, resistencia, inteligencia, punteria, nombre, dineros;
     private Button reloadPlayer, modDinerosP, depositoObjetosBut;
-    private String est_inteligencia;
     private final Item[] items = new Item[4];
     private int id_perso = -1;
-    private JSONObject personaje_info;
-    private JSONObject perso_est_actu;
+    private Personajes personaje;
+    private JSONObject objetos_iniciales;
     private JSONObject listaDeposito;
-    private int segunda_lengua_id = -1;
-    private String segunda_lengua = "";
+    private boolean segunda_lengua = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,20 +60,54 @@ public class PaginaPrincipal extends AppCompatActivity {
 
     private void initData() {
         try {
-            personaje_info = new JSONObject(Utils.getData("get/personaje?id="+id_perso));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
+            JSONObject personaje_info = new JSONObject(Utils.getData("get/personaje?id="+id_perso));
             Log.e("fonko??", String.valueOf(personaje_info));
             JSONObject perso = personaje_info.getJSONObject("Personaje").getJSONObject("0");
-            nombre.setEncodedText(perso.getString("nombre"));
+            personaje = new Personajes(
+                    perso.getString("nombre"),
+                    Integer.parseInt(perso.getString("id_procedencia")),
+                    Integer.parseInt(perso.getString("id_especie")),
+                    Integer.parseInt(perso.getString("edad")),
+                    Float.parseFloat(perso.getString("altura_m")),
+                    Float.parseFloat(perso.getString("peso_kg")),
+                    perso.getString("sexo"),
+                    Integer.parseInt(perso.getString("id_clase")),
+                    Integer.parseInt(perso.getString("id_lengua")),
+                    Integer.parseInt(perso.getString("vitalidad")),
+                    Integer.parseInt(perso.getString("resistencia")),
+                    Integer.parseInt(perso.getString("fuerza")),
+                    Integer.parseInt(perso.getString("velocidad")),
+                    Integer.parseInt(perso.getString("inteligencia")),
+                    Integer.parseInt(perso.getString("punteria")),
+                    Integer.parseInt(perso.getString("magia")),
+                    perso.getString("personalidad"),
+                    perso.getString("fisico")
+            );
+            personaje.setProcedencia(perso.getString("procedencia"));
+            personaje.setEspecie(perso.getString("especie"));
+            personaje.setClase(perso.getString("clase"));
+            personaje.setLengua1(perso.getString("lengua"));
+
+            JSONObject habil = personaje_info.getJSONObject("Habilidades");
+            if (habil.length() != 0) {
+                Iterator<String> iter = habil.keys();
+                StringBuilder habil_str = new StringBuilder();
+                while (iter.hasNext()) {
+                    JSONObject object = habil.getJSONObject(iter.next());
+                    habil_str.append("- ");
+                    habil_str.append(object.getString("habilidad"));
+                    habil_str.append(":\n   ");
+                    habil_str.append(object.getString("descripcion"));
+                    habil_str.append("\n");
+                }
+                personaje.setHabilidades(String.valueOf(habil_str));
+            }
+
+            objetos_iniciales = personaje_info.getJSONObject("Inicio");
         } catch (Exception e) {
             e.printStackTrace();
-            //Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
-            Toast.makeText(this, String.valueOf(e.getMessage()), Toast.LENGTH_SHORT).show();
         }
-
+        nombre.setEncodedText(personaje.getNombre());
         loadDataPlayer();
 
     }
@@ -87,20 +119,14 @@ public class PaginaPrincipal extends AppCompatActivity {
         }
         if (isLider.equals("true")) {
             modDinerosP.setVisibility(View.VISIBLE);
-
-            modDinerosP.setOnClickListener(view -> {
-                creatGestionaDinerosAlert();
-            });
+            modDinerosP.setOnClickListener(view -> creatGestionaDinerosAlert());
         } else if (isLider.equals("false")) {
             modDinerosP.setVisibility(View.GONE);
         }
 
         reloadPlayer.setOnClickListener(view -> loadDataPlayer());
-
         dinerosImg.setOnClickListener(view -> Utils.getDineros(dineros));
-
         depositoObjetosBut.setOnClickListener(view -> creatDepositoDisplayAlert());
-
         imgJugador.setOnClickListener(view -> crearPersonajeDisplayAlert());
     }
 
@@ -108,20 +134,28 @@ public class PaginaPrincipal extends AppCompatActivity {
         Utils.getDineros(dineros);
         try {
             listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
-            perso_est_actu = new JSONObject(Utils.getData("get/personaje/estadisticas?id="+id_perso)).getJSONObject("0");
-            est_inteligencia = perso_est_actu.getString("inteligencia");
-            fuerza.setEncodedText(perso_est_actu.getString("fuerza"));
-            inteligencia.setEncodedText(est_inteligencia);
-            vitalidad.setEncodedText(perso_est_actu.getString("vitalidad"));
-            resistencia.setEncodedText(perso_est_actu.getString("resistencia"));
-            velocidad.setEncodedText(perso_est_actu.getString("velocidad"));
-            punteria.setEncodedText(perso_est_actu.getString("punteria"));
-            magia.setEncodedText(perso_est_actu.getString("magia"));
-            destreza.setEncodedText(perso_est_actu.getString("destreza"));
+            JSONObject perso_est = new JSONObject(Utils.getData("get/personaje/estadisticas?id="+id_perso)).getJSONObject("0");
+            personaje.setEstadisticas(
+                    Integer.parseInt(perso_est.getString("vitalidad")),
+                    Integer.parseInt(perso_est.getString("resistencia")),
+                    Integer.parseInt(perso_est.getString("fuerza")),
+                    Integer.parseInt(perso_est.getString("velocidad")),
+                    Integer.parseInt(perso_est.getString("inteligencia")),
+                    Integer.parseInt(perso_est.getString("punteria")),
+                    Integer.parseInt(perso_est.getString("magia"))
+            );
+            vitalidad.setEncodedText(String.valueOf(personaje.getVitalidad()));
+            resistencia.setEncodedText(String.valueOf(personaje.getResistencia()));
+            fuerza.setEncodedText(String.valueOf(personaje.getFuerza()));
+            velocidad.setEncodedText(String.valueOf(personaje.getVelocidad()));
+            inteligencia.setEncodedText(String.valueOf(personaje.getInteligencia()));
+            punteria.setEncodedText(String.valueOf(personaje.getPunteria()));
+            magia.setEncodedText(String.valueOf(personaje.getMagia()));
+            destreza.setEncodedText(String.valueOf(personaje.getDestreza()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        if (segunda_lengua_id == -1 && Integer.parseInt(est_inteligencia) >= 4) {
+        if (!segunda_lengua && personaje.getInteligencia() >= 4) {
             creatSegundaLenguaAlert();
         }
     }
@@ -269,11 +303,12 @@ public class PaginaPrincipal extends AppCompatActivity {
 
         Button accept = popupView.findViewById(R.id.acceptLeng);
         accept.setOnClickListener(view -> {
-            segunda_lengua_id = rg.getCheckedRadioButtonId();
-            //Log.e("RB checked", String.valueOf(segunda_lengua_id));
-            if (segunda_lengua_id != -1) {
-                Log.e("fonko?", Utils.getData("post/segunda_lengua?id="+ segunda_lengua_id));
-                segunda_lengua = lenguas[segunda_lengua_id];
+            int id_lengua = rg.getCheckedRadioButtonId();
+            //Log.e("RB checked", String.valueOf(id_lengua));
+            if (id_lengua != -1) {
+                Log.e("fonko?", Utils.getData("post/segunda_lengua?id="+ id_lengua));
+                personaje.setLengua2(id_lengua, lenguas[id_lengua]);
+                segunda_lengua = true;
                 alertEraseAlert.cancel();
             }
         });
@@ -323,62 +358,48 @@ public class PaginaPrincipal extends AppCompatActivity {
         destreza = popupView.findViewById(R.id.destreza);
 
         try {
-            JSONObject perso = personaje_info.getJSONObject("Personaje").getJSONObject("0");
-            nombre.setEncodedText(perso.getString("nombre"));
-            especie.setEncodedText(perso.getString("especie"));
-            procedencia.setEncodedText(perso.getString("procedencia"));
-            clase.setEncodedText(perso.getString("clase"));
-            String lengua = perso.getString("lengua");
-            if (lengua.equals("NULL")) {
+            nombre.setEncodedText(personaje.getNombre());
+            especie.setEncodedText(personaje.getEspecie());
+            procedencia.setEncodedText(personaje.getProcedencia());
+            clase.setEncodedText(personaje.getClase());
+            if (personaje.getLengua1() == null) {
                 lengua1.setEncodedText("");
             } else {
-                lengua1.setEncodedText(lengua);
+                lengua1.setEncodedText(personaje.getLengua1());
             }
-            lengua2.setEncodedText(segunda_lengua);
+            lengua2.setEncodedText(personaje.getLengua2());
 
-            sexo.setEncodedText(perso.getString("sexo"));
-            edad.setEncodedText(perso.getString("edad"));
-            altura.setEncodedText(perso.getString("altura_m"));
-            peso.setEncodedText(perso.getString("peso_kg"));
-            if (perso.getString("fisico").equals("NULL")) {
+            sexo.setEncodedText(personaje.getSexo());
+            edad.setEncodedText(String.valueOf(personaje.getEdad()));
+            altura.setEncodedText(String.valueOf(personaje.getAltura()));
+            peso.setEncodedText(String.valueOf(personaje.getPeso()));
+            if (personaje.getFisico() == null) {
                 fisicoI.setVisibility(View.GONE);
                 fisico.setVisibility(View.GONE);
             } else {
-                fisico.setEncodedText(perso.getString("fisico"));
+                fisico.setEncodedText(personaje.getFisico());
             }
-            if (perso.getString("personalidad").equals("NULL")) {
+            if (personaje.getPersonalidad() == null) {
                 personalidadI.setVisibility(View.GONE);
                 personalidad.setVisibility(View.GONE);
             } else {
-                fisico.setEncodedText(perso.getString("personalidad"));
+                fisico.setEncodedText(personaje.getPersonalidad());
             }
-            JSONObject habil = personaje_info.getJSONObject("Habilidades");
-            if (habil.length() == 0) {
+            if (personaje.getHabilidades() == null) {
                 habilidadesI.setVisibility(View.GONE);
                 habilidades.setVisibility(View.GONE);
             } else {
-                Iterator<String> iter = habil.keys();
-                StringBuilder habil_str = new StringBuilder();
-                while (iter.hasNext()) {
-                    JSONObject object = habil.getJSONObject(iter.next());
-                    habil_str.append("- ");
-                    habil_str.append(object.getString("habilidad"));
-                    habil_str.append(":\n   ");
-                    habil_str.append(object.getString("descripcion"));
-                    habil_str.append("\n");
-                }
-                habilidades.setEncodedText(String.valueOf(habil_str));
+                habilidades.setEncodedText(personaje.getHabilidades());
             }
 
-            vitalidad.setEncodedText(perso_est_actu.getString("vitalidad"));
-            resistencia.setEncodedText(perso_est_actu.getString("resistencia"));
-            fuerza.setEncodedText(perso_est_actu.getString("fuerza"));
-            velocidad.setEncodedText(perso_est_actu.getString("velocidad"));
-            inteligencia.setEncodedText(perso_est_actu.getString("inteligencia"));
-            punteria.setEncodedText(perso_est_actu.getString("punteria"));
-            magia.setEncodedText(perso_est_actu.getString("magia"));
-            destreza.setEncodedText(perso_est_actu.getString("destreza"));
-
+            vitalidad.setEncodedText(String.valueOf(personaje.getVitalidad()));
+            resistencia.setEncodedText(String.valueOf(personaje.getResistencia()));
+            fuerza.setEncodedText(String.valueOf(personaje.getFuerza()));
+            velocidad.setEncodedText(String.valueOf(personaje.getVelocidad()));
+            inteligencia.setEncodedText(String.valueOf(personaje.getInteligencia()));
+            punteria.setEncodedText(String.valueOf(personaje.getPunteria()));
+            magia.setEncodedText(String.valueOf(personaje.getMagia()));
+            destreza.setEncodedText(String.valueOf(personaje.getDestreza()));
         } catch (Exception e) {
             e.printStackTrace();
         }
