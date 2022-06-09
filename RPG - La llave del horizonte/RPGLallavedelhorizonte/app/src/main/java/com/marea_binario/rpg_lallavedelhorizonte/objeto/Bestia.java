@@ -2,13 +2,13 @@ package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
 import android.os.Bundle;
 
-public class Bestias {
+public class Bestia {
 
     private int id, img_id, daño, vida, valocidad, experiencia;
     private String nobre, descripcion, tipo, clasificacion, tamaño, clasificacion_adicional, resitencia, vulnerabilidad, extras;
     private boolean montura;
 
-    public Bestias(int id, int img_id, int daño, int vida, int valocidad, int experiencia, String nobre, String descripcion,
+    public Bestia(int id, int img_id, int daño, int vida, int valocidad, int experiencia, String nobre, String descripcion,
                    String tipo, String clasificacion, String tamaño, String clasificacion_adicional, String resitencia,
                    String vulnerabilidad, String extras, boolean montura) {
         this.id = id;

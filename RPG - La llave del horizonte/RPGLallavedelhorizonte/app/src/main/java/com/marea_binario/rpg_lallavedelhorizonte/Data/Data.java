@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 import androidx.core.content.ContextCompat;
 
 import com.marea_binario.rpg_lallavedelhorizonte.R;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaBlanca;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaNegra;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 
@@ -23,6 +25,8 @@ public class Data {
     private static String rol = Data.JUGADOR;
     private static ArrayList<Regiones> regiones;
     private static ArrayList<Objeto> objetos;
+    private static ArrayList<ArmaNegra> armasNegras;
+    private static ArrayList<ArmaBlanca> armasBlancas;
     public static int[] imgArray = {
             R.drawable.g1,
             R.drawable.g2,
@@ -222,5 +226,13 @@ public class Data {
 
     public static void setObjetos(ArrayList<Objeto> objetos) {
         Data.objetos = objetos;
+    }
+
+    public static void setArmasBlancas(ArrayList<ArmaBlanca> armasBlancas) {
+        Data.armasBlancas = armasBlancas;
+    }
+
+    public static void setArmasNegras(ArrayList<ArmaNegra> armasNegras) {
+        Data.armasNegras = armasNegras;
     }
 }

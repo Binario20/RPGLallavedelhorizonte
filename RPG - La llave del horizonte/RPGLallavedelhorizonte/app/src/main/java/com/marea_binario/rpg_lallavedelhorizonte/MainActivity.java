@@ -4,12 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaBlanca;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaNegra;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Servicio;
@@ -17,11 +18,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.objeto.Servicio;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,17 +44,15 @@ public class MainActivity extends AppCompatActivity {
                 while(true){
                     try {
                         JSONObject objeto = objetos.getJSONObject(String.valueOf(i));
-                        int id = i;
                         String nombre = objeto.getString("nombre");
                         String tipo = objeto.getString("tipo");
                         int imagen_id = objeto.getInt("imagen_id");
                         String descripcion = objeto.getString("descripcion");
                         Integer objeto_principal = Integer.valueOf(objeto.getString("objeto_principal"));
                         Integer objeto_secundario = Integer.valueOf(objeto.getString("objeto_secundario"));
-                        objetosList.add(new Objeto(nombre, descripcion, tipo, id, imagen_id, objeto_principal, objeto_secundario));
+                        objetosList.add(new Objeto(nombre, descripcion, tipo, 1, imagen_id, objeto_principal, objeto_secundario));
 
                     }catch (JSONException e){
-                        e.printStackTrace();
                         break;
                     }
                 }
@@ -86,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
                         regionesList.add(new Regiones(tipo, nombre, descripcion, nombre_region, id, id_region, imagen_id, imagen_id_2));
 
                     }catch (Exception e){
-                        e.printStackTrace();
                         break;
                     }
                 }
@@ -107,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     }catch (JSONException e){
-                        e.printStackTrace();
                         break;
                     }
                 }
@@ -116,6 +109,71 @@ public class MainActivity extends AppCompatActivity {
                 ex.printStackTrace();
             }
 
+            try {
+                JSONObject armas = new JSONObject(Utils.getData("get/objetos/armas"));
+                JSONObject proyectiles = armas.getJSONObject("Proyectiles");
+                JSONObject cuerpo = armas.getJSONObject("Cuerpo");
+                ArrayList<ArmaBlanca> blancasList = new ArrayList<>();
+                ArrayList<ArmaNegra> negrasList = new ArrayList<>();
+                int i = 0;
+                while(true){
+                    try {
+                        JSONObject arma = proyectiles.getJSONObject(String.valueOf(i));
+                        String nombre = arma.getString("nombre");
+                        int id_arma = arma.getInt("id_arma");
+                        String subtipo = arma.getString("subtipo");
+                        Integer requisito1 = Integer.valueOf(arma.getString("requisito1"));
+                        Integer requisito2 = Integer.valueOf(arma.getString("requisito2"));
+                        String campo1 = arma.getString("campo1");
+                        String campo2 = arma.getString("campo2");
+                        int daño = arma.getInt("daño");
+                        String ataque = arma.getString("ataque");
+                        String rango = arma.getString("rango");
+                        Integer normal = Integer.valueOf(arma.getString("normal"));
+                        Integer imagen_id = Integer.valueOf(arma.getString("imagen_id"));
+                        String descripcion = arma.getString("descripcion");
+                        Integer objeto_principal = Integer.valueOf(arma.getString("objeto_principal"));
+                        Integer objeto_secundario = Integer.valueOf(arma.getString("objeto_secundario"));
+                        negrasList.add(new ArmaNegra(nombre, subtipo,campo1, campo2, ataque, daño, rango, descripcion, id_arma,requisito1, requisito2, normal, imagen_id, objeto_principal, objeto_secundario));
+
+                    }catch (JSONException e){
+                        break;
+                    }
+                }
+
+                while(true){
+                    try {
+                        JSONObject arma = cuerpo.getJSONObject(String.valueOf(i));
+                        String nombre = arma.getString("nombre");
+                        int id_arma = arma.getInt("id_arma");
+                        String subtipo = arma.getString("subtipo");
+                        Integer requisito = Integer.valueOf(arma.getString("requisito"));
+                        String campo = arma.getString("campo");
+                        String requisito_campo = arma.getString("requisito_campo");
+                        String operacion = arma.getString("operacion");
+                        Integer suma1 = Integer.valueOf(arma.getString("suma1"));
+                        String suma1_campo = arma.getString("suma1_campo");
+                        Integer suma2 = Integer.valueOf(arma.getString("suma2"));
+                        String suma2_campo = arma.getString("suma2_campo");
+                        String ataque = arma.getString("ataque");
+                        String rango = arma.getString("rango");
+                        Integer normal = Integer.valueOf(arma.getString("normal"));
+                        Integer imagen_id = Integer.valueOf(arma.getString("imagen_id"));
+                        String descripcion = arma.getString("descripcion");
+                        Integer objeto_principal = Integer.valueOf(arma.getString("objeto_principal"));
+                        Integer objeto_secundario = Integer.valueOf(arma.getString("objeto_secundario"));
+                        blancasList.add(new ArmaBlanca(nombre, subtipo, campo, ataque, operacion, suma1_campo, suma2_campo, suma1, suma2, rango, descripcion, id_arma, requisito, requisito_campo, normal, imagen_id, objeto_principal, objeto_secundario));
+
+                    }catch (JSONException e){
+                        break;
+                    }
+                }
+
+                Data.setArmasNegras(negrasList);
+                Data.setArmasBlancas(blancasList);
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
 
         }).start();
 
