@@ -31,6 +31,8 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
     private HashMap<String, String> listClases = new HashMap<>();
     private HashMap<String, String> listProcedencias = new HashMap<>();
     private HashMap<String, String> listEspecies = new HashMap<>();
+    private HashMap<String, String> listLenguasEspecies = new HashMap<>();
+    private HashMap<String, String> listLenguas = new HashMap<>();
     private Integer idPer;
     private boolean totOK = false;
 
@@ -117,7 +119,11 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
                 JSONObject line = espec.getJSONObject(iterE.next());
                 String key = line.getString("nombre");
                 String value = line.getString("id");
+                String id_leng = line.getString("id_lengua");
+                String leng = line.getString("id_lengua");
                 listEspecies.put(key, value);
+                listLenguasEspecies.put(value,id_leng);
+                listLenguas.put(id_leng,leng);
             }
 
             JSONObject clase = listJ.getJSONObject("Clase");
@@ -169,30 +175,32 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         try {
             // Get data
             String name = newPerNombreIn.getText().toString();
-            Integer proc = Integer.valueOf(listProcedencias.get(newPerProcedenciaIn.getSelectedItem()));
-            Integer especie = Integer.valueOf(listEspecies.get(newPerEspecieIn.getSelectedItem()));
-            Integer edad = Integer.valueOf(newPerEdadIn.getText().toString());
-            Float altura = Float.valueOf(newPerAlturaIn.getText().toString());
-            Float peso = Float.valueOf(newPerPesoIn.getText().toString());
+            int proc = Integer.parseInt(listProcedencias.get(newPerProcedenciaIn.getSelectedItem()));
+            int especie = Integer.parseInt(listEspecies.get(newPerEspecieIn.getSelectedItem()));
+            int edad = Integer.parseInt(newPerEdadIn.getText().toString());
+            float altura = Float.parseFloat(newPerAlturaIn.getText().toString());
+            float peso = Float.parseFloat(newPerPesoIn.getText().toString());
             String sexo = newPerSexsoIn.getSelectedItem().toString();
-            Integer clase = Integer.valueOf(listClases.get(newPerClaseIn.getSelectedItem()));
+            int clase = Integer.parseInt(listClases.get(newPerClaseIn.getSelectedItem()));
+            Integer lengua = Integer.valueOf(listLenguasEspecies.get(String.valueOf(especie)));
 
-            Integer vital = Integer.valueOf(newPerVitalidadIn.getText().toString());
-            Integer resis = Integer.valueOf(newPerResistenciaIn.getText().toString());
-            Integer fuerza = Integer.valueOf(newPerFuerzaIn.getText().toString());
-            Integer velo = Integer.valueOf(newPerVelocidadIn.getText().toString());
-            Integer intel = Integer.valueOf(newPerInteligenciaIn.getText().toString());
-            Integer punt = Integer.valueOf(newPerPunteriaIn.getText().toString());
-            Integer magia = Integer.valueOf(newPerMagiaIn.getText().toString());
+            int vital = Integer.parseInt(newPerVitalidadIn.getText().toString());
+            int resis = Integer.parseInt(newPerResistenciaIn.getText().toString());
+            int fuerza = Integer.parseInt(newPerFuerzaIn.getText().toString());
+            int velo = Integer.parseInt(newPerVelocidadIn.getText().toString());
+            int intel = Integer.parseInt(newPerInteligenciaIn.getText().toString());
+            int punt = Integer.parseInt(newPerPunteriaIn.getText().toString());
+            int magia = Integer.parseInt(newPerMagiaIn.getText().toString());
 
             String perso = newPerPersonalidadIn.getText().toString();
             String fisico = newPerFisicoIn.getText().toString();
 
-            newPersonaje = new Personajes(name, proc, especie, edad, altura, peso, sexo, clase,
+            newPersonaje = new Personajes(name, proc, especie, edad, altura, peso, sexo, clase,lengua,
                     vital, resis, fuerza, velo, intel, punt, magia, perso, fisico);
             newPersonaje.setProcedencia(listProcedencias.get(newPerProcedenciaIn.getSelectedItem()));
             newPersonaje.setEspecie(listEspecies.get(newPerEspecieIn.getSelectedItem()));
             newPersonaje.setClase(listClases.get(newPerClaseIn.getSelectedItem()));
+            newPersonaje.setLengua1(listLenguas.get(String.valueOf(lengua)));
             totOK = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -207,10 +215,8 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         Log.e("Perso-JSON", String.valueOf(perso_json));
 
         // Guardar personaje
-
-
         try {
-            JSONObject persoID = new JSONObject(Utils.getData("post/personaje?new="+String.valueOf(perso_json))).getJSONObject("0");
+            JSONObject persoID = new JSONObject(Utils.getData("post/personaje?new="+perso_json)).getJSONObject("0");
             idPer = persoID.getInt("id");
             Utils.getData("put/set_personaje?id="+idPer);
         } catch (JSONException e) {
