@@ -12,6 +12,8 @@ import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaBlanca;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaNegra;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Hechizo;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Libro;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Servicio;
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
-
+            // seteo armas
             try {
                 JSONObject armas = new JSONObject(Utils.getData("get/objetos/armas"));
                 JSONObject proyectiles = armas.getJSONObject("Proyectiles");
@@ -117,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<ArmaBlanca> blancasList = new ArrayList<>();
                 ArrayList<ArmaNegra> negrasList = new ArrayList<>();
                 int i = 0;
+                //armas negras
                 while(true){
                     try {
                         JSONObject arma = proyectiles.getJSONObject(String.valueOf(i));
@@ -142,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                 }
-
+                //armas blancas
                 while(true){
                     try {
                         JSONObject arma = cuerpo.getJSONObject(String.valueOf(i));
@@ -178,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
-
+            // seteo bestiario
             try {
                 JSONObject bestiario = new JSONObject(Utils.getData("get/bestiario"));
                 ArrayList<Bestia> bestiasList = new ArrayList<>();
@@ -212,6 +215,56 @@ public class MainActivity extends AppCompatActivity {
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
+            //seteo magia
+            try{
+                JSONObject magia = new JSONObject(Utils.getData("get/magia"));
+                JSONObject libros = magia.getJSONObject("Libros");
+                JSONObject hechizos = magia.getJSONObject("Hechizos");
+                ArrayList<Libro> librosList = new ArrayList<>();
+                int i = 0;
+                while(true){
+                    try {
+                        JSONObject libro = libros.getJSONObject(String.valueOf(i));
+                        String tipo = libro.getString("tipo");
+                        String nombre = libro.getString("nombre");
+                        String descripcion = libro.getString("descripcion");
+                        String lengua = libro.getString("lengua");
+                        int id = libro.getInt("id");
+                        int id_lengua = libro.getInt("id_lengua");
+                        int requisitos = libro.getInt("requisito");
+                        Integer imagen_id = Integer.valueOf(libro.getString("imagen_id"));
+                        librosList.add(new Libro(id, id_lengua, requisitos, imagen_id, nombre, tipo, descripcion, lengua));
+
+                    }catch (Exception e){
+                        break;
+                    }
+                }
+                while(true){
+                    try {
+                        JSONObject hechizo = hechizos.getJSONObject(String.valueOf(i));
+                        String descripcion = hechizo.getString("descripcion");
+                        int id = hechizo.getInt("id");
+                        int id_libro = hechizo.getInt("id_libro");
+                        String hechiso = hechizo.getString("hechizo");
+                        String libro_name = hechizo.getString("libro");
+                        for (int j = 0; j < librosList.size(); j++) {
+                            if(librosList.get(j).getId() == id_libro){
+                                Libro libro = librosList.get(j);
+                                librosList.remove(j);
+                                libro.addHechizo(new Hechizo(id, id_libro, hechiso, descripcion, libro_name));
+                                librosList.add(libro);
+                                break;
+                            }
+                        }
+                    }catch (JSONException e){
+                        break;
+                    }
+                }
+                Data.setMagia(librosList);
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+
 
         }).start();
 

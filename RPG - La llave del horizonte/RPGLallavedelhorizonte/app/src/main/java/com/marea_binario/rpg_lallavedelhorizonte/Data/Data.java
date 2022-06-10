@@ -10,6 +10,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaBlanca;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaNegra;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Libro;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 
@@ -29,6 +30,7 @@ public class Data {
     private static ArrayList<ArmaNegra> armasNegras;
     private static ArrayList<ArmaBlanca> armasBlancas;
     private static ArrayList<Bestia> bestiario;
+    private static ArrayList<Libro> magia;
     public static int[] imgArray = {
             R.drawable.g1,
             R.drawable.g2,
@@ -240,5 +242,9 @@ public class Data {
 
     public static void setBestiario(ArrayList<Bestia> bestiario) {
         Data.bestiario = bestiario;
+    }
+
+    public static void setMagia(ArrayList<Libro> magia) {
+        Data.magia = magia;
     }
 }
