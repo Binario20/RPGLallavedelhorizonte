@@ -20,6 +20,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class CrearPersonajeNuevo extends AppCompatActivity {
 
@@ -182,7 +183,15 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
             float peso = Float.parseFloat(newPerPesoIn.getText().toString());
             String sexo = newPerSexsoIn.getSelectedItem().toString();
             int clase = Integer.parseInt(listClases.get(newPerClaseIn.getSelectedItem()));
-            Integer lengua = Integer.valueOf(listLenguasEspecies.get(String.valueOf(especie)));
+            String l = listLenguasEspecies.get(String.valueOf(especie));
+            Integer lengua;
+            if (l.trim().equals("NULL")) {
+                Log.e("funko??",l);
+                lengua = null;
+            } else {
+                Log.e("fonko?",l);
+                lengua = Integer.valueOf(l);
+            }
 
             int vital = Integer.parseInt(newPerVitalidadIn.getText().toString());
             int resis = Integer.parseInt(newPerResistenciaIn.getText().toString());

@@ -19,7 +19,8 @@ public class Personajes {
     private String sexo;
     private String clase;
     private int id_clase;
-    private int id_lengua1, id_lengua2;
+    private Integer id_lengua1;
+    private int id_lengua2;
     private int vitalidad;
     private int resistencia;
     private int fuerza;
@@ -142,17 +143,13 @@ public class Personajes {
         this.nombre = nombre;
     }
 
-    public int getIdProcedencia() {
-        return id_procedencia;
-    }
+    //public int getIdProcedencia() { return id_procedencia; }
 
     public void setProcedencia(String procedencia) { this.procedencia = procedencia; }
 
     public String getProcedencia() { return procedencia; }
 
-    public int getIdEspecie() {
-        return id_especie;
-    }
+    //public int getIdEspecie() { return id_especie; }
 
     public void setEspecie(String especie) { this.especie = especie; }
 
@@ -166,13 +163,13 @@ public class Personajes {
 
     public String getSexo() { return sexo; }
 
-    public int getIdClase() { return id_clase; }
+    //public int getIdClase() { return id_clase; }
 
     public void setClase(String clase) { this.clase = clase; }
 
     public String getClase() { return clase; }
 
-    public int getIdLengua1() { return id_lengua1; }
+    //public int getIdLengua1() { return id_lengua1; }
 
     public void setLengua1(String lengua1) { this.lengua1 = lengua1; }
 
@@ -278,5 +275,12 @@ public class Personajes {
             new Exception();
         }
         this.destreza = (velocidad + punteria)/2;
+        setVitalidad(vitalidad);
+        setResistencia(resistencia);
+        setFuerza(fuerza);
+        setVelocidad(velocidad);
+        setInteligencia(inteligencia);
+        setPunteria(punteria);
+        setMagia(magia);
     }
 }
