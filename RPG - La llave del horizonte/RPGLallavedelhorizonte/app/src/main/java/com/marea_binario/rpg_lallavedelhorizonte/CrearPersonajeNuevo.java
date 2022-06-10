@@ -20,7 +20,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Objects;
 
 public class CrearPersonajeNuevo extends AppCompatActivity {
 

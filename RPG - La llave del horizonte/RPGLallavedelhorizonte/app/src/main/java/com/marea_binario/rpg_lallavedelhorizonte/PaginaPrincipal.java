@@ -109,6 +109,7 @@ public class PaginaPrincipal extends AppCompatActivity {
             }
 
             objetos_iniciales = personaje_info.getJSONObject("Inicio");
+
         } catch (Exception e) {
             e.printStackTrace();
         }

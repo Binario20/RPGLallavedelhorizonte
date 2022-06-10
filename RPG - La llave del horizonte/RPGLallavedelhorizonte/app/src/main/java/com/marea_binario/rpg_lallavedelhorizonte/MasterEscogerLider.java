@@ -33,13 +33,12 @@ public class MasterEscogerLider extends AppCompatActivity {
         setContentView(R.layout.activity_master_escoger_lider);
 
         initComponents();
+        actualizar(this);
+
         Bundle b = getIntent().getExtras();
         if (!b.getBoolean("set-master")) {
             setMaster();
         }
-
-        actualizar(this);
-
     }
 
     private void actualizar(Context conte){
