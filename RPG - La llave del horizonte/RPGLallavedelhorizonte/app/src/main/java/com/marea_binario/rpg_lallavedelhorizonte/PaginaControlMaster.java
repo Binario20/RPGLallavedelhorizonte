@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ItemListItem;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,7 +76,7 @@ public class PaginaControlMaster extends AppCompatActivity {
         });
 
         bestiarioBut.setOnClickListener(view -> {
-            // mostrar lista de bestiaio
+            listaBestiario();
         });
 
         magiaBut.setOnClickListener(view -> {
@@ -169,6 +171,24 @@ public class PaginaControlMaster extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void listaBestiario() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
+
+        builder.setView(popupView);
+
+        androidx.appcompat.app.AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
+        caja_objetos.removeAllViews();
+        for(Bestia bestia : Data.getBestiario()){
+            caja_objetos.addView(new ItemListItem(this, bestia.getId(), Data.BESTIARIO, bestia));
         }
     }
 }

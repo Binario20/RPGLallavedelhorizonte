@@ -9,8 +9,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ItemListItem  extends LinearLayout {
 
@@ -20,11 +24,22 @@ public class ItemListItem  extends LinearLayout {
     private final String type;
     private final int id;
 
-    public ItemListItem(Context context, int id, String type) {
+    public ItemListItem(Context context, int id, String type, Object data) {
         super(context);
         this.id = id;
         this.type = type;
         initComponents();
+        if(type.equals(Data.BESTIARIO)){
+            initBestiario((Bestia)data);
+        }
+    }
+
+    private void initBestiario(Bestia bestia) {
+
+        cosaName.setEncodedText(bestia.getNobre());
+        miniDescriptionCosa.setEncodedText(bestia.getDescripcion());
+        leFoto.setImageResource(Data.getImg(bestia.getImg_id()));
+
     }
 
     private void initComponents(){

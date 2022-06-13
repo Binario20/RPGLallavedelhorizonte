@@ -31,6 +31,7 @@ public class Data {
     private static ArrayList<ArmaBlanca> armasBlancas;
     private static ArrayList<Bestia> bestiario;
     private static ArrayList<Libro> magia;
+    public static final String BESTIARIO = "bestiario";
     public static int[] imgArray = {
             R.drawable.g1,
             R.drawable.g2,
@@ -222,7 +223,12 @@ public class Data {
         imgObjetosArray[121] = 0;
     }
 
-    public static int getImg(int img_id) { return imgObjetosArray[img_id]; }
+    public static int getImg(int img_id) {
+        if(imgObjetosArray[img_id]==0){
+            return Data.getRandomWallPaper();
+        }
+        return imgObjetosArray[img_id];
+    }
 
     public static void setRegiones(ArrayList<Regiones> regiones) {
         Data.regiones = regiones;
@@ -246,5 +252,29 @@ public class Data {
 
     public static void setMagia(ArrayList<Libro> magia) {
         Data.magia = magia;
+    }
+
+    public static ArrayList<Regiones> getRegiones() {
+        return regiones;
+    }
+
+    public static ArrayList<Objeto> getObjetos() {
+        return objetos;
+    }
+
+    public static ArrayList<ArmaNegra> getArmasNegras() {
+        return armasNegras;
+    }
+
+    public static ArrayList<ArmaBlanca> getArmasBlancas() {
+        return armasBlancas;
+    }
+
+    public static ArrayList<Bestia> getBestiario() {
+        return bestiario;
+    }
+
+    public static ArrayList<Libro> getMagia() {
+        return magia;
     }
 }

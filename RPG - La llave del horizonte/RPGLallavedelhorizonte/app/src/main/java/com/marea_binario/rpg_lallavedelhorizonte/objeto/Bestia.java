@@ -2,11 +2,14 @@ package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
 import android.os.Bundle;
 
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
+
 public class Bestia {
 
     private int id, img_id, daño, vida, valocidad, experiencia;
     private String nobre, descripcion, tipo, clasificacion, tamaño, clasificacion_adicional, resitencia, vulnerabilidad, extras;
     private boolean montura;
+    private String tipoInterno = Data.BESTIARIO;
 
     public Bestia(int id, int img_id, int daño, int vida, int valocidad, int experiencia, String nobre, String descripcion,
                    String tipo, String clasificacion, String tamaño, String clasificacion_adicional, String resitencia,
@@ -28,4 +31,69 @@ public class Bestia {
         this.extras = extras;
         this.montura = montura;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getImg_id() {
+        return img_id;
+    }
+
+    public int getDaño() {
+        return daño;
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
+    public int getValocidad() {
+        return valocidad;
+    }
+
+    public int getExperiencia() {
+        return experiencia;
+    }
+
+    public String getNobre() {
+        return nobre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public String getClasificacion() {
+        return clasificacion;
+    }
+
+    public String getTamaño() {
+        return tamaño;
+    }
+
+    public String getClasificacion_adicional() {
+        return clasificacion_adicional;
+    }
+
+    public String getResitencia() {
+        return resitencia;
+    }
+
+    public String getVulnerabilidad() {
+        return vulnerabilidad;
+    }
+
+    public String getExtras() {
+        return extras;
+    }
+
+    public boolean isMontura() {
+        return montura;
+    }
 }
+
