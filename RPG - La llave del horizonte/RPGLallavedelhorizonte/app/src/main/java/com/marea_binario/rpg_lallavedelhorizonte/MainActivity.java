@@ -51,13 +51,12 @@ public class MainActivity extends AppCompatActivity {
                         String tipo = objeto.getString("tipo");
                         int imagen_id = objeto.getInt("imagen_id");
                         String descripcion = objeto.getString("descripcion");
-                        Integer objeto_principal = Integer.valueOf(objeto.getString("objeto_principal").equalsIgnoreCase("NULL")?null:objeto.getString("objeto_principal"));
-                        Integer objeto_secundario = Integer.valueOf(objeto.getString("objeto_secundario").equalsIgnoreCase("NULL")?null:objeto.getString("objeto_secundario"));
+                        Integer objeto_principal = Utils.stringToInteger(objeto.getString("objeto_principal"));
+                        Integer objeto_secundario = Utils.stringToInteger(objeto.getString("objeto_secundario"));
                         objetosList.add(new Objeto(nombre, descripcion, tipo, 1, imagen_id, objeto_principal, objeto_secundario));
                         Log.e("dunko?", String.valueOf(objeto));
                         i++;
                     }catch (JSONException e){
-                        e.printStackTrace();
                         break;
                     }
                 }

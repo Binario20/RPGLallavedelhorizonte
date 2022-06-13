@@ -89,4 +89,8 @@ public class Utils {
             return "{}";
         }
     }
+
+    public static Integer stringToInteger(String s) {
+        return s.equalsIgnoreCase("NULL")?null:Integer.valueOf(s);
+    }
 }
