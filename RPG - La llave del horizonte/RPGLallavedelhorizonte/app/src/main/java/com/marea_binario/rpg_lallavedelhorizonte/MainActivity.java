@@ -80,15 +80,17 @@ public class MainActivity extends AppCompatActivity {
                         String nombre_region = region.getString("nombre_region");
                         int id = region.getInt("id");
                         int id_region = region.getInt("id_region");
-                        Integer imagen_id = Integer.valueOf(region.getString("imagen_id"));
-                        Integer imagen_id_2 = Integer.valueOf(region.getString("imagen_id_2"));
+                        Integer imagen_id = Utils.stringToInteger(region.getString("imagen_id"));
+                        Integer imagen_id_2 = Utils.stringToInteger(region.getString("imagen_id_2"));
                         regionesList.add(new Regiones(tipo, nombre, descripcion, nombre_region, id, id_region, imagen_id, imagen_id_2));
                         Log.e("dunko?", String.valueOf(region));
+                        i++;
                     }catch (Exception e){
                         e.printStackTrace();
                         break;
                     }
                 }
+                i=0;
                 while(true){
                     try {
                         JSONObject servicio = servicios.getJSONObject(String.valueOf(i));
@@ -106,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                         Log.e("dunko?", String.valueOf(servicio));
+                        i++;
                     }catch (JSONException e){
                         e.printStackTrace();
                         break;
@@ -130,51 +133,54 @@ public class MainActivity extends AppCompatActivity {
                         String nombre = arma.getString("nombre");
                         int id_arma = arma.getInt("id_arma");
                         String subtipo = arma.getString("subtipo");
-                        Integer requisito1 = Integer.valueOf(arma.getString("requisito1"));
-                        Integer requisito2 = Integer.valueOf(arma.getString("requisito2"));
+                        Integer requisito1 = Utils.stringToInteger(arma.getString("requisito1"));
+                        Integer requisito2 = Utils.stringToInteger(arma.getString("requisito2"));
                         String campo1 = arma.getString("campo1");
                         String campo2 = arma.getString("campo2");
                         int daño = arma.getInt("daño");
                         String ataque = arma.getString("ataque");
                         String rango = arma.getString("rango");
-                        Integer normal = Integer.valueOf(arma.getString("normal"));
-                        Integer imagen_id = Integer.valueOf(arma.getString("imagen_id"));
+                        Integer normal = Utils.stringToInteger(arma.getString("normal"));
+                        Integer imagen_id = Utils.stringToInteger(arma.getString("imagen_id"));
                         String descripcion = arma.getString("descripcion");
-                        Integer objeto_principal = Integer.valueOf(arma.getString("objeto_principal"));
-                        Integer objeto_secundario = Integer.valueOf(arma.getString("objeto_secundario"));
+                        Integer objeto_principal = Utils.stringToInteger(arma.getString("objeto_principal"));
+                        Integer objeto_secundario = Utils.stringToInteger(arma.getString("objeto_secundario"));
                         negrasList.add(new ArmaNegra(nombre, subtipo,campo1, campo2, ataque, daño, rango, descripcion,
                                 id_arma,requisito1, requisito2, normal, imagen_id, objeto_principal, objeto_secundario));
                         Log.e("dunko?", String.valueOf(arma));
+                        i++;
                     }catch (JSONException e){
                         break;
                     }
                 }
                 //armas blancas
+                i=0;
                 while(true){
                     try {
                         JSONObject arma = cuerpo.getJSONObject(String.valueOf(i));
                         String nombre = arma.getString("nombre");
                         int id_arma = arma.getInt("id_arma");
                         String subtipo = arma.getString("subtipo");
-                        Integer requisito = Integer.valueOf(arma.getString("requisito"));
+                        Integer requisito = Utils.stringToInteger(arma.getString("requisito"));
                         String campo = arma.getString("campo");
                         String requisito_campo = arma.getString("requisito_campo");
                         String operacion = arma.getString("operacion");
-                        Integer suma1 = Integer.valueOf(arma.getString("suma1"));
+                        Integer suma1 = Utils.stringToInteger(arma.getString("suma1"));
                         String suma1_campo = arma.getString("suma1_campo");
-                        Integer suma2 = Integer.valueOf(arma.getString("suma2"));
+                        Integer suma2 = Utils.stringToInteger(arma.getString("suma2"));
                         String suma2_campo = arma.getString("suma2_campo");
                         String ataque = arma.getString("ataque");
                         String rango = arma.getString("rango");
-                        Integer normal = Integer.valueOf(arma.getString("normal"));
-                        Integer imagen_id = Integer.valueOf(arma.getString("imagen_id"));
+                        Integer normal = Utils.stringToInteger(arma.getString("normal"));
+                        Integer imagen_id = Utils.stringToInteger(arma.getString("imagen_id"));
                         String descripcion = arma.getString("descripcion");
-                        Integer objeto_principal = Integer.valueOf(arma.getString("objeto_principal"));
-                        Integer objeto_secundario = Integer.valueOf(arma.getString("objeto_secundario"));
+                        Integer objeto_principal = Utils.stringToInteger(arma.getString("objeto_principal"));
+                        Integer objeto_secundario = Utils.stringToInteger(arma.getString("objeto_secundario"));
                         blancasList.add(new ArmaBlanca(nombre, subtipo, campo, ataque, operacion, suma1_campo, suma2_campo,
                                 suma1, suma2, rango, descripcion, id_arma, requisito, requisito_campo, normal, imagen_id,
                                 objeto_principal, objeto_secundario));
                         Log.e("dunko?", String.valueOf(arma));
+                        i++;
                     }catch (JSONException e){
                         break;
                     }
@@ -212,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
                         bestiasList.add(new Bestia(id, imagen_id, daño, vida, velocidad, experiencia_derrota, nombre,
                                 descripcion, tipo, clasificacion, tamaño, clasificacion_add, resistente, vulnerable, extras, montura));
                         Log.e("dunko?", String.valueOf(bestia));
+                        i++;
                     }catch (JSONException e){
                         break;
                     }
@@ -237,13 +244,15 @@ public class MainActivity extends AppCompatActivity {
                         int id = libro.getInt("id");
                         int id_lengua = libro.getInt("id_lengua");
                         int requisitos = libro.getInt("requisito");
-                        Integer imagen_id = Integer.valueOf(libro.getString("imagen_id"));
+                        Integer imagen_id = Utils.stringToInteger(libro.getString("imagen_id"));
                         librosList.add(new Libro(id, id_lengua, requisitos, imagen_id, nombre, tipo, descripcion, lengua));
                         Log.e("dunko?", String.valueOf(libro));
+                        i++;
                     }catch (Exception e){
                         break;
                     }
                 }
+                i=0;
                 while(true){
                     try {
                         JSONObject hechizo = hechizos.getJSONObject(String.valueOf(i));
@@ -261,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             }
                         }
+                        i++;
                     }catch (JSONException e){
                         break;
                     }
