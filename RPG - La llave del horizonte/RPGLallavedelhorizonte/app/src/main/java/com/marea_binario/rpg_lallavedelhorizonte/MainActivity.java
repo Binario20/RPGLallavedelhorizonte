@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -41,21 +42,22 @@ public class MainActivity extends AppCompatActivity {
             // seteo objetos
             try {
                 JSONObject objetosConn = new JSONObject(Utils.getData("get/objetos"));
-                JSONObject objetos = objetosConn.getJSONObject("0");
                 ArrayList<Objeto> objetosList = new ArrayList<>();
                 int i = 0;
                 while(true){
                     try {
-                        JSONObject objeto = objetos.getJSONObject(String.valueOf(i));
+                        JSONObject objeto = objetosConn.getJSONObject(String.valueOf(i));
                         String nombre = objeto.getString("nombre");
                         String tipo = objeto.getString("tipo");
                         int imagen_id = objeto.getInt("imagen_id");
                         String descripcion = objeto.getString("descripcion");
-                        Integer objeto_principal = Integer.valueOf(objeto.getString("objeto_principal"));
-                        Integer objeto_secundario = Integer.valueOf(objeto.getString("objeto_secundario"));
+                        Integer objeto_principal = Integer.valueOf(objeto.getString("objeto_principal").equalsIgnoreCase("NULL")?null:objeto.getString("objeto_principal"));
+                        Integer objeto_secundario = Integer.valueOf(objeto.getString("objeto_secundario").equalsIgnoreCase("NULL")?null:objeto.getString("objeto_secundario"));
                         objetosList.add(new Objeto(nombre, descripcion, tipo, 1, imagen_id, objeto_principal, objeto_secundario));
-
+                        Log.e("dunko?", String.valueOf(objeto));
+                        i++;
                     }catch (JSONException e){
+                        e.printStackTrace();
                         break;
                     }
                 }
@@ -82,8 +84,9 @@ public class MainActivity extends AppCompatActivity {
                         Integer imagen_id = Integer.valueOf(region.getString("imagen_id"));
                         Integer imagen_id_2 = Integer.valueOf(region.getString("imagen_id_2"));
                         regionesList.add(new Regiones(tipo, nombre, descripcion, nombre_region, id, id_region, imagen_id, imagen_id_2));
-
+                        Log.e("dunko?", String.valueOf(region));
                     }catch (Exception e){
+                        e.printStackTrace();
                         break;
                     }
                 }
@@ -103,7 +106,9 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             }
                         }
+                        Log.e("dunko?", String.valueOf(servicio));
                     }catch (JSONException e){
+                        e.printStackTrace();
                         break;
                     }
                 }
@@ -140,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                         Integer objeto_secundario = Integer.valueOf(arma.getString("objeto_secundario"));
                         negrasList.add(new ArmaNegra(nombre, subtipo,campo1, campo2, ataque, daño, rango, descripcion,
                                 id_arma,requisito1, requisito2, normal, imagen_id, objeto_principal, objeto_secundario));
-
+                        Log.e("dunko?", String.valueOf(arma));
                     }catch (JSONException e){
                         break;
                     }
@@ -170,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                         blancasList.add(new ArmaBlanca(nombre, subtipo, campo, ataque, operacion, suma1_campo, suma2_campo,
                                 suma1, suma2, rango, descripcion, id_arma, requisito, requisito_campo, normal, imagen_id,
                                 objeto_principal, objeto_secundario));
-
+                        Log.e("dunko?", String.valueOf(arma));
                     }catch (JSONException e){
                         break;
                     }
@@ -207,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                         String extras = bestia.getString("extras");
                         bestiasList.add(new Bestia(id, imagen_id, daño, vida, velocidad, experiencia_derrota, nombre,
                                 descripcion, tipo, clasificacion, tamaño, clasificacion_add, resistente, vulnerable, extras, montura));
+                        Log.e("dunko?", String.valueOf(bestia));
                     }catch (JSONException e){
                         break;
                     }
@@ -234,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
                         int requisitos = libro.getInt("requisito");
                         Integer imagen_id = Integer.valueOf(libro.getString("imagen_id"));
                         librosList.add(new Libro(id, id_lengua, requisitos, imagen_id, nombre, tipo, descripcion, lengua));
-
+                        Log.e("dunko?", String.valueOf(libro));
                     }catch (Exception e){
                         break;
                     }

@@ -102,7 +102,7 @@ public class Personajes {
         if (sumaPuntos > maxPuntos) {
             new Exception();
         }
-        this.destreza = (velocidad + punteria)/2;
+        this.destreza = Math.round((velocidad + punteria)/2);
         this.personalidad = personalidad;
         this.fisico = fisico;
     }
@@ -264,7 +264,7 @@ public class Personajes {
         this.lengua2 = lengua2;
     }
 
-    public int getIdLengua2() { return id_lengua2; }
+    //public int getIdLengua2() { return id_lengua2; }
 
     public String getLengua2() { return lengua2; }
 
@@ -274,7 +274,7 @@ public class Personajes {
         if (sumaPuntos > maxPuntos) {
             new Exception();
         }
-        this.destreza = (velocidad + punteria)/2;
+        this.destreza = Math.round((velocidad + punteria)/2);
         setVitalidad(vitalidad);
         setResistencia(resistencia);
         setFuerza(fuerza);

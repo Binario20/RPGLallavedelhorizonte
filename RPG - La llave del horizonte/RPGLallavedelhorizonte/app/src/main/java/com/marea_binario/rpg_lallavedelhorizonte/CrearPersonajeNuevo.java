@@ -33,7 +33,7 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
     private HashMap<String, String> listEspecies = new HashMap<>();
     private HashMap<String, String> listLenguasEspecies = new HashMap<>();
     private HashMap<String, String> listLenguas = new HashMap<>();
-    private Integer idPer;
+    private Integer idPer, id_jugador;
     private boolean totOK = false;
 
     @Override
@@ -76,7 +76,8 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
             if (totOK) {
                 saveInServer(newPersonaje);
                 Intent i = new Intent(this, PaginaPrincipal.class);
-                i.putExtra("Id", idPer);
+                i.putExtra("idPerso", idPer);
+                i.putExtra("id_jugador", id_jugador);
                 this.startActivity(i);
                 finish();
             }
@@ -226,7 +227,8 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         try {
             JSONObject persoID = new JSONObject(Utils.getData("post/personaje?new="+perso_json)).getJSONObject("0");
             idPer = persoID.getInt("id");
-            Utils.getData("put/set_personaje?id="+idPer);
+            String data = Utils.getData("put/set_personaje?id="+idPer);
+            id_jugador = new JSONObject(data).getJSONObject("0").getInt("id");
         } catch (JSONException e) {
             e.printStackTrace();
         }

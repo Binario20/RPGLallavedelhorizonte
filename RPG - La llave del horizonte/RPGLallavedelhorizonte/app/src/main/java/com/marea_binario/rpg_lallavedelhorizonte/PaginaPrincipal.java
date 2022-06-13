@@ -37,7 +37,7 @@ public class PaginaPrincipal extends AppCompatActivity {
     private SuperText fuerza, velocidad, destreza, magia, vitalidad, resistencia, inteligencia, punteria, nombre, dineros;
     private Button reloadPlayer, modDinerosP, depositoObjetosBut;
     private final Item[] items = new Item[4];
-    private int id_perso = -1;
+    private int id_perso = -1, id_jugador = -1;
     private Personajes personaje = null;
     private JSONObject objetos_iniciales;
     private JSONObject listaDeposito;
@@ -49,7 +49,8 @@ public class PaginaPrincipal extends AppCompatActivity {
         setContentView(R.layout.activity_pagina_principal);
         Intent i = getIntent();
         try {
-            id_perso = i.getIntExtra("Id", -1);
+            id_perso = i.getIntExtra("idPerso", -1);
+            id_jugador = i.getIntExtra("id_jugador", -1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,8 +74,8 @@ public class PaginaPrincipal extends AppCompatActivity {
                     Integer.parseInt(perso.getString("id_procedencia")),
                     Integer.parseInt(perso.getString("id_especie")),
                     Integer.parseInt(perso.getString("edad")),
-                    Float.parseFloat(perso.getString("altura_m")),
-                    Float.parseFloat(perso.getString("peso_kg")),
+                    Float.parseFloat(perso.getString("altura_m").replace(",",".")),
+                    Float.parseFloat(perso.getString("peso_kg").replace(",",".")),
                     perso.getString("sexo"),
                     Integer.parseInt(perso.getString("id_clase")),
                     id_lengua,
@@ -108,8 +109,30 @@ public class PaginaPrincipal extends AppCompatActivity {
                 personaje.setHabilidades(String.valueOf(habil_str));
             }
 
-            objetos_iniciales = personaje_info.getJSONObject("Inicio");
-
+            objetos_iniciales = personaje_info.getJSONObject("Inicio").getJSONObject("0");
+            Log.e("xkno?", String.valueOf(id_jugador));
+            String arma, objeto;
+            arma = objetos_iniciales.getString("id_arma");
+            if (!arma.equals("NULL")) {
+                JSONObject cosa = new JSONObject();
+                cosa.put("id_jugador", id_jugador);
+                cosa.put("cantidad", 1);
+                cosa.put("id_cosa", arma);
+                if (personaje.getClase().equals("Tirador"))
+                    cosa.put("tipo", "arma negra");
+                else
+                    cosa.put("tipo", "arma blanca");
+                Utils.getData("post/cosa_adquirida?new="+cosa);
+            }
+            objeto = objetos_iniciales.getString("id_objeto");
+            if (!objeto.equals("NULL")) {
+                JSONObject cosa = new JSONObject();
+                cosa.put("id_jugador", id_jugador);
+                cosa.put("cantidad", 1);
+                cosa.put("id_cosa", objeto);
+                cosa.put("tipo", "objeto");
+                Utils.getData("post/cosa_adquirida?new="+cosa);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -297,7 +320,7 @@ public class PaginaPrincipal extends AppCompatActivity {
                 //Log.e("Lengua List", String.valueOf(object));
                 String nombre = object.getString("nombre");
                 int id = Integer.parseInt(object.getString("id"));
-                Log.d("Id. Lengua", id+". "+nombre);
+                //Log.d("Id. Lengua", id+". "+nombre);
                 lenguas[id] = nombre;
 
                 if (id != 3) {
@@ -385,13 +408,13 @@ public class PaginaPrincipal extends AppCompatActivity {
         edad.setEncodedText(String.valueOf(personaje.getEdad()));
         altura.setEncodedText(String.valueOf(personaje.getAltura()));
         peso.setEncodedText(String.valueOf(personaje.getPeso()));
-        if (personaje.getFisico() == null) {
+        if (personaje.getFisico() == null || personaje.getFisico().equals("NULL")) {
             fisicoI.setVisibility(View.GONE);
             fisico.setVisibility(View.GONE);
         } else {
             fisico.setEncodedText(personaje.getFisico());
         }
-        if (personaje.getPersonalidad() == null) {
+        if (personaje.getPersonalidad() == null || personaje.getPersonalidad().equals("NULL")) {
             personalidadI.setVisibility(View.GONE);
             personalidad.setVisibility(View.GONE);
         } else {

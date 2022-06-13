@@ -16,6 +16,9 @@ import com.marea_binario.rpg_lallavedelhorizonte.PaginaPrincipal;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 @SuppressLint("ViewConstructor")
 public class NuevoPersonaje extends LinearLayout {
     private Integer idPerso;
@@ -43,9 +46,17 @@ public class NuevoPersonaje extends LinearLayout {
 
         this.setOnClickListener(view -> {
             Log.e("np-cl??", String.valueOf(idPerso));
-            Log.e("fonko?", Utils.getData("put/set_personaje?id="+idPerso));
+            String data = Utils.getData("put/set_personaje?id="+idPerso);
+            Log.e("fonko?", data);
+            int id_jugador = -1;
+            try {
+                id_jugador = new JSONObject(data).getJSONObject("0").getInt("id");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             Intent i = new Intent(getContext(), PaginaPrincipal.class);
-            i.putExtra("Id", idPerso);
+            i.putExtra("idPerso", idPerso);
+            i.putExtra("id_jugador", id_jugador);
             getContext().startActivity(i);
 //                getContext().finish();
             //Log.e("id", String.valueOf(idPerso));
