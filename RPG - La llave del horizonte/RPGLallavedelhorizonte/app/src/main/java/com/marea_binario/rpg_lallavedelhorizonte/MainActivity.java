@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         Integer objeto_principal = Utils.stringToInteger(objeto.getString("objeto_principal"));
                         Integer objeto_secundario = Utils.stringToInteger(objeto.getString("objeto_secundario"));
                         objetosList.add(new Objeto(nombre, descripcion, tipo, 1, imagen_id, objeto_principal, objeto_secundario));
-                        Log.e("dunko?", String.valueOf(objeto));
+                        Log.e("Objeto", String.valueOf(objeto));
                         i++;
                     }catch (JSONException e){
                         break;
@@ -83,10 +83,9 @@ public class MainActivity extends AppCompatActivity {
                         Integer imagen_id = Utils.stringToInteger(region.getString("imagen_id"));
                         Integer imagen_id_2 = Utils.stringToInteger(region.getString("imagen_id_2"));
                         regionesList.add(new Regiones(tipo, nombre, descripcion, nombre_region, id, id_region, imagen_id, imagen_id_2));
-                        Log.e("dunko?", String.valueOf(region));
+                        Log.e("Region", String.valueOf(region));
                         i++;
                     }catch (Exception e){
-                        e.printStackTrace();
                         break;
                     }
                 }
@@ -107,10 +106,9 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             }
                         }
-                        Log.e("dunko?", String.valueOf(servicio));
+                        Log.e("Servicio", String.valueOf(servicio));
                         i++;
                     }catch (JSONException e){
-                        e.printStackTrace();
                         break;
                     }
                 }
@@ -137,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                         Integer requisito2 = Utils.stringToInteger(arma.getString("requisito2"));
                         String campo1 = arma.getString("campo1");
                         String campo2 = arma.getString("campo2");
-                        int daño = arma.getInt("daño");
+                        int daño = arma.getInt("dano");
                         String ataque = arma.getString("ataque");
                         String rango = arma.getString("rango");
                         Integer normal = Utils.stringToInteger(arma.getString("normal"));
@@ -147,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                         Integer objeto_secundario = Utils.stringToInteger(arma.getString("objeto_secundario"));
                         negrasList.add(new ArmaNegra(nombre, subtipo,campo1, campo2, ataque, daño, rango, descripcion,
                                 id_arma,requisito1, requisito2, normal, imagen_id, objeto_principal, objeto_secundario));
-                        Log.e("dunko?", String.valueOf(arma));
+                        Log.e("Arma Negra", String.valueOf(arma));
                         i++;
                     }catch (JSONException e){
                         break;
@@ -179,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                         blancasList.add(new ArmaBlanca(nombre, subtipo, campo, ataque, operacion, suma1_campo, suma2_campo,
                                 suma1, suma2, rango, descripcion, id_arma, requisito, requisito_campo, normal, imagen_id,
                                 objeto_principal, objeto_secundario));
-                        Log.e("dunko?", String.valueOf(arma));
+                        Log.e("Arma Blanca", String.valueOf(arma));
                         i++;
                     }catch (JSONException e){
                         break;
@@ -204,20 +202,20 @@ public class MainActivity extends AppCompatActivity {
                         String tipo = bestia.getString("tipo");
                         String clasificacion = bestia.getString("clasificacion");
                         boolean montura = bestia.getInt("montura") == 1;
-                        String tamaño = bestia.getString("tamaño");
-                        int daño = bestia.getInt("daño");
+                        String tamaño = bestia.getString("tamano");
+                        int daño = bestia.getInt("dano");
                         int vida = bestia.getInt("vida");
                         int velocidad = bestia.getInt("velocidad");
                         int imagen_id = bestia.getInt("imagen_id");
                         String descripcion = bestia.getString("descripcion");
                         String clasificacion_add = bestia.getString("clasificacion_add");
-                        int experiencia_derrota = bestia.getInt("experiencia_derrota");
+                        Integer experiencia_derrota = Utils.stringToInteger(bestia.getString("experiencia_derrota"));
                         String resistente = bestia.getString("resistente");
                         String vulnerable = bestia.getString("vulnerable");
                         String extras = bestia.getString("extras");
                         bestiasList.add(new Bestia(id, imagen_id, daño, vida, velocidad, experiencia_derrota, nombre,
                                 descripcion, tipo, clasificacion, tamaño, clasificacion_add, resistente, vulnerable, extras, montura));
-                        Log.e("dunko?", String.valueOf(bestia));
+                        Log.e("Bestia", String.valueOf(bestia));
                         i++;
                     }catch (JSONException e){
                         break;
@@ -246,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
                         int requisitos = libro.getInt("requisito");
                         Integer imagen_id = Utils.stringToInteger(libro.getString("imagen_id"));
                         librosList.add(new Libro(id, id_lengua, requisitos, imagen_id, nombre, tipo, descripcion, lengua));
-                        Log.e("dunko?", String.valueOf(libro));
+                        Log.e("Magia", String.valueOf(libro));
                         i++;
                     }catch (Exception e){
                         break;
@@ -270,6 +268,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             }
                         }
+                        Log.e("Hechizo", String.valueOf(hechizo));
                         i++;
                     }catch (JSONException e){
                         break;

@@ -6,7 +6,7 @@ public class Regiones {
     private String tipo, nombre, descripcion, nombre_region;
     private int id, id_region;
     private Integer imagen_id, imagen_id_2;
-    private ArrayList<Servicio> servicios;
+    private ArrayList<Servicio> servicios = new ArrayList<Servicio>();
 
     public Regiones(String tipo, String nombre, String descripcion, String nombre_region, int id, int id_region, Integer imagen_id, Integer imagen_id_2) {
         this.tipo = tipo;

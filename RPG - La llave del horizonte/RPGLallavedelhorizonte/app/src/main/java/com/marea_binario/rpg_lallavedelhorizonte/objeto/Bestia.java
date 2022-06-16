@@ -6,12 +6,13 @@ import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 
 public class Bestia {
 
-    private int id, img_id, daño, vida, valocidad, experiencia;
+    private int id, img_id, daño, vida, valocidad;
+    private Integer experiencia;
     private String nobre, descripcion, tipo, clasificacion, tamaño, clasificacion_adicional, resitencia, vulnerabilidad, extras;
     private boolean montura;
     private String tipoInterno = Data.BESTIARIO;
 
-    public Bestia(int id, int img_id, int daño, int vida, int valocidad, int experiencia, String nobre, String descripcion,
+    public Bestia(int id, int img_id, int daño, int vida, int valocidad, Integer experiencia, String nobre, String descripcion,
                    String tipo, String clasificacion, String tamaño, String clasificacion_adicional, String resitencia,
                    String vulnerabilidad, String extras, boolean montura) {
         this.id = id;
@@ -52,7 +53,7 @@ public class Bestia {
         return valocidad;
     }
 
-    public int getExperiencia() {
+    public Integer getExperiencia() {
         return experiencia;
     }
 

@@ -64,11 +64,6 @@ public class PaginaPrincipal extends AppCompatActivity {
             JSONObject personaje_info = new JSONObject(Utils.getData("get/personaje?id="+id_perso));
             Log.e("fonko??", String.valueOf(personaje_info));
             JSONObject perso = personaje_info.getJSONObject("Personaje").getJSONObject("0");
-            Integer id_lengua;
-            if (perso.getString("id_lengua").equals("NULL"))
-                id_lengua = null;
-            else
-                id_lengua = Integer.parseInt(perso.getString("id_lengua"));
             personaje = new Personajes(
                     perso.getString("nombre"),
                     Integer.parseInt(perso.getString("id_procedencia")),
@@ -78,7 +73,7 @@ public class PaginaPrincipal extends AppCompatActivity {
                     Float.parseFloat(perso.getString("peso_kg").replace(",",".")),
                     perso.getString("sexo"),
                     Integer.parseInt(perso.getString("id_clase")),
-                    id_lengua,
+                    Utils.stringToInteger(perso.getString("id_lengua")),
                     Integer.parseInt(perso.getString("vitalidad")),
                     Integer.parseInt(perso.getString("resistencia")),
                     Integer.parseInt(perso.getString("fuerza")),
