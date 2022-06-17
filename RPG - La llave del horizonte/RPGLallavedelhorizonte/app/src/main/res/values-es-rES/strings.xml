@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">RPG - La llave del horizonte</string>
     <string name="master">Master</string>
@@ -8,12 +9,9 @@
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="acceptMaster">¿Està seguro  que quiere ser el Lider, Master?   Para tener una mejor         experiencia durante el juego es recomendado que el Master no sea el Lider.</string>
-    <string name="acceptJugador">Este jugador serà el Lider durante el resto de la partida.
-        ¿Està seguro de su decision, Master?</string>
-
-    <!-- Personaje Nuevo -->
     <string name="newPerNombreTxt">Nombre:</string>
     <string name="newPerProcedenciaTxt">Procedencia:</string>
+    <string name="acceptJugador">Este jugador serà el Lider durante el resto de la partida.</string>
     <string name="newPerEspecieTxt">Especie:</string>
     <string name="newPerEdadTxt">Edad:</string>
     <string name="newPerAlturaTxt">Altura (m):</string>
@@ -22,6 +20,7 @@
     <string name="kg">Kg</string>
     <string name="newPerSexoTxt">Sexo:</string>
     <string name="newPerClaseTxt">Clase:</string>
+    <string name="newPerTxt">- Los siguientes campos se han de rellanar con un numero del 0 al 10. - Se han de repartir un total de 25 puntos entre ellos. Algunos de los campos han de tener un mínimo de 1 punto.</string>
     <string name="newPerVitalidadTxt">Vitalidad:</string>
     <string name="newPerResistenciaTxt">Resistencia:</string>
     <string name="newPerFuerzaTxt">Fuerza:</string>
@@ -33,22 +32,11 @@
     <string name="newPerMagiaTxt">Magia:</string>
     <string name="butNewPerAdd">Caracteristicas adicionales</string>
     <string name="butSaveNewPer">Guardar Personaje</string>
-
-    <!-- ERRORES Personaje Nuevo -->
-    <string name="newPerE1Txt">"* Falta rellenar alguno de los campos anteriores!"</string>
-    <string name="newPerE2Txt">"* La suma total de los campos anteriores es superior a los 25 puntos."</string>
-    <string name="newPerE3Txt">"* Alguno de los campos anteriores està rellenadao con información incorrecta."</string>
-
-    <!-- SPINNERS Personaje Nuevo -->
-    <string-array name="newPerSexoSpin">
-        <item>Indefinido</item>
-        <item>Masculino</item>
-        <item>Femenino</item>
-    </string-array>
-
-    <string name="needWifi">"Conectate a la red wifi del dispositivo"</string>
-    <string name="loading">"Cargando…"</string>
-
+    <string name="newPerE1Txt">* Falta rellenar alguno de los campos anteriores!</string>
+    <string name="newPerE2Txt">* La suma total de los campos anteriores es superior a los 25 puntos.</string>
+    <string name="newPerE3Txt">* Alguno de los campos anteriores està rellenadao con información incorrecta.</string>
+    <string name="needWifi">Conectate a la red wifi del dispositivo</string>
+    <string name="loading">Cargando…</string>
     <string name="vitalidad">Vitalidad</string>
     <string name="resistencia">Resistencia</string>
     <string name="fuerza">Fuerza</string>
@@ -57,16 +45,11 @@
     <string name="punteria">Punteria</string>
     <string name="magia">Magia</string>
     <string name="destreza">Destreza</string>
-
     <string name="dineros_logo">dineros logo</string>
     <string name="fondos">fondos</string>
     <string name="imagen_jugador">imagen Jugador</string>
-
     <string name="lengua2_info">Ahora ya pudes aprender una segunda lengua! Qual de ellas te parace mas interesante?</string>
-
     <string name="aceptar">Aceptar</string>
-    <string name="newPerTxt">- Los siguientes campos se han de rellanar con un numero del 0 al 10. - Se han de repartir un total de 25 puntos entre ellos. Algunos de los campos han de tener un mínimo de 1 punto.</string>
-
     <string name="paraQuien">¿Para quien será?</string>
     <string name="queImg">¿Que imagen quieres mostrar?</string>
     <string name="addImageView">Mostrar imagen al grupo</string>

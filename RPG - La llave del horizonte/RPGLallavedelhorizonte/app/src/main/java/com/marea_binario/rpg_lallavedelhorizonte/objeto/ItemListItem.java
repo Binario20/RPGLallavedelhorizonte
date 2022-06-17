@@ -1,15 +1,20 @@
 package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
+import com.marea_binario.rpg_lallavedelhorizonte.PaginaControlMaster;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 
@@ -29,17 +34,17 @@ public class ItemListItem  extends LinearLayout {
         this.id = id;
         this.type = type;
         initComponents();
+        initListeners();
         if(type.equals(Data.BESTIARIO)){
             initBestiario((Bestia)data);
         }
     }
 
     private void initBestiario(Bestia bestia) {
-
         cosaName.setEncodedText(bestia.getNobre());
         miniDescriptionCosa.setEncodedText(bestia.getDescripcion());
         leFoto.setImageResource(Data.getImg(bestia.getImg_id()));
-
+        megaDescriptionCosa.setEncodedText(bestia.getClasificacion());
     }
 
     private void initComponents(){
@@ -53,4 +58,12 @@ public class ItemListItem  extends LinearLayout {
 
     }
 
+    private void initListeners() {
+        showMore.setOnClickListener(view -> {
+            if (megaDescriptionCosa.getVisibility() == View.VISIBLE)
+                megaDescriptionCosa.setVisibility(View.GONE);
+            else if (megaDescriptionCosa.getVisibility() == View.GONE)
+                megaDescriptionCosa.setVisibility(View.VISIBLE);
+        });
+    }
 }
