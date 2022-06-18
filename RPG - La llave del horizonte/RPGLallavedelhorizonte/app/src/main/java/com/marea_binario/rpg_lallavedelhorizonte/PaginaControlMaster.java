@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
@@ -174,6 +175,54 @@ public class PaginaControlMaster extends AppCompatActivity {
         }
     }
 
+    private void createAddCosaAlert(boolean addImg) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.gestion_cantidad_item, null);
+
+        builder.setView(popupView);
+
+        androidx.appcompat.app.AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        // initComponents
+        Button subOne, addOne, acceptBut, turnBack, reLoad, showImg;
+        TextView howMuch, escojeTV;
+        View divShow;
+        RadioGroup forWho;
+        final int[] cantidad = {0};
+
+        divShow = popupView.findViewById(R.id.divShow);
+        forWho = popupView.findViewById(R.id.forWho);
+        howMuch = popupView.findViewById(R.id.howMuch);
+        subOne = popupView.findViewById(R.id.subOne);
+        addOne = popupView.findViewById(R.id.addOne);
+        acceptBut = popupView.findViewById(R.id.acceptBut);
+        turnBack = popupView.findViewById(R.id.turnBack);
+        reLoad = popupView.findViewById(R.id.reLoad);
+        showImg = popupView.findViewById(R.id.showImg);
+
+        //Que cantidad de Cosa
+        addOne.setOnClickListener(view -> {
+            cantidad[0]++;
+            howMuch.setText(String.valueOf(cantidad[0]));
+        });
+        subOne.setOnClickListener(view -> {
+            cantidad[0]--;
+            howMuch.setText(String.valueOf(cantidad[0]));
+        });
+
+        // A quien?
+        turnBack.setOnClickListener(v -> alertEraseAlert.cancel());
+        
+        // add Imgage
+        if (addImg) {
+            divShow.setVisibility(View.VISIBLE);
+            showImg.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void listaBestiario() {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
         builder.setCancelable(true);
@@ -188,7 +237,11 @@ public class PaginaControlMaster extends AppCompatActivity {
         LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
         caja_objetos.removeAllViews();
         for(Bestia bestia : Data.getBestiario()){
-            caja_objetos.addView(new ItemListItem(this, bestia.getId(), Data.BESTIARIO, bestia));
+            ItemListItem item = new ItemListItem(this, bestia.getId(), Data.BESTIARIO, bestia);
+            item.getAdd().setOnClickListener(view -> {
+                createAddCosaAlert(true);
+            });
+            caja_objetos.addView(item);
         }
     }
 }

@@ -58,7 +58,7 @@
         app:layout_constraintTop_toTopOf="@+id/subOne" />
 
     <Button
-        android:id="@+id/accept"
+        android:id="@+id/acceptBut"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -66,12 +66,12 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/md_theme_dark_inversePrimary"
         android:text="@string/aceptar"
-        app:layout_constraintBottom_toTopOf="@+id/divider5"
+        app:layout_constraintBottom_toTopOf="@+id/divShow"
         app:layout_constraintEnd_toStartOf="@+id/reLoad"
         app:layout_constraintStart_toEndOf="@+id/turnBack" />
 
     <View
-        android:id="@+id/divider2"
+        android:id="@+id/divCant"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginStart="16dp"
@@ -83,7 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/howMuch" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/escojeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -93,7 +93,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/addOne"
         app:layout_constraintStart_toStartOf="@+id/subOne"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+        app:layout_constraintTop_toBottomOf="@+id/divCant" />
 
     <RadioGroup
         android:id="@+id/forWho"
@@ -101,10 +101,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/accept"
+        app:layout_constraintBottom_toTopOf="@+id/acceptBut"
         app:layout_constraintEnd_toEndOf="@+id/addOne"
         app:layout_constraintStart_toStartOf="@+id/subOne"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/escojeTV" />
 
     <Button
         android:id="@+id/turnBack"
@@ -113,9 +113,9 @@
         android:paddingLeft="13dp"
         android:paddingRight="13dp"
         app:icon="?attr/actionModeCloseDrawable"
-        app:layout_constraintBottom_toBottomOf="@+id/accept"
+        app:layout_constraintBottom_toBottomOf="@+id/acceptBut"
         app:layout_constraintStart_toStartOf="@+id/forWho"
-        app:layout_constraintTop_toTopOf="@+id/accept"
+        app:layout_constraintTop_toTopOf="@+id/acceptBut"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
@@ -125,13 +125,13 @@
         android:paddingLeft="14dp"
         android:paddingRight="14dp"
         app:icon="@android:drawable/stat_notify_sync"
-        app:layout_constraintBottom_toBottomOf="@+id/accept"
+        app:layout_constraintBottom_toBottomOf="@+id/acceptBut"
         app:layout_constraintEnd_toEndOf="@+id/forWho"
-        app:layout_constraintTop_toTopOf="@+id/accept"
+        app:layout_constraintTop_toTopOf="@+id/acceptBut"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/showImg"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -140,11 +140,11 @@
         android:text="@string/addImageView"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/divider5"
-        app:layout_constraintStart_toStartOf="@+id/divider5" />
+        app:layout_constraintEnd_toEndOf="@+id/divShow"
+        app:layout_constraintStart_toStartOf="@+id/divShow" />
 
     <View
-        android:id="@+id/divider5"
+        android:id="@+id/divShow"
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginStart="16dp"
@@ -152,7 +152,7 @@
         android:layout_marginBottom="16dp"
         android:background="?android:attr/listDivider"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/showImg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

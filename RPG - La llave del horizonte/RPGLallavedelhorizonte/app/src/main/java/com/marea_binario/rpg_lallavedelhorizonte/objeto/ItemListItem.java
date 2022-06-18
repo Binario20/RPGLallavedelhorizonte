@@ -66,4 +66,6 @@ public class ItemListItem  extends LinearLayout {
                 megaDescriptionCosa.setVisibility(View.VISIBLE);
         });
     }
+
+    public Button getAdd () { return add; }
 }
