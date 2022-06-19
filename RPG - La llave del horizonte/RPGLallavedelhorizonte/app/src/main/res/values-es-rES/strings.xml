@@ -5,13 +5,14 @@
     <string name="jugador">Jugador</string>
     <string name="masterHola">Bienvenido al juego Master!</string>
     <string name="masterTodos">Ya estamos todos</string>
-    <string name="masterAceptaLider">Aceptar Lider</string>
+    <string name="masterAceptaLider">Aceptar Líder</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
-    <string name="acceptMaster">¿Està seguro  que quiere ser el Lider, Master?   Para tener una mejor         experiencia durante el juego es recomendado que el Master no sea el Lider.</string>
+    <string name="acceptMaster">¿Està seguro  que quiere ser el Líder, Master?   Para tener una mejor
+        experiencia durante el juego es recomendado que el Master no sea el Líder.</string>
     <string name="newPerNombreTxt">Nombre:</string>
     <string name="newPerProcedenciaTxt">Procedencia:</string>
-    <string name="acceptJugador">Este jugador serà el Lider durante el resto de la partida.</string>
+    <string name="acceptJugador">Este jugador serà el Líder durante el resto de la partida.</string>
     <string name="newPerEspecieTxt">Especie:</string>
     <string name="newPerEdadTxt">Edad:</string>
     <string name="newPerAlturaTxt">Altura (m):</string>
@@ -20,7 +21,7 @@
     <string name="kg">Kg</string>
     <string name="newPerSexoTxt">Sexo:</string>
     <string name="newPerClaseTxt">Clase:</string>
-    <string name="newPerTxt">- Los siguientes campos se han de rellanar con un numero del 0 al 10. - Se han de repartir un total de 25 puntos entre ellos. Algunos de los campos han de tener un mínimo de 1 punto.</string>
+    <string name="newPerTxt">- Los siguientes campos se han de rellanar con un numero del 0 al 10. \n- Se han de repartir un total de 25 puntos entre ellos. \n- Algunos de los campos han de tener un mínimo de 1 punto.</string>
     <string name="newPerVitalidadTxt">Vitalidad:</string>
     <string name="newPerResistenciaTxt">Resistencia:</string>
     <string name="newPerFuerzaTxt">Fuerza:</string>

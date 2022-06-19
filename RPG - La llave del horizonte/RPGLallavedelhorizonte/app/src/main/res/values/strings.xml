@@ -65,7 +65,7 @@
     <string name="lengua2_info">Ahora ya pudes aprender una segunda lengua! Qual de ellas te parace mas interesante?</string>
 
     <string name="aceptar">Aceptar</string>
-    <string name="newPerTxt">- Los siguientes campos se han de rellanar con un numero del 0 al 10. - Se han de repartir un total de 25 puntos entre ellos. Algunos de los campos han de tener un mínimo de 1 punto.</string>
+    <string name="newPerTxt">- Los siguientes campos se han de rellanar con un numero del 0 al 10. \n- Se han de repartir un total de 25 puntos entre ellos. \n- Algunos de los campos han de tener un mínimo de 1 punto.</string>
 
     <string name="paraQuien">¿Para quien será?</string>
     <string name="queImg">¿Que imagen quieres mostrar?</string>

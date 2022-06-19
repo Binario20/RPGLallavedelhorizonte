@@ -29,7 +29,7 @@ public class PaginaControlMaster extends AppCompatActivity {
     private Button modDineros, reloadMaster, armasBut, objetosBut, bestiarioBut, magiaBut, regionesBut, depositoObjetosBut;
     private SuperText dineros;
     private ImageView PviewInM, personajesBut, atributosBut;
-    private JSONObject listaDeposito;
+    private JSONObject listaDeposito, listaPersonas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,7 @@ public class PaginaControlMaster extends AppCompatActivity {
         setConfigIfLider();
         try {
             listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
+            listaPersonas = new JSONObject(Utils.getData("get/conectados/estadisticas"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -190,11 +191,9 @@ public class PaginaControlMaster extends AppCompatActivity {
         Button subOne, addOne, acceptBut, turnBack, reLoad, showImg;
         TextView howMuch, escojeTV;
         View divShow;
-        RadioGroup forWho;
         final int[] cantidad = {0};
 
         divShow = popupView.findViewById(R.id.divShow);
-        forWho = popupView.findViewById(R.id.forWho);
         howMuch = popupView.findViewById(R.id.howMuch);
         subOne = popupView.findViewById(R.id.subOne);
         addOne = popupView.findViewById(R.id.addOne);
@@ -214,7 +213,29 @@ public class PaginaControlMaster extends AppCompatActivity {
         });
 
         // A quien?
+        Iterator<String> iter = listaPersonas.keys();
+        RadioGroup rg = popupView.findViewById(R.id.forWho);
+        rg.setOrientation(RadioGroup.VERTICAL);
+        while (iter.hasNext()) {
+            try {
+                JSONObject object = listaPersonas.getJSONObject(iter.next());
+                SuperRadioButton rb = new SuperRadioButton(this);
+                rb.setId(Integer.parseInt(object.getString("id")));
+                rb.setEncodedText(object.getString("nombre"));
+                rg.addView(rb);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         turnBack.setOnClickListener(v -> alertEraseAlert.cancel());
+        reLoad.setOnClickListener(view -> {
+            try {
+                listaPersonas = new JSONObject(Utils.getData("get/conectados/estadisticas"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         
         // add Imgage
         if (addImg) {

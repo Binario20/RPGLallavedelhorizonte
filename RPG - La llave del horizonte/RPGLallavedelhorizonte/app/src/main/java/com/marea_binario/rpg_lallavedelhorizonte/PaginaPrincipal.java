@@ -218,7 +218,7 @@ public class PaginaPrincipal extends AppCompatActivity {
         punteria = this.findViewById(R.id.punteria);
 
         imgJugador.setBackground(AppCompatResources.getDrawable(this, Data.getRandomWallPaper()));
-        fondo.setBackground(AppCompatResources.getDrawable(this, Data.getRandomWallPaper()));
+        fondo.setBackground(AppCompatResources.getDrawable(this, R.drawable.todoynada));
 
         Bitmap icon = BitmapFactory.decodeResource(this.getResources(),
                 R.drawable.dineros);
