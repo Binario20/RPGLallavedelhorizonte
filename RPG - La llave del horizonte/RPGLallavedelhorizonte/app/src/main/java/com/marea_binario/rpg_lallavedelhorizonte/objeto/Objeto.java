@@ -1,16 +1,13 @@
 package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
-public class Objeto {
-    private String nombre, descripcion, tipo;
-    private int id, img_id;
+public class Objeto extends MrWorldwide{
+    private String descripcion, tipo;
     private Integer obj1_id, obj2_id;
 
     public Objeto(String nombre, String descripcion, String tipo, int id, int img_id, Integer obj1_id, Integer obj2_id) {
-        this.nombre = nombre;
+        super(id, img_id, nombre);
         this.descripcion = descripcion;
         this.tipo = tipo;
-        this.id = id;
-        this.img_id = img_id;
         this.obj1_id = obj1_id;
         this.obj2_id = obj2_id;
     }
@@ -18,18 +15,14 @@ public class Objeto {
     @Override
     public String toString() {
         return "Objeto{" +
-                "nombre='" + nombre + '\'' +
+                "nombre='" + this.getNombre() + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", tipo='" + tipo + '\'' +
-                ", id=" + id +
-                ", img_id=" + img_id +
+                ", id=" + this.getId() +
+                ", img_id=" + this.getImg_id() +
                 ", obj1_id=" + obj1_id +
                 ", obj2_id=" + obj2_id +
                 '}';
-    }
-
-    public String getNombre() {
-        return nombre;
     }
 
     public String getDescripcion() {
@@ -38,14 +31,6 @@ public class Objeto {
 
     public String getTipo() {
         return tipo;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getImg_id() {
-        return img_id;
     }
 
     public Integer getObj1_id() {

@@ -2,24 +2,22 @@ package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 
-public class Bestia {
+public class Bestia extends MrWorldwide{
 
-    private int id, img_id, daño, vida, velocidad;
+    private int daño, vida, velocidad;
     private Integer experiencia;
-    private String nobre, descripcion, tipo, clasificacion, tamaño, clasificacion_adicional, resitencia, vulnerabilidad, extras;
+    private String descripcion, tipo, clasificacion, tamaño, clasificacion_adicional, resitencia, vulnerabilidad, extras;
     private boolean montura;
     private String tipoInterno = Data.BESTIARIO;
 
-    public Bestia(int id, int img_id, int daño, int vida, int velocidad, Integer experiencia, String nobre, String descripcion,
+    public Bestia(int id, int img_id, int daño, int vida, int velocidad, Integer experiencia, String nombre, String descripcion,
                    String tipo, String clasificacion, String tamaño, String clasificacion_adicional, String resitencia,
                    String vulnerabilidad, String extras, boolean montura) {
-        this.id = id;
-        this.img_id = img_id;
+        super(id, img_id, nombre);
         this.daño = daño;
         this.vida = vida;
         this.velocidad = velocidad;
         this.experiencia = experiencia;
-        this.nobre = nobre;
         this.descripcion = descripcion;
         this.tipo = tipo;
         this.clasificacion = clasificacion;
@@ -29,14 +27,6 @@ public class Bestia {
         this.vulnerabilidad = vulnerabilidad;
         this.extras = extras;
         this.montura = montura;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getImg_id() {
-        return img_id;
     }
 
     public int getDaño() {
@@ -53,10 +43,6 @@ public class Bestia {
 
     public Integer getExperiencia() {
         return experiencia;
-    }
-
-    public String getNobre() {
-        return nobre;
     }
 
     public String getDescripcion() {

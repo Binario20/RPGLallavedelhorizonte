@@ -230,7 +230,7 @@ public class PaginaPrincipal extends AppCompatActivity {
 
         int i = 1;
         for (Item item: items) {
-            item.setCustomId(i++);
+            item.setCustomId(i++, Data.OBJETO);
         }
         dinerosImg = this.findViewById(R.id.dinerosImg);
         dineros = this.findViewById(R.id.dineros);

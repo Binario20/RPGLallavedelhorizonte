@@ -15,4 +15,17 @@ public class ArmaBlanca extends Arma{
         this.requsisito = requisito;
         this.requisito_campo = requisito_campo;
     }
+
+    @Override
+    public String toString() {
+        return "ArmaBlanca{" +
+                "operacion='" + operacion + '\'' +
+                ", suma1_campo='" + suma1_campo + '\'' +
+                ", suma2_campo='" + suma2_campo + '\'' +
+                ", requisito_campo='" + requisito_campo + '\'' +
+                ", suma1=" + suma1 +
+                ", suma2=" + suma2 +
+                ", requsisito=" + requsisito +
+                '}';
+    }
 }

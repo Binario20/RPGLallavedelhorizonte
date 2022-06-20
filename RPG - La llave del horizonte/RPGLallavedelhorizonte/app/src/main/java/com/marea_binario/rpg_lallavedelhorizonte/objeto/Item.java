@@ -11,8 +11,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
+
+import java.util.ArrayList;
 
 public class Item extends LinearLayout {
 
@@ -20,6 +23,8 @@ public class Item extends LinearLayout {
     private ImageView img;
     private SuperText text;
     private String nombreItem = "";
+    private String tipo;
+    private MrWorldwide mySelf;
     private int customId = -1;
 
     public Item(Context context) {
@@ -71,13 +76,81 @@ public class Item extends LinearLayout {
         return customId;
     }
 
-    public void setCustomId(int customId) {
+    public void setCustomId(int customId, String tipo) {
+        this.tipo = tipo;
         this.customId = customId;
-        this.nombreItem = String.valueOf(customId);
+
+        switch (tipo){
+            case Data.OBJETO:
+                ArrayList<Objeto> objs = Data.getObjetos();
+                for (Objeto obj : objs ) {
+                    if (obj.getId()==customId){
+                        mySelf = obj;
+                        break;
+                    }
+                }
+                break;
+            case Data.ARMA_BLANCA:
+                ArrayList<ArmaBlanca> armbs = Data.getArmasBlancas();
+                for (ArmaBlanca armb : armbs ) {
+                    if (armb.getId()==customId){
+                        mySelf = armb;
+                        break;
+                    }
+                }
+                break;
+            case Data.ARMA_NEGRA:
+                ArrayList<ArmaNegra> armns = Data.getArmasNegras();
+                for (ArmaNegra armn : armns ) {
+                    if (armn.getId()==customId){
+                        mySelf = armn;
+                        break;
+                    }
+                }
+                break;
+            case Data.MAGIA:
+                ArrayList<Libro> libros = Data.getMagia();
+                for (Libro libro : libros ) {
+                    if (libro.getId()==customId){
+                        mySelf = libro;
+                        break;
+                    }
+                }
+                break;
+            case Data.BESTIARIO:
+                ArrayList<Bestia> bestias = Data.getBestiario();
+                for (Bestia bestia : bestias ) {
+                    if (bestia.getId()==customId){
+                        mySelf = bestia;
+                        break;
+                    }
+                }
+                break;
+        }
+
+        this.img.setBackground(AppCompatResources.getDrawable(getContext(), mySelf.getImg_id()));
+        this.nombreItem = String.valueOf(mySelf.getNombre());
     }
 
     private String getInfo(){
-
-        return "Info aqui";
+        String info ="";
+        switch (tipo){
+            case Data.OBJETO:
+                info = ((Objeto)mySelf).toString();
+                break;
+            case Data.ARMA_BLANCA:
+                info = ((ArmaBlanca)mySelf).toString();
+                break;
+            case Data.ARMA_NEGRA:
+                info = ((ArmaNegra)mySelf).toString();
+                break;
+            case Data.MAGIA:
+                info = ((Libro)mySelf).toString();
+                break;
+            case Data.BESTIARIO:
+                info = ((Bestia)mySelf).toString();
+                break;
+        }
+        return info;
     }
 }

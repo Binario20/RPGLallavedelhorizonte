@@ -33,6 +33,10 @@ public class Data {
     private static ArrayList<Libro> magia;
     public static final String BESTIARIO = "bestiario";
     public static final String OBJETO = "objeto";
+    public static final String ARMA_BLANCA = "armas blancas";
+    public static final String ARMA_NEGRA = "armas negras";
+    public static final String REGIONES = "regiones";
+    public static final String MAGIA = "magia";
     public static int[] imgArray = {
             R.drawable.g1,
             R.drawable.g2,

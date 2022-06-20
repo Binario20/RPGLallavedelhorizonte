@@ -83,7 +83,11 @@ public class Utils {
         connTask2.execute();
         try {
             String ret = connTask2.get().toString().trim();
-            return (ret == null) ? "{}" : ret;
+            if(ret == null){
+                return getData(url);
+            }else{
+                return ret;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return "{}";
