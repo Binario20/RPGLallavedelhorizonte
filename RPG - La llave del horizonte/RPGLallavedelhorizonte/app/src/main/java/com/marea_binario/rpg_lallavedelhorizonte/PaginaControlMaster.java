@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +42,11 @@ public class PaginaControlMaster extends AppCompatActivity {
         setConfigIfLider();
         try {
             listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
-            listaPersonas = new JSONObject(Utils.getData("get/conectados/estadisticas"));
+            String x = Utils.getData("get/conectados/estadisticas");
+            if (x.equals("204 OK"))
+                listaPersonas = new JSONObject();
+            else
+                listaPersonas = new JSONObject(x);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -77,9 +82,7 @@ public class PaginaControlMaster extends AppCompatActivity {
             // mostrar lista de objetos
         });
 
-        bestiarioBut.setOnClickListener(view -> {
-            listaBestiario();
-        });
+        bestiarioBut.setOnClickListener(view -> listaBestiario());
 
         magiaBut.setOnClickListener(view -> {
             // mostrar lista de magia
@@ -107,9 +110,7 @@ public class PaginaControlMaster extends AppCompatActivity {
             modDineros.setVisibility(View.VISIBLE);
             reloadMaster.setVisibility(View.GONE);
 
-            modDineros.setOnClickListener(view -> {
-                creatGestionaDinerosAlert();
-            });
+            modDineros.setOnClickListener(view -> creatGestionaDinerosAlert());
         } else if (isLider.equals("false")) {
             modDineros.setVisibility(View.GONE);
             reloadMaster.setVisibility(View.VISIBLE);
@@ -176,7 +177,7 @@ public class PaginaControlMaster extends AppCompatActivity {
         }
     }
 
-    private void createAddCosaAlert(boolean addImg) {
+    private void createAddCosaAlert(boolean addImg, Integer img_id, String tipo, int id_cosa) {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
         builder.setCancelable(true);
         View popupView = getLayoutInflater().inflate(R.layout.gestion_cantidad_item, null);
@@ -227,6 +228,21 @@ public class PaginaControlMaster extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        acceptBut.setOnClickListener(view -> {
+            int id_persona = rg.getCheckedRadioButtonId();
+            Log.e("id_persona", String.valueOf(id_persona));
+            try {
+                JSONObject cosa = new JSONObject();
+                cosa.put("id_jugador",id_persona);
+                cosa.put("id_cosa", id_cosa);
+                cosa.put("tipo", tipo);
+                cosa.put("cantidad", cantidad[0]);
+                Utils.getData("post/cosa_adquirida?new="+cosa);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            alertEraseAlert.cancel();
+        });
 
         turnBack.setOnClickListener(v -> alertEraseAlert.cancel());
         reLoad.setOnClickListener(view -> {
@@ -241,7 +257,13 @@ public class PaginaControlMaster extends AppCompatActivity {
         if (addImg) {
             divShow.setVisibility(View.VISIBLE);
             showImg.setVisibility(View.VISIBLE);
+            showImg.setOnClickListener(view -> setImg(img_id));
         }
+    }
+
+    private void setImg(int img_id) {
+        Utils.getData("put/img_on_display?id="+img_id);
+        PviewInM.setImageResource(Data.getImg(img_id));
     }
 
     private void listaBestiario() {
@@ -260,7 +282,10 @@ public class PaginaControlMaster extends AppCompatActivity {
         for(Bestia bestia : Data.getBestiario()){
             ItemListItem item = new ItemListItem(this, bestia.getId(), Data.BESTIARIO, bestia);
             item.getAdd().setOnClickListener(view -> {
-                createAddCosaAlert(true);
+                if (bestia.isMontura())
+                    createAddCosaAlert(true, bestia.getImg_id(), "Bestia", bestia.getId());
+                else
+                    setImg(bestia.getImg_id());
             });
             caja_objetos.addView(item);
         }

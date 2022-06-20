@@ -1,25 +1,14 @@
 package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
-import com.marea_binario.rpg_lallavedelhorizonte.PaginaControlMaster;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class ItemListItem  extends LinearLayout {
 
@@ -44,7 +33,32 @@ public class ItemListItem  extends LinearLayout {
         cosaName.setEncodedText(bestia.getNobre());
         miniDescriptionCosa.setEncodedText(bestia.getDescripcion());
         leFoto.setImageResource(Data.getImg(bestia.getImg_id()));
-        megaDescriptionCosa.setEncodedText(bestia.getClasificacion());
+
+        //descripcion
+        String desc = "- Tipo: ";
+        desc += bestia.getTipo() + "\n";
+        desc += "- ClasificaciÃ³n: " + bestia.getClasificacion() + "\n";
+        if (!bestia.getClasificacion_adicional().trim().equals("NULL"))
+            desc += "- ClasificaciÃ³n(2): " + bestia.getClasificacion_adicional() + "\n";
+        desc += "- Montura: ";
+        desc +=  bestia.isMontura()? "si\n": "no\n";
+        desc += "- TamaÃ±o: " + bestia.getTamaño() + "\n";
+        desc += "- DaÃ±o: " + bestia.getDaño() + "\n";
+        desc += "- Vida: " + bestia.getVida() + "\n";
+        desc += "-Velocidad: " + bestia.getVelocidad() + "\n";
+        if (bestia.getExperiencia() != null)
+            desc += "- Experiencia al derrotar: " + bestia.getExperiencia() + "\n";
+        if (bestia.getExtras().trim().equals("NULL"))
+            desc += "- Resistente a: Nada\n";
+        else
+            desc += "- Resistente a: " + bestia.getResitencia() + "\n";
+        if (bestia.getExtras().trim().equals("NULL"))
+            desc += "- Vulnerable a: Nada";
+        else
+            desc += "- Vulnerable a: " + bestia.getVulnerabilidad();
+        if (!bestia.getExtras().trim().equals("NULL"))
+            desc += "\n- Extras: " + bestia.getExtras();
+        megaDescriptionCosa.setEncodedText(desc);
     }
 
     private void initComponents(){

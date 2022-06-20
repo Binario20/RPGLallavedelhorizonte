@@ -33,12 +33,12 @@ public class MasterEscogerLider extends AppCompatActivity {
         setContentView(R.layout.activity_master_escoger_lider);
 
         initComponents();
-        actualizar(this);
 
         Bundle b = getIntent().getExtras();
         if (!b.getBoolean("set-master")) {
             setMaster();
         }
+        actualizar(this);
     }
 
     private void actualizar(Context conte){
@@ -93,7 +93,7 @@ public class MasterEscogerLider extends AppCompatActivity {
     }
 
     private void alertaConfirmacion() {
-        Toast.makeText(this, Data.getLider(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, Data.getLider(), Toast.LENGTH_SHORT).show();
         Log.e("lider", Data.getLider());
         AlertDialog.Builder builder = new AlertDialog.Builder(MasterEscogerLider.this);
             builder.setCancelable(true);
@@ -124,7 +124,8 @@ public class MasterEscogerLider extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), PaginaControlMaster.class));
                 // Aceptar Lider
                 Integer lider = Data.getLider_id();
-                Toast.makeText(this, Utils.getData("put/set_lider-on?id="+lider), Toast.LENGTH_SHORT).show();
+                Utils.getData("put/set_lider-on?id="+lider);
+                alertEraseAlert.cancel();
                 finish();
             });
             rightButton.setOnClickListener(view2 -> alertEraseAlert.cancel());

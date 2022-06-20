@@ -1,25 +1,23 @@
 package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
-import android.os.Bundle;
-
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 
 public class Bestia {
 
-    private int id, img_id, daño, vida, valocidad;
+    private int id, img_id, daño, vida, velocidad;
     private Integer experiencia;
     private String nobre, descripcion, tipo, clasificacion, tamaño, clasificacion_adicional, resitencia, vulnerabilidad, extras;
     private boolean montura;
     private String tipoInterno = Data.BESTIARIO;
 
-    public Bestia(int id, int img_id, int daño, int vida, int valocidad, Integer experiencia, String nobre, String descripcion,
+    public Bestia(int id, int img_id, int daño, int vida, int velocidad, Integer experiencia, String nobre, String descripcion,
                    String tipo, String clasificacion, String tamaño, String clasificacion_adicional, String resitencia,
                    String vulnerabilidad, String extras, boolean montura) {
         this.id = id;
         this.img_id = img_id;
         this.daño = daño;
         this.vida = vida;
-        this.valocidad = valocidad;
+        this.velocidad = velocidad;
         this.experiencia = experiencia;
         this.nobre = nobre;
         this.descripcion = descripcion;
@@ -49,8 +47,8 @@ public class Bestia {
         return vida;
     }
 
-    public int getValocidad() {
-        return valocidad;
+    public int getVelocidad() {
+        return velocidad;
     }
 
     public Integer getExperiencia() {
