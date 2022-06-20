@@ -27,6 +27,19 @@ public class ItemListItem  extends LinearLayout {
         if(type.equals(Data.BESTIARIO)){
             initBestiario((Bestia)data);
         }
+        if (type.equals(Data.OBJETO))
+            initObjeto((Objeto) data);
+    }
+
+    private void initObjeto(Objeto objeto) {
+        cosaName.setEncodedText(objeto.getNombre());
+        miniDescriptionCosa.setEncodedText(objeto.getDescripcion());
+        leFoto.setImageResource(Data.getImg(objeto.getImg_id()));
+
+        //descripcion
+        String desc = "- Tipo: ";
+        desc += objeto.getTipo() + "\n";
+        megaDescriptionCosa.setEncodedText(desc);
     }
 
     private void initBestiario(Bestia bestia) {

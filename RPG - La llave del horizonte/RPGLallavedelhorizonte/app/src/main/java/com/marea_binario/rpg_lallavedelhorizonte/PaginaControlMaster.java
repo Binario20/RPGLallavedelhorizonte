@@ -20,6 +20,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ItemListItem;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,9 +79,7 @@ public class PaginaControlMaster extends AppCompatActivity {
             // mostrar lista de armas
         });
 
-        objetosBut.setOnClickListener(view -> {
-            // mostrar lista de objetos
-        });
+        objetosBut.setOnClickListener(view -> listaObjetos());
 
         bestiarioBut.setOnClickListener(view -> listaBestiario());
 
@@ -177,7 +176,7 @@ public class PaginaControlMaster extends AppCompatActivity {
         }
     }
 
-    private void createAddCosaAlert(boolean addImg, Integer img_id, String tipo, int id_cosa) {
+    private void createAddCosaAlert(Integer img_id, String tipo, int id_cosa) {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
         builder.setCancelable(true);
         View popupView = getLayoutInflater().inflate(R.layout.gestion_cantidad_item, null);
@@ -191,13 +190,16 @@ public class PaginaControlMaster extends AppCompatActivity {
         // initComponents
         Button subOne, addOne, acceptBut, turnBack, reLoad, showImg;
         TextView howMuch, escojeTV;
-        View divShow;
-        final int[] cantidad = {0};
+        RadioGroup rg;
+        View divCant;
+        final int[] cantidad = {1};
 
-        divShow = popupView.findViewById(R.id.divShow);
+        rg = popupView.findViewById(R.id.forWho);
+        divCant = popupView.findViewById(R.id.divCant);
         howMuch = popupView.findViewById(R.id.howMuch);
         subOne = popupView.findViewById(R.id.subOne);
         addOne = popupView.findViewById(R.id.addOne);
+        escojeTV = popupView.findViewById(R.id.escojeTV);
         acceptBut = popupView.findViewById(R.id.acceptBut);
         turnBack = popupView.findViewById(R.id.turnBack);
         reLoad = popupView.findViewById(R.id.reLoad);
@@ -214,51 +216,60 @@ public class PaginaControlMaster extends AppCompatActivity {
         });
 
         // A quien?
-        Iterator<String> iter = listaPersonas.keys();
-        RadioGroup rg = popupView.findViewById(R.id.forWho);
-        rg.setOrientation(RadioGroup.VERTICAL);
-        while (iter.hasNext()) {
-            try {
-                JSONObject object = listaPersonas.getJSONObject(iter.next());
-                SuperRadioButton rb = new SuperRadioButton(this);
-                rb.setId(Integer.parseInt(object.getString("id")));
-                rb.setEncodedText(object.getString("nombre"));
-                rg.addView(rb);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (tipo.equals("objeto grupo")) {
+            divCant.setVisibility(View.GONE);
+            escojeTV.setVisibility(View.GONE);
+            rg.setVisibility(View.GONE);
+            reLoad.setVisibility(View.GONE);
+            acceptBut.setOnClickListener(view -> {
+                Utils.getData("put/obj_grupo?id="+id_cosa+"#sum="+cantidad[0]);
+                isGroupObject(id_cosa, cantidad[0]);
+                alertEraseAlert.cancel();
+            });
+        } else {
+            Iterator<String> iter = listaPersonas.keys();
+            rg.setOrientation(RadioGroup.VERTICAL);
+            while (iter.hasNext()) {
+                try {
+                    JSONObject object = listaPersonas.getJSONObject(iter.next());
+                    SuperRadioButton rb = new SuperRadioButton(this);
+                    rb.setId(Integer.parseInt(object.getString("id")));
+                    rb.setEncodedText(object.getString("nombre"));
+                    rg.addView(rb);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
+            acceptBut.setOnClickListener(view -> {
+                int id_persona = rg.getCheckedRadioButtonId();
+                Log.e("id_persona", String.valueOf(id_persona));
+                try {
+                    JSONObject cosa = new JSONObject();
+                    cosa.put("id_jugador",id_persona);
+                    cosa.put("id_cosa", id_cosa);
+                    cosa.put("tipo", tipo);
+                    cosa.put("cantidad", cantidad[0]);
+                    Utils.getData("post/cosa_adquirida?new="+cosa);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                alertEraseAlert.cancel();
+            });
+            reLoad.setOnClickListener(view -> {
+                try {
+                    listaPersonas = new JSONObject(Utils.getData("get/conectados/estadisticas"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
         }
-        acceptBut.setOnClickListener(view -> {
-            int id_persona = rg.getCheckedRadioButtonId();
-            Log.e("id_persona", String.valueOf(id_persona));
-            try {
-                JSONObject cosa = new JSONObject();
-                cosa.put("id_jugador",id_persona);
-                cosa.put("id_cosa", id_cosa);
-                cosa.put("tipo", tipo);
-                cosa.put("cantidad", cantidad[0]);
-                Utils.getData("post/cosa_adquirida?new="+cosa);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            alertEraseAlert.cancel();
-        });
 
         turnBack.setOnClickListener(v -> alertEraseAlert.cancel());
-        reLoad.setOnClickListener(view -> {
-            try {
-                listaPersonas = new JSONObject(Utils.getData("get/conectados/estadisticas"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+        showImg.setOnClickListener(view -> {
+            setImg(img_id);
+            alertEraseAlert.cancel();
         });
-        
-        // add Imgage
-        if (addImg) {
-            divShow.setVisibility(View.VISIBLE);
-            showImg.setVisibility(View.VISIBLE);
-            showImg.setOnClickListener(view -> setImg(img_id));
-        }
     }
 
     private void setImg(int img_id) {
@@ -283,11 +294,54 @@ public class PaginaControlMaster extends AppCompatActivity {
             ItemListItem item = new ItemListItem(this, bestia.getId(), Data.BESTIARIO, bestia);
             item.getAdd().setOnClickListener(view -> {
                 if (bestia.isMontura())
-                    createAddCosaAlert(true, bestia.getImg_id(), "Bestia", bestia.getId());
+                    createAddCosaAlert(bestia.getImg_id(), Data.BESTIARIO, bestia.getId());
                 else
                     setImg(bestia.getImg_id());
             });
             caja_objetos.addView(item);
         }
+    }
+
+    private void listaObjetos() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
+
+        builder.setView(popupView);
+
+        androidx.appcompat.app.AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
+        caja_objetos.removeAllViews();
+        for(Objeto objeto : Data.getObjetos()){
+            ItemListItem item = new ItemListItem(this, objeto.getId(), Data.OBJETO, objeto);
+            item.getAdd().setOnClickListener(view -> {
+                if (isGroupObject(objeto.getId(), null))
+                    createAddCosaAlert(objeto.getImg_id(), "objeto grupo", objeto.getId());
+                else
+                    createAddCosaAlert(objeto.getImg_id(), Data.OBJETO, objeto.getId());
+            });
+            caja_objetos.addView(item);
+        }
+    }
+
+    private boolean isGroupObject(int id_cosa, Integer cantidad) {
+        Iterator<String> iter = listaDeposito.keys();
+        while (iter.hasNext()) {
+            try {
+                JSONObject object = listaDeposito.getJSONObject(iter.next());
+                int id_object = Integer.parseInt(object.getString("id"));
+                if (id_cosa == id_object) {
+                    if (cantidad != null)
+                        object.put("cantidad", cantidad);
+                    return true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 }

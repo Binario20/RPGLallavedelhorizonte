@@ -49,7 +49,7 @@
         android:layout_marginEnd="16dp"
         android:gravity="center_horizontal|center_vertical"
         android:padding="8dp"
-        android:text="0"
+        android:text="1"
         android:textColor="@color/md_theme_light_onSecondaryContainer"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/subOne"
@@ -63,12 +63,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/md_theme_dark_inversePrimary"
         android:text="@string/aceptar"
-        app:layout_constraintBottom_toTopOf="@+id/divShow"
+        app:layout_constraintBottom_toTopOf="@+id/showImg"
         app:layout_constraintEnd_toStartOf="@+id/reLoad"
-        app:layout_constraintStart_toEndOf="@+id/turnBack" />
+        app:layout_constraintStart_toEndOf="@+id/turnBack"
+        app:layout_constraintTop_toTopOf="@+id/divCant" />
 
     <View
         android:id="@+id/divCant"
@@ -78,6 +78,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="?android:attr/listDivider"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/howMuch" />
@@ -91,6 +92,7 @@
         android:textColor="@color/md_theme_light_onSecondaryContainer"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/addOne"
         app:layout_constraintStart_toStartOf="@+id/subOne"
         app:layout_constraintTop_toBottomOf="@+id/divCant" />
@@ -101,6 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/acceptBut"
         app:layout_constraintEnd_toEndOf="@+id/addOne"
         app:layout_constraintStart_toStartOf="@+id/subOne"
@@ -114,7 +117,7 @@
         android:paddingRight="13dp"
         app:icon="?attr/actionModeCloseDrawable"
         app:layout_constraintBottom_toBottomOf="@+id/acceptBut"
-        app:layout_constraintStart_toStartOf="@+id/forWho"
+        app:layout_constraintStart_toStartOf="@+id/subOne"
         app:layout_constraintTop_toTopOf="@+id/acceptBut"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -124,9 +127,10 @@
         android:layout_height="wrap_content"
         android:paddingLeft="14dp"
         android:paddingRight="14dp"
+        android:visibility="gone"
         app:icon="@android:drawable/stat_notify_sync"
         app:layout_constraintBottom_toBottomOf="@+id/acceptBut"
-        app:layout_constraintEnd_toEndOf="@+id/forWho"
+        app:layout_constraintEnd_toEndOf="@+id/addOne"
         app:layout_constraintTop_toTopOf="@+id/acceptBut"
         tools:ignore="SpeakableTextPresentCheck" />
 
@@ -138,7 +142,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/addImageView"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/divShow"
         app:layout_constraintStart_toStartOf="@+id/divShow" />
@@ -148,11 +151,12 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="?android:attr/listDivider"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/showImg"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acceptBut" />
 </androidx.constraintlayout.widget.ConstraintLayout>

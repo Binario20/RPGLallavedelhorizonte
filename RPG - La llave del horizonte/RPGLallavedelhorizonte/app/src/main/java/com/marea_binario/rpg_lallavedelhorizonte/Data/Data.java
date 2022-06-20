@@ -32,6 +32,7 @@ public class Data {
     private static ArrayList<Bestia> bestiario;
     private static ArrayList<Libro> magia;
     public static final String BESTIARIO = "bestiario";
+    public static final String OBJETO = "objeto";
     public static int[] imgArray = {
             R.drawable.g1,
             R.drawable.g2,

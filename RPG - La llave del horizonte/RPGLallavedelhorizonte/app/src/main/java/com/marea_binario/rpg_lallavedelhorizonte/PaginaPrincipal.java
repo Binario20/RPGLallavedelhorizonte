@@ -89,6 +89,15 @@ public class PaginaPrincipal extends AppCompatActivity {
             personaje.setClase(perso.getString("clase"));
             personaje.setLengua1(perso.getString("lengua"));
 
+            vitalidad.setEncodedText(String.valueOf(personaje.getVitalidad()));
+            resistencia.setEncodedText(String.valueOf(personaje.getResistencia()));
+            fuerza.setEncodedText(String.valueOf(personaje.getFuerza()));
+            velocidad.setEncodedText(String.valueOf(personaje.getVelocidad()));
+            inteligencia.setEncodedText(String.valueOf(personaje.getInteligencia()));
+            punteria.setEncodedText(String.valueOf(personaje.getPunteria()));
+            magia.setEncodedText(String.valueOf(personaje.getMagia()));
+            destreza.setEncodedText(String.valueOf(personaje.getDestreza()));
+
             JSONObject habil = personaje_info.getJSONObject("Habilidades");
             if (habil.length() != 0) {
                 Iterator<String> iter = habil.keys();
@@ -132,8 +141,17 @@ public class PaginaPrincipal extends AppCompatActivity {
             e.printStackTrace();
         }
         nombre.setEncodedText(personaje.getNombre());
-        loadDataPlayer();
 
+        Utils.getDineros(dineros);
+        try {
+            listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
+            Log.e("funkoo!!", String.valueOf(listaDeposito));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (!segunda_lengua && personaje.getInteligencia() >= 4) {
+            creatSegundaLenguaAlert();
+        }
     }
 
     private void initListeners() {
@@ -154,6 +172,13 @@ public class PaginaPrincipal extends AppCompatActivity {
         dinerosImg.setOnClickListener(view -> Utils.getDineros(dineros));
         depositoObjetosBut.setOnClickListener(view -> creatDepositoDisplayAlert());
         imgJugador.setOnClickListener(view -> crearPersonajeDisplayAlert());
+        fondo.setOnClickListener(view -> {
+            String img = Utils.getData("get/img_on_display");
+            if (!img.equals("")) {
+                int img_id = Integer.parseInt(img);
+                fondo.setImageResource(Data.getImg(img_id));
+            }
+        });
     }
 
     private void loadDataPlayer() {
@@ -161,7 +186,8 @@ public class PaginaPrincipal extends AppCompatActivity {
         try {
             listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
             Log.e("funkoo!!", String.valueOf(listaDeposito));
-            JSONObject perso_est = new JSONObject(Utils.getData("get/personaje/estadisticas?id="+id_perso)).getJSONObject("0");
+            JSONObject perso_est = new JSONObject(Utils.getData("get/personaje/estadisticas?id="+id_perso))
+                    .getJSONObject("0");
             Log.e("funko?", String.valueOf(perso_est));
             personaje.setEstadisticas(
                     Integer.parseInt(perso_est.getString("vitalidad")),
@@ -185,6 +211,11 @@ public class PaginaPrincipal extends AppCompatActivity {
         }
         if (!segunda_lengua && personaje.getInteligencia() >= 4) {
             creatSegundaLenguaAlert();
+        }
+        String img = Utils.getData("get/img_on_display");
+        if (!img.equals("")) {
+            int img_id = Integer.parseInt(img);
+            fondo.setImageResource(Data.getImg(img_id));
         }
     }
 
