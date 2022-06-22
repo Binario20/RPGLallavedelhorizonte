@@ -78,7 +78,6 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="?android:attr/listDivider"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/howMuch" />
@@ -92,7 +91,6 @@
         android:textColor="@color/md_theme_light_onSecondaryContainer"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/addOne"
         app:layout_constraintStart_toStartOf="@+id/subOne"
         app:layout_constraintTop_toBottomOf="@+id/divCant" />
@@ -103,7 +101,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/acceptBut"
         app:layout_constraintEnd_toEndOf="@+id/addOne"
         app:layout_constraintStart_toStartOf="@+id/subOne"
@@ -127,7 +124,6 @@
         android:layout_height="wrap_content"
         android:paddingLeft="14dp"
         android:paddingRight="14dp"
-        android:visibility="gone"
         app:icon="@android:drawable/stat_notify_sync"
         app:layout_constraintBottom_toBottomOf="@+id/acceptBut"
         app:layout_constraintEnd_toEndOf="@+id/addOne"

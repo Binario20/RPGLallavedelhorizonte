@@ -330,23 +330,25 @@ public class PaginaControlMaster extends AppCompatActivity {
     }
 
     private boolean isGroupObject(int id_cosa, Integer cantidad) {
-        //Log.e("listaObjetos", String.valueOf(listaDeposito));
         Iterator<String> iter = listaDeposito.keys();
+        boolean isEqual = false;
         while (iter.hasNext()) {
             try {
                 JSONObject object = listaDeposito.getJSONObject(iter.next());
                 String id_object = object.getString("id_objeto");
-                Log.e("id's", id_cosa+" =? "+id_object);
+                //Log.e("id's", id_cosa+" =? "+id_object);
                 if (String.valueOf(id_cosa).equals(id_object)) {
-                    Log.e("objeto grupo", object.getString("nombre"));
-                    if (cantidad != null)
-                        object.put("cantidad", cantidad);
-                    return true;
+                    if (cantidad != null) {
+                        int cant = Integer.parseInt(object.getString("cantidad"));
+                        object.put("cantidad", cant + cantidad);
+                    }
+                    isEqual = true;
+                    break;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return false;
+        return isEqual;
     }
 }

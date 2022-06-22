@@ -47,13 +47,14 @@ public class MainActivity extends AppCompatActivity {
                 while(true){
                     try {
                         JSONObject objeto = objetosConn.getJSONObject(String.valueOf(i));
+                        int id = objeto.getInt("id");
                         String nombre = objeto.getString("nombre");
                         String tipo = objeto.getString("tipo");
                         int imagen_id = objeto.getInt("imagen_id");
                         String descripcion = objeto.getString("descripcion");
                         Integer objeto_principal = Utils.stringToInteger(objeto.getString("objeto_principal"));
                         Integer objeto_secundario = Utils.stringToInteger(objeto.getString("objeto_secundario"));
-                        objetosList.add(new Objeto(nombre, descripcion, tipo, 1, imagen_id, objeto_principal, objeto_secundario));
+                        objetosList.add(new Objeto(nombre, descripcion, tipo, id, imagen_id, objeto_principal, objeto_secundario));
                         Log.e("Objeto", String.valueOf(objeto));
                         i++;
                     }catch (JSONException e){

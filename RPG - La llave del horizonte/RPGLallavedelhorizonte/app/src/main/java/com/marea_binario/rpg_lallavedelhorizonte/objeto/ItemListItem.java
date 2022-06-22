@@ -43,7 +43,7 @@ public class ItemListItem  extends LinearLayout {
     }
 
     private void initBestiario(Bestia bestia) {
-        cosaName.setEncodedText(bestia.getNobre());
+        cosaName.setEncodedText(bestia.getNombre());
         miniDescriptionCosa.setEncodedText(bestia.getDescripcion());
         leFoto.setImageResource(Data.getImg(bestia.getImg_id()));
 
