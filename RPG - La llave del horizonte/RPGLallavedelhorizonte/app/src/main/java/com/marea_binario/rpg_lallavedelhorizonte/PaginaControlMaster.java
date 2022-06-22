@@ -216,7 +216,7 @@ public class PaginaControlMaster extends AppCompatActivity {
         });
 
         // A quien?
-        if (tipo.equals("objeto grupo")) {
+        if (tipo.equals("grupalObject")) {
             divCant.setVisibility(View.GONE);
             escojeTV.setVisibility(View.GONE);
             rg.setVisibility(View.GONE);
@@ -243,17 +243,19 @@ public class PaginaControlMaster extends AppCompatActivity {
             acceptBut.setOnClickListener(view -> {
                 int id_persona = rg.getCheckedRadioButtonId();
                 Log.e("id_persona", String.valueOf(id_persona));
-                try {
-                    JSONObject cosa = new JSONObject();
-                    cosa.put("id_jugador",id_persona);
-                    cosa.put("id_cosa", id_cosa);
-                    cosa.put("tipo", tipo);
-                    cosa.put("cantidad", cantidad[0]);
-                    Utils.getData("post/cosa_adquirida?new="+cosa);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                if (id_persona >= 0){
+                    try {
+                        JSONObject cosa = new JSONObject();
+                        cosa.put("id_jugador",id_persona);
+                        cosa.put("id_cosa", id_cosa);
+                        cosa.put("tipo", tipo);
+                        cosa.put("cantidad", cantidad[0]);
+                        Utils.getData("post/cosa_adquirida?new="+cosa);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    alertEraseAlert.cancel();
                 }
-                alertEraseAlert.cancel();
             });
             reLoad.setOnClickListener(view -> {
                 try {
@@ -319,7 +321,7 @@ public class PaginaControlMaster extends AppCompatActivity {
             ItemListItem item = new ItemListItem(this, objeto.getId(), Data.OBJETO, objeto);
             item.getAdd().setOnClickListener(view -> {
                 if (isGroupObject(objeto.getId(), null))
-                    createAddCosaAlert(objeto.getImg_id(), "objeto grupo", objeto.getId());
+                    createAddCosaAlert(objeto.getImg_id(), "grupalObject", objeto.getId());
                 else
                     createAddCosaAlert(objeto.getImg_id(), Data.OBJETO, objeto.getId());
             });
@@ -328,12 +330,15 @@ public class PaginaControlMaster extends AppCompatActivity {
     }
 
     private boolean isGroupObject(int id_cosa, Integer cantidad) {
+        //Log.e("listaObjetos", String.valueOf(listaDeposito));
         Iterator<String> iter = listaDeposito.keys();
         while (iter.hasNext()) {
             try {
                 JSONObject object = listaDeposito.getJSONObject(iter.next());
-                int id_object = Integer.parseInt(object.getString("id"));
-                if (id_cosa == id_object) {
+                String id_object = object.getString("id_objeto");
+                Log.e("id's", id_cosa+" =? "+id_object);
+                if (String.valueOf(id_cosa).equals(id_object)) {
+                    Log.e("objeto grupo", object.getString("nombre"));
                     if (cantidad != null)
                         object.put("cantidad", cantidad);
                     return true;
