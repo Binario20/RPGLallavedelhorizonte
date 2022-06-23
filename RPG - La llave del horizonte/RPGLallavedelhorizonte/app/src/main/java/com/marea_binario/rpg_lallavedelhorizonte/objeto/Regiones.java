@@ -21,6 +21,26 @@ public class Regiones extends MrWorldwide{
         return id_region;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getNombre_region() {
+        return nombre_region;
+    }
+
+    public Integer getImagen_id_2() {
+        return imagen_id_2;
+    }
+
+    public ArrayList<Servicio> getServicios() {
+        return servicios;
+    }
+
     public void addServicio(Servicio servicio){
         servicios.add(servicio);
     }

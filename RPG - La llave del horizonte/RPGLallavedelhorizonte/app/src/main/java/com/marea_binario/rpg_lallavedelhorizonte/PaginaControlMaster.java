@@ -17,10 +17,14 @@ import android.widget.TextView;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaBlanca;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaNegra;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ItemListItem;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Magia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,25 +75,17 @@ public class PaginaControlMaster extends AppCompatActivity {
     }
 
     private void initListeners() {
-        depositoObjetosBut.setOnClickListener(view ->
-                creatDepositoDisplayAlert()
-        );
+        depositoObjetosBut.setOnClickListener(view -> creatDepositoDisplayAlert());
 
-        armasBut.setOnClickListener(view -> {
-            // mostrar lista de armas
-        });
+        armasBut.setOnClickListener(view -> listaArmas());
 
         objetosBut.setOnClickListener(view -> listaObjetos());
 
         bestiarioBut.setOnClickListener(view -> listaBestiario());
 
-        magiaBut.setOnClickListener(view -> {
-            // mostrar lista de magia
-        });
+        magiaBut.setOnClickListener(view -> listaMagia());
 
-        regionesBut.setOnClickListener(view -> {
-            // mostrar lista de regiones (no foraneas)
-        });
+        regionesBut.setOnClickListener(view -> listaRegiones());
 
         personajesBut.setOnClickListener(view -> {
             // poder canviar los objetos/armas... que tiene un jugador
@@ -176,7 +172,7 @@ public class PaginaControlMaster extends AppCompatActivity {
         }
     }
 
-    private void createAddCosaAlert(Integer img_id, String tipo, int id_cosa) {
+    private void createAddCosaAlert(boolean addImg, Integer img_id, String tipo, int id_cosa) {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
         builder.setCancelable(true);
         View popupView = getLayoutInflater().inflate(R.layout.gestion_cantidad_item, null);
@@ -191,11 +187,12 @@ public class PaginaControlMaster extends AppCompatActivity {
         Button subOne, addOne, acceptBut, turnBack, reLoad, showImg;
         TextView howMuch, escojeTV;
         RadioGroup rg;
-        View divCant;
+        View divCant, divShow;
         final int[] cantidad = {1};
 
         rg = popupView.findViewById(R.id.forWho);
         divCant = popupView.findViewById(R.id.divCant);
+        divShow = popupView.findViewById(R.id.divShow);
         howMuch = popupView.findViewById(R.id.howMuch);
         subOne = popupView.findViewById(R.id.subOne);
         addOne = popupView.findViewById(R.id.addOne);
@@ -275,10 +272,15 @@ public class PaginaControlMaster extends AppCompatActivity {
 
         turnBack.setOnClickListener(v -> alertEraseAlert.cancel());
 
-        showImg.setOnClickListener(view -> {
-            setImg(img_id);
-            alertEraseAlert.cancel();
-        });
+        if (addImg) {
+            showImg.setOnClickListener(view -> {
+                setImg(img_id);
+                alertEraseAlert.cancel();
+            });
+        } else {
+            divShow.setVisibility(View.GONE);
+            showImg.setVisibility(View.GONE);
+        }
     }
 
     private void setImg(int img_id) {
@@ -303,7 +305,7 @@ public class PaginaControlMaster extends AppCompatActivity {
             ItemListItem item = new ItemListItem(this, bestia.getId(), Data.BESTIARIO, bestia);
             item.getAdd().setOnClickListener(view -> {
                 if (bestia.isMontura())
-                    createAddCosaAlert(bestia.getImg_id(), Data.BESTIARIO, bestia.getId());
+                    createAddCosaAlert(true,bestia.getImg_id(), Data.BESTIARIO, bestia.getId());
                 else
                     setImg(bestia.getImg_id());
             });
@@ -328,9 +330,9 @@ public class PaginaControlMaster extends AppCompatActivity {
             ItemListItem item = new ItemListItem(this, objeto.getId(), Data.OBJETO, objeto);
             item.getAdd().setOnClickListener(view -> {
                 if (isGroupObject(objeto.getId(), null))
-                    createAddCosaAlert(objeto.getImg_id(), "grupalObject", objeto.getId());
+                    createAddCosaAlert(true, objeto.getImg_id(), "grupalObject", objeto.getId());
                 else
-                    createAddCosaAlert(objeto.getImg_id(), Data.OBJETO, objeto.getId());
+                    createAddCosaAlert(true,objeto.getImg_id(), Data.OBJETO, objeto.getId());
             });
             caja_objetos.addView(item);
         }
@@ -357,5 +359,73 @@ public class PaginaControlMaster extends AppCompatActivity {
             }
         }
         return isEqual;
+    }
+
+    private void listaArmas() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
+
+        builder.setView(popupView);
+
+        androidx.appcompat.app.AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
+        caja_objetos.removeAllViews();/*
+        for(ArmaBlanca armaBlanca : Data.getArmasBlancas()){
+            ItemListItem item = new ItemListItem(this, armaBlanca.getId(), Data.ARMA_BLANCA, armaBlanca);
+            item.getAdd().setOnClickListener(view -> createAddCosaAlert(armaBlanca.getImg_id(), Data.ARMA_BLANCA, armaBlanca.getId()));
+            caja_objetos.addView(item);
+        }*/
+
+        for(ArmaNegra armaNegra : Data.getArmasNegras()){
+            ItemListItem item = new ItemListItem(this, armaNegra.getId(), Data.ARMA_NEGRA, armaNegra);
+            item.getAdd().setOnClickListener(view -> createAddCosaAlert(true,armaNegra.getImg_id(), Data.ARMA_NEGRA, armaNegra.getId()));
+            caja_objetos.addView(item);
+        }
+    }
+
+    private void listaMagia() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
+
+        builder.setView(popupView);
+
+        androidx.appcompat.app.AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
+        caja_objetos.removeAllViews();
+
+        for(Magia libro : Data.getMagia()){
+            ItemListItem item = new ItemListItem(this, libro.getId(), Data.MAGIA, libro);
+            item.getAdd().setOnClickListener(view -> createAddCosaAlert(false,libro.getImg_id(), Data.MAGIA, libro.getId()));
+            caja_objetos.addView(item);
+        }
+    }
+
+    private void listaRegiones() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
+
+        builder.setView(popupView);
+
+        androidx.appcompat.app.AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
+        caja_objetos.removeAllViews();
+
+        for(Regiones regiones : Data.getRegiones()){
+            ItemListItem item = new ItemListItem(this, regiones.getId(), Data.REGIONES, regiones);
+            item.getAdd().setOnClickListener(view -> setImg(regiones.getImg_id()));
+            caja_objetos.addView(item);
+        }
     }
 }

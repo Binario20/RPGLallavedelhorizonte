@@ -72,7 +72,7 @@
     <com.marea_binario.rpg_lallavedelhorizonte.SuperText
         android:id="@+id/megaDescriptionCosa"
         android:layout_width="0dp"
-        android:layout_height="190dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:padding="5dp"
         android:visibility="gone"

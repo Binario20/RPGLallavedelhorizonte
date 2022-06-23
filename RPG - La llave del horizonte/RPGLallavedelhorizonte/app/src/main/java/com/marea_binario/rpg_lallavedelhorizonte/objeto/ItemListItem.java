@@ -24,11 +24,69 @@ public class ItemListItem  extends LinearLayout {
         this.type = type;
         initComponents();
         initListeners();
-        if(type.equals(Data.BESTIARIO)){
+        if(type.equals(Data.BESTIARIO))
             initBestiario((Bestia)data);
-        }
+
         if (type.equals(Data.OBJETO))
             initObjeto((Objeto) data);
+
+        if (type.equals(Data.ARMA_NEGRA))
+            initArmaNegra((ArmaNegra) data);
+
+        if (type.equals(Data.ARMA_BLANCA))
+            initArmaBlanca((ArmaBlanca) data);
+
+        if (type.equals(Data.MAGIA))
+            initMagia((Magia) data);
+
+        if (type.equals(Data.REGIONES))
+            initRegiones((Regiones) data);
+    }
+
+    private void initArmaBlanca(ArmaBlanca armaBlanca) {
+        cosaName.setEncodedText(armaBlanca.getNombre());
+        miniDescriptionCosa.setEncodedText(armaBlanca.getDescripcion());
+        leFoto.setImageResource(Data.getImg(armaBlanca.getImg_id()));
+
+        //descripcion
+        String desc = "- Tipo de arma: ";
+        desc += armaBlanca.getSubtipo() + "\n";
+        if (armaBlanca.getObj1().trim().equals("NULL")) {
+            desc += "- Este objeto no se puede crear. Ha de ser encontrado.";
+        } else {
+            desc += "- Para crear este objeto se necesita:\n";
+            if (armaBlanca.getObj1().trim().equals(armaBlanca.getObj2().trim()))
+                desc += "  * 2 de "+armaBlanca.getObj1();
+            else {
+                desc += "  * 1 de "+armaBlanca.getObj1();
+                if (!armaBlanca.getObj2().trim().equals("NULL"))
+                    desc += "\n  * 1 de "+armaBlanca.getObj2();
+            }
+        }
+        megaDescriptionCosa.setEncodedText(desc);
+    }
+
+    private void initArmaNegra(ArmaNegra armaNegra) {
+        cosaName.setEncodedText(armaNegra.getNombre());
+        miniDescriptionCosa.setEncodedText(armaNegra.getDescripcion());
+        leFoto.setImageResource(Data.getImg(armaNegra.getImg_id()));
+
+        //descripcion
+        String desc = "- Tipo de arma: ";
+        desc += armaNegra.getSubtipo() + "\n";
+        if (armaNegra.getObj1().trim().equals("NULL")) {
+            desc += "- Este objeto no se puede crear. Ha de ser encontrado.";
+        } else {
+            desc += "- Para crear este objeto se necesita:\n";
+            if (armaNegra.getObj1().trim().equals(armaNegra.getObj2().trim()))
+                desc += "  * 2 de "+armaNegra.getObj1();
+            else {
+                desc += "  * 1 de "+armaNegra.getObj1();
+                if (!armaNegra.getObj2().trim().equals("NULL"))
+                    desc += "\n  * 1 de "+armaNegra.getObj2();
+            }
+        }
+        megaDescriptionCosa.setEncodedText(desc);
     }
 
     private void initObjeto(Objeto objeto) {
@@ -83,6 +141,31 @@ public class ItemListItem  extends LinearLayout {
             desc += "- Vulnerable a: " + bestia.getVulnerabilidad();
         if (!bestia.getExtras().trim().equals("NULL"))
             desc += "\n- Extras: " + bestia.getExtras();
+        megaDescriptionCosa.setEncodedText(desc);
+    }
+
+    private void initMagia(Magia magia) {
+        cosaName.setEncodedText(magia.getNombre());
+        miniDescriptionCosa.setEncodedText(magia.getDescripcion());
+        leFoto.setImageResource(Data.getImg(magia.getImg_id()));
+
+        //descripcion
+        String desc = "- Tipo: ";
+        desc += magia.getTipo() + "\n";
+        desc += "- Requiere saber la lengua "+magia.getLengua();
+        desc += " y tener un nivel de inteligencia igual o superior a "+magia.getRequisitos();
+        desc += " para poder utilizar los hechizos y conjuros de este libro.";
+        megaDescriptionCosa.setEncodedText(desc);
+    }
+
+    private void initRegiones(Regiones regiones) {
+        cosaName.setEncodedText(regiones.getNombre());
+        miniDescriptionCosa.setEncodedText(regiones.getDescripcion());
+        leFoto.setImageResource(Data.getImg(regiones.getImg_id()));
+
+        //descripcion
+        String desc = "- Tipo: ";
+        desc += regiones.getTipo() + "\n";
         megaDescriptionCosa.setEncodedText(desc);
     }
 

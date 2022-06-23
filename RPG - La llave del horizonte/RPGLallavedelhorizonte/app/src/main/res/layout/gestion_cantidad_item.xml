@@ -62,13 +62,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/md_theme_dark_inversePrimary"
         android:text="@string/aceptar"
-        app:layout_constraintBottom_toTopOf="@+id/showImg"
         app:layout_constraintEnd_toStartOf="@+id/reLoad"
         app:layout_constraintStart_toEndOf="@+id/turnBack"
-        app:layout_constraintTop_toTopOf="@+id/divCant" />
+        app:layout_constraintTop_toBottomOf="@+id/forWho" />
 
     <View
         android:id="@+id/divCant"
@@ -100,8 +100,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/acceptBut"
         app:layout_constraintEnd_toEndOf="@+id/addOne"
         app:layout_constraintStart_toStartOf="@+id/subOne"
         app:layout_constraintTop_toBottomOf="@+id/escojeTV" />
@@ -135,12 +133,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="@string/addImageView"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/divShow"
-        app:layout_constraintStart_toStartOf="@+id/divShow" />
+        app:layout_constraintStart_toStartOf="@+id/divShow"
+        app:layout_constraintTop_toBottomOf="@+id/divShow" />
 
     <View
         android:id="@+id/divShow"
@@ -149,9 +147,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/showImg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/acceptBut" />

@@ -1,8 +1,8 @@
 package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
 public class Arma extends MrWorldwide {
-    private String subtipo, campo, ataque, rango, descripcion;
-    private Integer requisito, normal, objeto_principal, objeto_secundario;
+    private String subtipo, campo, ataque, rango, descripcion, obj1, obj2;
+    private Integer requisito, normal, objeto_principal_id, objeto_secundario_id;
 
     public Arma(String nombre, String subtipo, String campo, String ataque, String rango, String descripcion, Integer id_arma, Integer requisito, Integer normal, Integer imagen_id, Integer objeto_principal, Integer objeto_secundario) {
         super(id_arma, imagen_id, nombre);
@@ -13,8 +13,8 @@ public class Arma extends MrWorldwide {
         this.descripcion = descripcion;
         this.requisito = requisito;
         this.normal = normal;
-        this.objeto_principal = objeto_principal;
-        this.objeto_secundario = objeto_secundario;
+        this.objeto_principal_id = objeto_principal;
+        this.objeto_secundario_id = objeto_secundario;
     }
 
     public String getSubtipo() {
@@ -73,19 +73,35 @@ public class Arma extends MrWorldwide {
         this.normal = normal;
     }
 
-    public Integer getObjeto_principal() {
-        return objeto_principal;
+    public Integer getObjeto_principal_id() {
+        return objeto_principal_id;
     }
 
-    public void setObjeto_principal(Integer objeto_principal) {
-        this.objeto_principal = objeto_principal;
+    public void setObjeto_principal_id(Integer objeto_principal_id) {
+        this.objeto_principal_id = objeto_principal_id;
     }
 
-    public Integer getObjeto_secundario() {
-        return objeto_secundario;
+    public Integer getObjeto_secundario_id() {
+        return objeto_secundario_id;
     }
 
-    public void setObjeto_secundario(Integer objeto_secundario) {
-        this.objeto_secundario = objeto_secundario;
+    public void setObjeto_secundario_id(Integer objeto_secundario_id) {
+        this.objeto_secundario_id = objeto_secundario_id;
+    }
+
+    public String getObj1() {
+        return obj1;
+    }
+
+    public void setObj1(String obj1) {
+        this.obj1 = obj1;
+    }
+
+    public String getObj2() {
+        return obj2;
+    }
+
+    public void setObj2(String obj2) {
+        this.obj2 = obj2;
     }
 }

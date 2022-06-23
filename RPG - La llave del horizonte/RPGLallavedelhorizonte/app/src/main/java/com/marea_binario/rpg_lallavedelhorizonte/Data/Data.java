@@ -10,7 +10,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaBlanca;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaNegra;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
-import com.marea_binario.rpg_lallavedelhorizonte.objeto.Libro;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Magia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 
@@ -30,7 +30,7 @@ public class Data {
     private static ArrayList<ArmaNegra> armasNegras;
     private static ArrayList<ArmaBlanca> armasBlancas;
     private static ArrayList<Bestia> bestiario;
-    private static ArrayList<Libro> magia;
+    private static ArrayList<Magia> magia;
     public static final String BESTIARIO = "bestiario";
     public static final String OBJETO = "objeto";
     public static final String ARMA_BLANCA = "armas blancas";
@@ -228,8 +228,10 @@ public class Data {
         imgObjetosArray[121] = 0;
     }
 
-    public static int getImg(int img_id) {
-        if(imgObjetosArray[img_id]==0){
+    public static int getImg(Integer img_id) {
+        if (img_id == null) {
+            return R.drawable.todoynada;
+        } else if(imgObjetosArray[img_id]==0){
             return Data.getRandomWallPaper();
         }
         return imgObjetosArray[img_id];
@@ -255,7 +257,7 @@ public class Data {
         Data.bestiario = bestiario;
     }
 
-    public static void setMagia(ArrayList<Libro> magia) {
+    public static void setMagia(ArrayList<Magia> magia) {
         Data.magia = magia;
     }
 
@@ -279,7 +281,7 @@ public class Data {
         return bestiario;
     }
 
-    public static ArrayList<Libro> getMagia() {
+    public static ArrayList<Magia> getMagia() {
         return magia;
     }
 }

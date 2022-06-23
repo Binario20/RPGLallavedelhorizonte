@@ -14,7 +14,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaBlanca;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaNegra;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Hechizo;
-import com.marea_binario.rpg_lallavedelhorizonte.objeto.Libro;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Magia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Servicio;
@@ -145,18 +145,28 @@ public class MainActivity extends AppCompatActivity {
                         String descripcion = arma.getString("descripcion");
                         Integer objeto_principal = Utils.stringToInteger(arma.getString("objeto_principal"));
                         Integer objeto_secundario = Utils.stringToInteger(arma.getString("objeto_secundario"));
-                        negrasList.add(new ArmaNegra(nombre, subtipo,campo1, campo2, ataque, daño, rango, descripcion,
-                                id_arma,requisito1, requisito2, normal, imagen_id, objeto_principal, objeto_secundario));
+                        ArmaNegra armaNegra = new ArmaNegra(nombre, subtipo,campo1, campo2, ataque, daño, rango, descripcion,
+                                id_arma,requisito1, requisito2, normal, imagen_id, objeto_principal, objeto_secundario);
+                        armaNegra.setObj1(arma.getString("obj1"));
+                        armaNegra.setObj2(arma.getString("obj2"));
+                        negrasList.add(armaNegra);
                         Log.e("Arma Negra", String.valueOf(arma));
                         i++;
                     }catch (JSONException e){
                         break;
                     }
                 }
-                //armas blancas
+                Data.setArmasNegras(negrasList);
+            } catch (JSONException ex) {
+                ex.printStackTrace();
+            }
+
+
+            try {
                 JSONObject cuerpo = new JSONObject(Utils.getData("get/objetos/armas/cuerpo"));
                 ArrayList<ArmaBlanca> blancasList = new ArrayList<>();
-                i=0;
+                //armas blancas
+                int i=0;
                 while(true){
                     try {
                         JSONObject arma = cuerpo.getJSONObject(String.valueOf(i));
@@ -178,17 +188,18 @@ public class MainActivity extends AppCompatActivity {
                         String descripcion = arma.getString("descripcion");
                         Integer objeto_principal = Utils.stringToInteger(arma.getString("objeto_principal"));
                         Integer objeto_secundario = Utils.stringToInteger(arma.getString("objeto_secundario"));
-                        blancasList.add(new ArmaBlanca(nombre, subtipo, campo, ataque, operacion, suma1_campo, suma2_campo,
+                        ArmaBlanca armaBlanca = new ArmaBlanca(nombre, subtipo, campo, ataque, operacion, suma1_campo, suma2_campo,
                                 suma1, suma2, rango, descripcion, id_arma, requisito, requisito_campo, normal, imagen_id,
-                                objeto_principal, objeto_secundario));
+                                objeto_principal, objeto_secundario);
+                        armaBlanca.setObj1(arma.getString("obj1"));
+                        armaBlanca.setObj2(arma.getString("obj2"));
+                        blancasList.add(armaBlanca);
                         Log.e("Arma Blanca", String.valueOf(arma));
                         i++;
                     }catch (JSONException e){
                         break;
                     }
                 }
-
-                Data.setArmasNegras(negrasList);
                 Data.setArmasBlancas(blancasList);
             } catch (JSONException ex) {
                 ex.printStackTrace();
@@ -234,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject magia = new JSONObject(Utils.getData("get/magia"));
                 JSONObject libros = magia.getJSONObject("Libros");
                 JSONObject hechizos = magia.getJSONObject("Hechizos");
-                ArrayList<Libro> librosList = new ArrayList<>();
+                ArrayList<Magia> librosList = new ArrayList<>();
                 int i = 0;
                 while(true){
                     try {
@@ -247,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                         int id_lengua = libro.getInt("id_lengua");
                         int requisitos = libro.getInt("requisito");
                         Integer imagen_id = Utils.stringToInteger(libro.getString("imagen_id"));
-                        librosList.add(new Libro(id, id_lengua, requisitos, imagen_id, nombre, tipo, descripcion, lengua));
+                        librosList.add(new Magia(id, id_lengua, requisitos, imagen_id, nombre, tipo, descripcion, lengua));
                         Log.e("Magia", String.valueOf(libro));
                         i++;
                     }catch (Exception e){
@@ -265,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                         String libro_name = hechizo.getString("libro");
                         for (int j = 0; j < librosList.size(); j++) {
                             if(librosList.get(j).getId() == id_libro){
-                                Libro libro = librosList.get(j);
+                                Magia libro = librosList.get(j);
                                 librosList.remove(j);
                                 libro.addHechizo(new Hechizo(id, id_libro, hechiso, descripcion, libro_name));
                                 librosList.add(libro);

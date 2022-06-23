@@ -109,8 +109,8 @@ public class Item extends LinearLayout {
                 }
                 break;
             case Data.MAGIA:
-                ArrayList<Libro> libros = Data.getMagia();
-                for (Libro libro : libros ) {
+                ArrayList<Magia> libros = Data.getMagia();
+                for (Magia libro : libros ) {
                     if (libro.getId()==customId){
                         mySelf = libro;
                         break;
@@ -145,7 +145,7 @@ public class Item extends LinearLayout {
                 info = ((ArmaNegra)mySelf).toString();
                 break;
             case Data.MAGIA:
-                info = ((Libro)mySelf).toString();
+                info = ((Magia)mySelf).toString();
                 break;
             case Data.BESTIARIO:
                 info = ((Bestia)mySelf).toString();
