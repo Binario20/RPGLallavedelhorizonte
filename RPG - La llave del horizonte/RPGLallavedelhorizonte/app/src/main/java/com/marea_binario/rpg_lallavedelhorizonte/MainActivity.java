@@ -54,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
                         String descripcion = objeto.getString("descripcion");
                         Integer objeto_principal = Utils.stringToInteger(objeto.getString("objeto_principal"));
                         Integer objeto_secundario = Utils.stringToInteger(objeto.getString("objeto_secundario"));
-                        objetosList.add(new Objeto(nombre, descripcion, tipo, id, imagen_id, objeto_principal, objeto_secundario));
+                        Objeto obj = new Objeto(nombre, descripcion, tipo, id, imagen_id, objeto_principal, objeto_secundario);
+                        obj.setObj1(objeto.getString("obj1"));
+                        obj.setObj2(objeto.getString("obj2"));
+                        objetosList.add(obj);
                         Log.e("Objeto", String.valueOf(objeto));
                         i++;
                     }catch (JSONException e){
@@ -119,10 +122,8 @@ public class MainActivity extends AppCompatActivity {
             }
             // seteo armas
             try {
-                JSONObject armas = new JSONObject(Utils.getData("get/objetos/armas"));
-                JSONObject proyectiles = armas.getJSONObject("Proyectiles");
-                JSONObject cuerpo = armas.getJSONObject("Cuerpo");
-                ArrayList<ArmaBlanca> blancasList = new ArrayList<>();
+                //JSONObject armas = new JSONObject(Utils.getData("get/objetos/armas"));
+                JSONObject proyectiles = new JSONObject(Utils.getData("get/objetos/armas/proyectil"));
                 ArrayList<ArmaNegra> negrasList = new ArrayList<>();
                 int i = 0;
                 //armas negras
@@ -153,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 //armas blancas
+                JSONObject cuerpo = new JSONObject(Utils.getData("get/objetos/armas/cuerpo"));
+                ArrayList<ArmaBlanca> blancasList = new ArrayList<>();
                 i=0;
                 while(true){
                     try {

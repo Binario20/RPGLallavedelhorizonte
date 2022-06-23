@@ -39,6 +39,18 @@ public class ItemListItem  extends LinearLayout {
         //descripcion
         String desc = "- Tipo: ";
         desc += objeto.getTipo() + "\n";
+        if (objeto.getObj1().trim().equals("NULL")) {
+            desc += "- Este objeto no se puede crear. Ha de ser encontrado.";
+        } else {
+            desc += "- Para crear este objeto se necesita:\n";
+            if (objeto.getObj1().trim().equals(objeto.getObj2().trim()))
+                desc += "  * 2 de "+objeto.getObj1();
+            else {
+                desc += "  * 1 de "+objeto.getObj1();
+                if (!objeto.getObj2().trim().equals("NULL"))
+                    desc += "\n  * 1 de "+objeto.getObj2();
+            }
+        }
         megaDescriptionCosa.setEncodedText(desc);
     }
 

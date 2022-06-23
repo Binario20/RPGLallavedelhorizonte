@@ -222,7 +222,14 @@ public class PaginaControlMaster extends AppCompatActivity {
             rg.setVisibility(View.GONE);
             reLoad.setVisibility(View.GONE);
             acceptBut.setOnClickListener(view -> {
-                Utils.getData("put/obj_grupo?id="+id_cosa+"#sum="+cantidad[0]);
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("id_objeto",id_cosa);
+                    obj.put("cantidad",cantidad[0]);
+                    Utils.getData("put/obj_grupo?upd="+obj);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 isGroupObject(id_cosa, cantidad[0]);
                 alertEraseAlert.cancel();
             });
