@@ -101,12 +101,9 @@ public class MainActivity extends AppCompatActivity {
                         String descripcion = servicio.getString("descripcion");
                         int id = servicio.getInt("id");
                         int id_region = servicio.getInt("id_region");
-                        for (int j = 0; j < regionesList.size(); j++) {
-                            if(regionesList.get(j).getId_region() == id_region){
-                                Regiones reg = regionesList.get(j);
-                                regionesList.remove(j);
-                                reg.addServicio(new Servicio(id, id_region, nombre, descripcion));
-                                regionesList.add(reg);
+                        for (Regiones region : regionesList) {
+                            if(region.getId() == id_region){
+                                region.addServicio(new Servicio(id, id_region, nombre, descripcion));
                                 break;
                             }
                         }
@@ -197,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("Arma Blanca", String.valueOf(arma));
                         i++;
                     }catch (JSONException e){
+                        e.printStackTrace();
                         break;
                     }
                 }

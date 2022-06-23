@@ -72,7 +72,7 @@ public class ItemListItem  extends LinearLayout {
         leFoto.setImageResource(Data.getImg(armaNegra.getImg_id()));
 
         //descripcion
-        String desc = "- Tipo de arma: ";
+        String desc = "- Tipo: ";
         desc += armaNegra.getSubtipo() + "\n";
         if (armaNegra.getObj1().trim().equals("NULL")) {
             desc += "- Este objeto no se puede crear. Ha de ser encontrado.";
@@ -148,14 +148,19 @@ public class ItemListItem  extends LinearLayout {
         cosaName.setEncodedText(magia.getNombre());
         miniDescriptionCosa.setEncodedText(magia.getDescripcion());
         leFoto.setImageResource(Data.getImg(magia.getImg_id()));
+        leFoto.getLayoutParams().width = 1;
 
         //descripcion
-        String desc = "- Tipo: ";
-        desc += magia.getTipo() + "\n";
-        desc += "- Requiere saber la lengua "+magia.getLengua();
-        desc += " y tener un nivel de inteligencia igual o superior a "+magia.getRequisitos();
-        desc += " para poder utilizar los hechizos y conjuros de este libro.";
-        megaDescriptionCosa.setEncodedText(desc);
+        StringBuilder desc = new StringBuilder("- Tipo: ");
+        desc.append(magia.getTipo()).append("\n");
+        desc.append("- Requiere saber la lengua ").append(magia.getLengua());
+        desc.append(" y tener un nivel de inteligencia igual o superior a ").append(magia.getRequisitos());
+        desc.append(" para poder utilizar los hechizos y conjuros de este libro.");
+        if (magia.numHechizos() > 0)
+            desc.append("- Este artefacto contiene los siguientes hechizos:");
+        for (Hechizo hechizo : magia.getHechizos())
+            desc.append("\n  * ").append(hechizo.getHechizo()).append(": ").append(hechizo.getDescripcion());
+        megaDescriptionCosa.setEncodedText(desc.toString());
     }
 
     private void initRegiones(Regiones regiones) {
@@ -164,9 +169,18 @@ public class ItemListItem  extends LinearLayout {
         leFoto.setImageResource(Data.getImg(regiones.getImg_id()));
 
         //descripcion
-        String desc = "- Tipo: ";
-        desc += regiones.getTipo() + "\n";
-        megaDescriptionCosa.setEncodedText(desc);
+        StringBuilder desc = new StringBuilder();
+        if (regiones.getTipo().equals("ciudad")) {
+            desc.append("- Esta region ofrece los siguientes servicios:");
+            for (Servicio servicio : regiones.getServicios()) {
+                desc.append("\n  * ").append(servicio.getNombre());
+                desc.append(servicio.getDescripcion().equalsIgnoreCase("NULL") ? "" : ": " + servicio.getDescripcion());
+            }
+        } else {
+            desc.append("\n- Este acontecimiento geologico pertenece a la region de ");
+            desc.append(regiones.getNombre_region());
+        }
+        megaDescriptionCosa.setEncodedText(desc.toString());
     }
 
     private void initComponents(){

@@ -103,7 +103,6 @@ public class Data {
     }
 
     public static void setImg() {
-
         imgObjetosArray[0] = R.drawable.espada_de_afrodis;
         imgObjetosArray[1] = R.drawable.espada_de__xi;
         imgObjetosArray[2] = R.drawable.espada_de_hielo;
@@ -166,7 +165,7 @@ public class Data {
         imgObjetosArray[59] = R.drawable.llanura_prasinos;
         imgObjetosArray[60] = R.drawable.koralli;
         imgObjetosArray[61] = R.drawable.smaragdi;
-        imgObjetosArray[62] = R.drawable.lefko;
+        imgObjetosArray[62] = R.drawable.pente;
         imgObjetosArray[63] = R.drawable.zafeiri;
         imgObjetosArray[64] = R.drawable.lefko;
         imgObjetosArray[65] = 0;

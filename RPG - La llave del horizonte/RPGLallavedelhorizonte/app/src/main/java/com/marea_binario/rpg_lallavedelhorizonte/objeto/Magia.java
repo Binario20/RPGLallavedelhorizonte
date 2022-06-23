@@ -36,6 +36,10 @@ public class Magia extends MrWorldwide{
         return hechizos;
     }
 
+    public int numHechizos() {
+        return hechizos.size();
+    }
+
     public void addHechizo(Hechizo hechizo){
         hechizos.add(hechizo);
     }

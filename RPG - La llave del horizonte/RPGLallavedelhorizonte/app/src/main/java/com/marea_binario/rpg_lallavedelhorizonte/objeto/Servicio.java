@@ -11,6 +11,14 @@ public class Servicio {
         this.descripcion = descripcion;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
     public int getId_region(){
         return id_region;
     }

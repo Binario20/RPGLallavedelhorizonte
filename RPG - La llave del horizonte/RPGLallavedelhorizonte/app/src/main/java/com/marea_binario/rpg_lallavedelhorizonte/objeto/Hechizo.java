@@ -12,4 +12,11 @@ public class Hechizo {
         this.libro = libro;
     }
 
+    public String getHechizo() {
+        return hechizo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
 }
