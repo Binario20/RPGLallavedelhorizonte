@@ -43,47 +43,69 @@ public class ItemListItem  extends LinearLayout {
             initRegiones((Regiones) data);
     }
 
-    private void initArmaBlanca(ArmaBlanca armaBlanca) {
-        cosaName.setEncodedText(armaBlanca.getNombre());
-        miniDescriptionCosa.setEncodedText(armaBlanca.getDescripcion());
-        leFoto.setImageResource(Data.getImg(armaBlanca.getImg_id()));
+    private void initArmaBlanca(ArmaBlanca arma) {
+        cosaName.setEncodedText(arma.getNombre());
+        miniDescriptionCosa.setEncodedText(arma.getDescripcion());
+        leFoto.setImageResource(Data.getImg(arma.getImg_id()));
 
         //descripcion
         String desc = "- Tipo de arma: ";
-        desc += armaBlanca.getSubtipo() + "\n";
-        if (armaBlanca.getObj1().trim().equals("NULL")) {
-            desc += "- Este objeto no se puede crear. Ha de ser encontrado.";
+        desc += arma.getSubtipo();
+        desc += "\n- Para utilizar este arma se requiere un "+arma.getRequisito()+" de "+arma.getCampo();
+        desc += "\n- Este arma aporta "+arma.getOperacion()+arma.getSuma1()+" a la estadistica de "+ arma.getSuma1_campo()+".";
+        if (arma.getSuma2() != null)
+            desc += "\n- Este arma puede aportar "+arma.getOperacion()+arma.getSuma2()+" a la estadistica de "+arma.getSuma2_campo()+" en casos especiales.";
+        if (!arma.getAtaque().trim().equals("NULL"))
+            desc += "\n-Tipo de ataque: "+arma.getAtaque();
+        if (!arma.getRango().trim().equals("NULL"))
+            desc += "\n-Rango de ataque: "+arma.getRango();
+        if (arma.getNormal() == 0)
+            desc += "\n- Esta es una arma especial.";
+        else
+            desc += "\n- Esta es una arma normal.";
+        if (arma.getObj1().trim().equals("NULL")) {
+            desc += "\n- Este objeto no se puede crear. Ha de ser encontrado.";
         } else {
-            desc += "- Para crear este objeto se necesita:\n";
-            if (armaBlanca.getObj1().trim().equals(armaBlanca.getObj2().trim()))
-                desc += "  * 2 de "+armaBlanca.getObj1();
+            desc += "\n- Para crear este objeto se necesita:";
+            if (arma.getObj1().trim().equals(arma.getObj2().trim()))
+                desc += "\n  * 2 de "+arma.getObj1();
             else {
-                desc += "  * 1 de "+armaBlanca.getObj1();
-                if (!armaBlanca.getObj2().trim().equals("NULL"))
-                    desc += "\n  * 1 de "+armaBlanca.getObj2();
+                desc += "\n  * 1 de "+arma.getObj1();
+                if (!arma.getObj2().trim().equals("NULL"))
+                    desc += "\n  * 1 de "+arma.getObj2();
             }
         }
         megaDescriptionCosa.setEncodedText(desc);
     }
 
-    private void initArmaNegra(ArmaNegra armaNegra) {
-        cosaName.setEncodedText(armaNegra.getNombre());
-        miniDescriptionCosa.setEncodedText(armaNegra.getDescripcion());
-        leFoto.setImageResource(Data.getImg(armaNegra.getImg_id()));
+    private void initArmaNegra(ArmaNegra arma) {
+        cosaName.setEncodedText(arma.getNombre());
+        miniDescriptionCosa.setEncodedText(arma.getDescripcion());
+        leFoto.setImageResource(Data.getImg(arma.getImg_id()));
 
         //descripcion
         String desc = "- Tipo: ";
-        desc += armaNegra.getSubtipo() + "\n";
-        if (armaNegra.getObj1().trim().equals("NULL")) {
-            desc += "- Este objeto no se puede crear. Ha de ser encontrado.";
+        desc += arma.getSubtipo();
+        desc += "\n- Para utilizar este arma se requiere un "+arma.getRequisito()+" de "+arma.getCampo();
+        if (arma.getRequisito2() != null)
+            desc += " y un "+arma.getRequisito2()+" de "+arma.getCampo2();
+        desc += "\n- DaÃ±o del ataque: "+arma.getDaño();
+        desc += "\n-Tipo de ataque: "+arma.getAtaque();
+        desc += "\n-Rango de ataque: "+arma.getRango();
+        if (arma.getNormal() == 0)
+            desc += "\n- Esta es una arma especial.";
+        else
+            desc += "\n- Esta es una arma normal.";
+        if (arma.getObj1().trim().equals("NULL")) {
+            desc += "\n- Este objeto no se puede crear. Ha de ser encontrado.";
         } else {
-            desc += "- Para crear este objeto se necesita:\n";
-            if (armaNegra.getObj1().trim().equals(armaNegra.getObj2().trim()))
-                desc += "  * 2 de "+armaNegra.getObj1();
+            desc += "\n- Para crear este objeto se necesita:";
+            if (arma.getObj1().trim().equals(arma.getObj2().trim()))
+                desc += "\n  * 2 de "+arma.getObj1();
             else {
-                desc += "  * 1 de "+armaNegra.getObj1();
-                if (!armaNegra.getObj2().trim().equals("NULL"))
-                    desc += "\n  * 1 de "+armaNegra.getObj2();
+                desc += "\n  * 1 de "+arma.getObj1();
+                if (!arma.getObj2().trim().equals("NULL"))
+                    desc += "\n  * 1 de "+arma.getObj2();
             }
         }
         megaDescriptionCosa.setEncodedText(desc);

@@ -25,12 +25,12 @@ public class Data {
     private static String lider = "";
     private static Integer lider_id;
     private static String rol = Data.JUGADOR;
-    private static ArrayList<Regiones> regiones;
-    private static ArrayList<Objeto> objetos;
-    private static ArrayList<ArmaNegra> armasNegras;
-    private static ArrayList<ArmaBlanca> armasBlancas;
-    private static ArrayList<Bestia> bestiario;
-    private static ArrayList<Magia> magia;
+    private static ArrayList<Regiones> regiones = new ArrayList<>();
+    private static ArrayList<Objeto> objetos = new ArrayList<>();
+    private static ArrayList<ArmaNegra> armasNegras = new ArrayList<>();
+    private static ArrayList<ArmaBlanca> armasBlancas = new ArrayList<>();
+    private static ArrayList<Bestia> bestiario = new ArrayList<>();
+    private static ArrayList<Magia> magia = new ArrayList<>();
     public static final String BESTIARIO = "bestiario";
     public static final String OBJETO = "objeto";
     public static final String ARMA_BLANCA = "armas blancas";
@@ -237,27 +237,27 @@ public class Data {
     }
 
     public static void setRegiones(ArrayList<Regiones> regiones) {
-        Data.regiones = regiones;
+        Data.regiones.addAll(regiones);
     }
 
     public static void setObjetos(ArrayList<Objeto> objetos) {
-        Data.objetos = objetos;
+        Data.objetos.addAll(objetos);
     }
 
     public static void setArmasBlancas(ArrayList<ArmaBlanca> armasBlancas) {
-        Data.armasBlancas = armasBlancas;
+        Data.armasBlancas.addAll(armasBlancas);
     }
 
     public static void setArmasNegras(ArrayList<ArmaNegra> armasNegras) {
-        Data.armasNegras = armasNegras;
+        Data.armasNegras.addAll(armasNegras);
     }
 
     public static void setBestiario(ArrayList<Bestia> bestiario) {
-        Data.bestiario = bestiario;
+        Data.bestiario.addAll(bestiario);
     }
 
     public static void setMagia(ArrayList<Magia> magia) {
-        Data.magia = magia;
+        Data.magia.addAll(magia);
     }
 
     public static ArrayList<Regiones> getRegiones() {

@@ -373,12 +373,12 @@ public class PaginaControlMaster extends AppCompatActivity {
         alertEraseAlert.show();
 
         LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
-        caja_objetos.removeAllViews();/*
+        caja_objetos.removeAllViews();
         for(ArmaBlanca armaBlanca : Data.getArmasBlancas()){
             ItemListItem item = new ItemListItem(this, armaBlanca.getId(), Data.ARMA_BLANCA, armaBlanca);
-            item.getAdd().setOnClickListener(view -> createAddCosaAlert(armaBlanca.getImg_id(), Data.ARMA_BLANCA, armaBlanca.getId()));
+            item.getAdd().setOnClickListener(view -> createAddCosaAlert(true, armaBlanca.getImg_id(), Data.ARMA_BLANCA, armaBlanca.getId()));
             caja_objetos.addView(item);
-        }*/
+        }
 
         for(ArmaNegra armaNegra : Data.getArmasNegras()){
             ItemListItem item = new ItemListItem(this, armaNegra.getId(), Data.ARMA_NEGRA, armaNegra);

@@ -37,37 +37,88 @@ public class MainActivity extends AppCompatActivity {
         funcionar();
     }
 
+    private void setObjetos() throws JSONException {
+        JSONObject objetosConn = new JSONObject(Utils.getData("get/objetos"));
+        ArrayList<Objeto> objetosList = new ArrayList<>();
+        int i = 0;
+        while(true){
+            try {
+                JSONObject objeto = objetosConn.getJSONObject(String.valueOf(i));
+                int id = objeto.getInt("id");
+                String nombre = objeto.getString("nombre");
+                String tipo = objeto.getString("tipo");
+                int imagen_id = objeto.getInt("imagen_id");
+                String descripcion = objeto.getString("descripcion");
+                Integer objeto_principal = Utils.stringToInteger(objeto.getString("objeto_principal"));
+                Integer objeto_secundario = Utils.stringToInteger(objeto.getString("objeto_secundario"));
+                Objeto obj = new Objeto(nombre, descripcion, tipo, id, imagen_id, objeto_principal, objeto_secundario);
+                obj.setObj1(objeto.getString("obj1"));
+                obj.setObj2(objeto.getString("obj2"));
+                objetosList.add(obj);
+                Log.e("Objeto", String.valueOf(objeto));
+                i++;
+            }catch (JSONException e){
+                break;
+            }
+        }
+        Data.setObjetos(objetosList);
+    }
+
+    private int setArmasBlancas(int init) throws JSONException {
+        JSONObject cuerpo = new JSONObject(Utils.getData("get/objetos/armas/cuerpo?init="+init)); //48
+        ArrayList<ArmaBlanca> blancasList = new ArrayList<>();
+        //armas blancas
+        int i=0, last = 0;
+        while(true){
+            try {
+                JSONObject arma = cuerpo.getJSONObject(String.valueOf(i));
+                String nombre = arma.getString("nombre");
+                int id_arma = arma.getInt("id_arma");
+                String subtipo = arma.getString("subtipo");
+                Integer requisito = Utils.stringToInteger(arma.getString("requisito"));
+                String requisito_campo = arma.getString("requisito_campo");
+                String operacion = arma.getString("operacion");
+                Integer suma1 = Utils.stringToInteger(arma.getString("suma1"));
+                String suma1_campo = arma.getString("suma1_campo");
+                Integer suma2 = Utils.stringToInteger(arma.getString("suma2"));
+                String suma2_campo = arma.getString("suma2_campo");
+                String ataque = arma.getString("ataque");
+                String rango = arma.getString("rango");
+                Integer normal = Utils.stringToInteger(arma.getString("normal"));
+                Integer imagen_id = Utils.stringToInteger(arma.getString("imagen_id"));
+                String descripcion = arma.getString("descripcion");
+                Integer objeto_principal = Utils.stringToInteger(arma.getString("objeto_principal"));
+                Integer objeto_secundario = Utils.stringToInteger(arma.getString("objeto_secundario"));
+                ArmaBlanca armaBlanca = new ArmaBlanca(nombre, subtipo, ataque, operacion, suma1_campo, suma2_campo,
+                        suma1, suma2, rango, descripcion, id_arma, requisito, requisito_campo,  normal, imagen_id,
+                        objeto_principal, objeto_secundario);
+                armaBlanca.setObj1(arma.getString("obj1"));
+                armaBlanca.setObj2(arma.getString("obj2"));
+                blancasList.add(armaBlanca);
+                Log.e("Arma Blanca", String.valueOf(arma));
+                i++;
+                last = id_arma;
+            }catch (JSONException e){
+                break;
+            }
+        }
+        Data.setArmasBlancas(blancasList);
+        return last;
+    }
+
     private void initData(){
         new Thread(() -> {
             // seteo objetos
-            try {
-                JSONObject objetosConn = new JSONObject(Utils.getData("get/objetos"));
-                ArrayList<Objeto> objetosList = new ArrayList<>();
-                int i = 0;
-                while(true){
-                    try {
-                        JSONObject objeto = objetosConn.getJSONObject(String.valueOf(i));
-                        int id = objeto.getInt("id");
-                        String nombre = objeto.getString("nombre");
-                        String tipo = objeto.getString("tipo");
-                        int imagen_id = objeto.getInt("imagen_id");
-                        String descripcion = objeto.getString("descripcion");
-                        Integer objeto_principal = Utils.stringToInteger(objeto.getString("objeto_principal"));
-                        Integer objeto_secundario = Utils.stringToInteger(objeto.getString("objeto_secundario"));
-                        Objeto obj = new Objeto(nombre, descripcion, tipo, id, imagen_id, objeto_principal, objeto_secundario);
-                        obj.setObj1(objeto.getString("obj1"));
-                        obj.setObj2(objeto.getString("obj2"));
-                        objetosList.add(obj);
-                        Log.e("Objeto", String.valueOf(objeto));
-                        i++;
-                    }catch (JSONException e){
-                        break;
-                    }
+            boolean objetos = true;
+            while (objetos) {
+                try {
+                    setObjetos();
+                    objetos = false;
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
                 }
-                Data.setObjetos(objetosList);
-            } catch (JSONException ex) {
-                ex.printStackTrace();
             }
+
             //seteo regiones
             try{
                 JSONObject objetosConn = new JSONObject(Utils.getData("get/regiones/no_foraneas"));
@@ -157,50 +208,15 @@ public class MainActivity extends AppCompatActivity {
             } catch (JSONException ex) {
                 ex.printStackTrace();
             }
-
-
-            try {
-                JSONObject cuerpo = new JSONObject(Utils.getData("get/objetos/armas/cuerpo"));
-                ArrayList<ArmaBlanca> blancasList = new ArrayList<>();
-                //armas blancas
-                int i=0;
-                while(true){
-                    try {
-                        JSONObject arma = cuerpo.getJSONObject(String.valueOf(i));
-                        String nombre = arma.getString("nombre");
-                        int id_arma = arma.getInt("id_arma");
-                        String subtipo = arma.getString("subtipo");
-                        Integer requisito = Utils.stringToInteger(arma.getString("requisito"));
-                        String campo = arma.getString("campo");
-                        String requisito_campo = arma.getString("requisito_campo");
-                        String operacion = arma.getString("operacion");
-                        Integer suma1 = Utils.stringToInteger(arma.getString("suma1"));
-                        String suma1_campo = arma.getString("suma1_campo");
-                        Integer suma2 = Utils.stringToInteger(arma.getString("suma2"));
-                        String suma2_campo = arma.getString("suma2_campo");
-                        String ataque = arma.getString("ataque");
-                        String rango = arma.getString("rango");
-                        Integer normal = Utils.stringToInteger(arma.getString("normal"));
-                        Integer imagen_id = Utils.stringToInteger(arma.getString("imagen_id"));
-                        String descripcion = arma.getString("descripcion");
-                        Integer objeto_principal = Utils.stringToInteger(arma.getString("objeto_principal"));
-                        Integer objeto_secundario = Utils.stringToInteger(arma.getString("objeto_secundario"));
-                        ArmaBlanca armaBlanca = new ArmaBlanca(nombre, subtipo, campo, ataque, operacion, suma1_campo, suma2_campo,
-                                suma1, suma2, rango, descripcion, id_arma, requisito, requisito_campo, normal, imagen_id,
-                                objeto_principal, objeto_secundario);
-                        armaBlanca.setObj1(arma.getString("obj1"));
-                        armaBlanca.setObj2(arma.getString("obj2"));
-                        blancasList.add(armaBlanca);
-                        Log.e("Arma Blanca", String.valueOf(arma));
-                        i++;
-                    }catch (JSONException e){
-                        e.printStackTrace();
-                        break;
-                    }
+            boolean armasBlancas = true;
+            while (armasBlancas) {
+                try {
+                    int last = setArmasBlancas(0);
+                    setArmasBlancas(last);
+                    armasBlancas = false;
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
                 }
-                Data.setArmasBlancas(blancasList);
-            } catch (JSONException ex) {
-                ex.printStackTrace();
             }
             // seteo bestiario
             try {
