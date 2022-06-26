@@ -23,6 +23,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ItemListItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Magia;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ModEstadisticasItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 
@@ -92,7 +93,7 @@ public class PaginaControlMaster extends AppCompatActivity {
         });
 
         atributosBut.setOnClickListener(view -> {
-            // poder modificar las estadisticas de un peronaje
+            listaEstadisticas();
         });
     }
 
@@ -267,6 +268,19 @@ public class PaginaControlMaster extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                Iterator<String> keys = listaPersonas.keys();
+                rg.setOrientation(RadioGroup.VERTICAL);
+                while (keys.hasNext()) {
+                    try {
+                        JSONObject object = listaPersonas.getJSONObject(keys.next());
+                        SuperRadioButton rb = new SuperRadioButton(this);
+                        rb.setId(Integer.parseInt(object.getString("id")));
+                        rb.setEncodedText(object.getString("nombre"));
+                        rg.addView(rb);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             });
         }
 
@@ -426,6 +440,43 @@ public class PaginaControlMaster extends AppCompatActivity {
             ItemListItem item = new ItemListItem(this, regiones.getId(), Data.REGIONES, regiones);
             item.getAdd().setOnClickListener(view -> setImg(regiones.getImg_id()));
             caja_objetos.addView(item);
+        }
+    }
+
+    private void listaEstadisticas() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
+
+        builder.setView(popupView);
+
+        androidx.appcompat.app.AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
+        caja_objetos.removeAllViews();
+        Iterator<String> iter = listaPersonas.keys();
+        while (iter.hasNext()) {
+            try {
+                JSONObject object = listaPersonas.getJSONObject(iter.next());
+                Log.e("estPerso", String.valueOf(object));
+                ModEstadisticasItem perso = new ModEstadisticasItem(
+                        this,
+                        object.getInt("id"),
+                        Integer.parseInt(object.getString("vitalidad")),
+                        Integer.parseInt(object.getString("resistencia")),
+                        Integer.parseInt(object.getString("fuerza")),
+                        Integer.parseInt(object.getString("velocidad")),
+                        Integer.parseInt(object.getString("inteligencia")),
+                        Integer.parseInt(object.getString("punteria")),
+                        Integer.parseInt(object.getString("magia"))
+                        );
+                perso.setNombre(object.getString("nombre"));
+                caja_objetos.addView(perso);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
