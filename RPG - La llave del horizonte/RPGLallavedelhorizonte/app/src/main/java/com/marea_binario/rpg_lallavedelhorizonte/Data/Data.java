@@ -165,9 +165,9 @@ public class Data {
         imgObjetosArray[59] = R.drawable.llanura_prasinos;
         imgObjetosArray[60] = R.drawable.koralli;
         imgObjetosArray[61] = R.drawable.smaragdi;
-        imgObjetosArray[62] = R.drawable.pente;
+        imgObjetosArray[62] = R.drawable.lefko;
         imgObjetosArray[63] = R.drawable.zafeiri;
-        imgObjetosArray[64] = R.drawable.lefko;
+        imgObjetosArray[64] = R.drawable.pente;
         imgObjetosArray[65] = 0;
         imgObjetosArray[66] = R.drawable.rio_tessera;
         imgObjetosArray[67] = R.drawable.rio_tessera_monta_a;

@@ -73,6 +73,8 @@
         <entry key="app/src/main/res/layout/item.xml" value="0.2786458333333333" />
         <entry key="app/src/main/res/layout/item_list_display.xml" value="0.2786458333333333" />
         <entry key="app/src/main/res/layout/item_list_item.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/mod_cosas_de_gente.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/mod_cosas_de_gente_item_list.xml" value="0.35520833333333335" />
         <entry key="app/src/main/res/layout/mod_estadisticas_item.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/personaje_display.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/segunda_lengua_escojer.xml" value="0.35625" />

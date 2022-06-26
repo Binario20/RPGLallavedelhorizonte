@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
@@ -13,7 +14,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 public class ModEstadisticasItem extends LinearLayout {
 
     private int id_perso, vitalidad, resistencia, fuerza, velocidad, inteligencia, punteria, magia;
-    private LinearLayout modEst;
+    private ScrollView modEst;
     private Button showEst, acceptEst;
     private SuperText nomPerEst;
     private EditText modVitalidad, modResistencia, modFuerza, modVelocidad, modInteligencia, modPunteria, modMagia;
@@ -35,6 +36,7 @@ public class ModEstadisticasItem extends LinearLayout {
     }
 
     private void initComponents() {
+        inflate(getContext(), R.layout.mod_estadisticas_item, this);
         modVitalidad = this.findViewById(R.id.modVitalidad);
         modResistencia = this.findViewById(R.id.modResistencia);
         modFuerza = this.findViewById(R.id.modFuerza);
@@ -50,14 +52,13 @@ public class ModEstadisticasItem extends LinearLayout {
     }
 
     private void initData() {
-        Log.e("vitalidad",String.valueOf(vitalidad));
-        this.modVitalidad.setText(String.valueOf(vitalidad));
-        this.modResistencia.setText(String.valueOf(resistencia));
-        this.modFuerza.setText(String.valueOf(resistencia));
-        this.modVelocidad.setText(String.valueOf(resistencia));
-        this.modInteligencia.setText(String.valueOf(inteligencia));
-        this.modPunteria.setText(String.valueOf(punteria));
-        this.modMagia.setText(String.valueOf(magia));
+        modVitalidad.setText(String.valueOf(vitalidad));
+        modResistencia.setText(String.valueOf(resistencia));
+        modFuerza.setText(String.valueOf(fuerza));
+        modVelocidad.setText(String.valueOf(velocidad));
+        modInteligencia.setText(String.valueOf(inteligencia));
+        modPunteria.setText(String.valueOf(punteria));
+        modMagia.setText(String.valueOf(magia));
     }
 
     private void initListeners() {
@@ -90,6 +91,9 @@ public class ModEstadisticasItem extends LinearLayout {
 
             destreza = Math.round((punt + vel) >> 1); // x / 2
             Log.e("destreza", String.valueOf(destreza));
+
+            modEst.setVisibility(View.GONE);
+            acceptEst.setVisibility(View.GONE);
         });
     }
 

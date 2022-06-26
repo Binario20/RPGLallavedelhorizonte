@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <Button
+        android:id="@+id/showListCosas"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:padding="14dp"
+        app:icon="@android:drawable/arrow_down_float"
+        app:iconSize="20dp"
+        app:iconTint="@color/md_theme_light_onTertiary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.marea_binario.rpg_lallavedelhorizonte.SuperText
+        android:id="@+id/nomPersoList"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:text="Nombre"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/showListCosas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/listaDeCosas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomPersoList"></LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

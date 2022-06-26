@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <com.marea_binario.rpg_lallavedelhorizonte.SuperText
+        android:id="@+id/nomCosa"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:text="Nombre cosa"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cantCosa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/modCosa"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:paddingLeft="9dp"
+        android:paddingRight="9dp"
+        app:icon="@android:drawable/ic_menu_edit"
+        app:iconTintMode="src_atop"
+        app:layout_constraintBottom_toBottomOf="@+id/nomCosa"
+        app:layout_constraintEnd_toStartOf="@+id/delCosa"
+        app:layout_constraintTop_toTopOf="@+id/nomCosa"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/delCosa"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        app:icon="@android:drawable/ic_menu_delete"
+        app:iconTintMode="src_atop"
+        app:layout_constraintBottom_toBottomOf="@+id/modCosa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/modCosa"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.marea_binario.rpg_lallavedelhorizonte.SuperText
+        android:id="@+id/cantCosa"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center_vertical"
+        android:padding="5dp"
+        android:text="0"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/nomCosa"
+        app:layout_constraintEnd_toStartOf="@+id/modCosa"
+        app:layout_constraintTop_toTopOf="@+id/nomCosa" />
+</androidx.constraintlayout.widget.ConstraintLayout>

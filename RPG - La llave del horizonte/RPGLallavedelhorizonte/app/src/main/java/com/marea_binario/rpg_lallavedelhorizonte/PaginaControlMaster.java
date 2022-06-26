@@ -460,7 +460,6 @@ public class PaginaControlMaster extends AppCompatActivity {
         while (iter.hasNext()) {
             try {
                 JSONObject object = listaPersonas.getJSONObject(iter.next());
-                Log.e("estPerso", String.valueOf(object));
                 ModEstadisticasItem perso = new ModEstadisticasItem(
                         this,
                         object.getInt("id"),
@@ -478,5 +477,22 @@ public class PaginaControlMaster extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void listaCosasDeGente() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
+
+        builder.setView(popupView);
+
+        androidx.appcompat.app.AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
+        caja_objetos.removeAllViews();
+
+
     }
 }
