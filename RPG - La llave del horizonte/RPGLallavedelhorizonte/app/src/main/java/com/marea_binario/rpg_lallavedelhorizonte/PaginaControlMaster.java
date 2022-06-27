@@ -36,7 +36,7 @@ public class PaginaControlMaster extends AppCompatActivity {
     private Button modDineros, reloadMaster, armasBut, objetosBut, bestiarioBut, magiaBut, regionesBut, depositoObjetosBut;
     private SuperText dineros;
     private ImageView PviewInM, personajesBut, atributosBut;
-    private JSONObject listaDeposito, listaPersonas;
+    private JSONObject listaDeposito, listaPersonas, listaCosasGente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +53,12 @@ public class PaginaControlMaster extends AppCompatActivity {
                 listaPersonas = new JSONObject();
             else
                 listaPersonas = new JSONObject(x);
+            String y = Utils.getData("get/cosas_adquiridas");
+            if (y.equals("204 OK"))
+                listaCosasGente = new JSONObject();
+            else
+                listaCosasGente = new JSONObject(y);
+            Log.e("listaCosasGente", String.valueOf(listaCosasGente));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -89,7 +95,7 @@ public class PaginaControlMaster extends AppCompatActivity {
         regionesBut.setOnClickListener(view -> listaRegiones());
 
         personajesBut.setOnClickListener(view -> {
-            // poder canviar los objetos/armas... que tiene un jugador
+            listaCosasDeGente();
         });
 
         atributosBut.setOnClickListener(view -> {

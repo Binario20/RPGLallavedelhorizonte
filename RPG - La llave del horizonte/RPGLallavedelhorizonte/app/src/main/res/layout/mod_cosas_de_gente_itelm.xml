@@ -9,20 +9,21 @@
     <com.marea_binario.rpg_lallavedelhorizonte.SuperText
         android:id="@+id/nomCosa"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:gravity="center_vertical"
         android:text="Nombre cosa"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cantCosa"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgCosa"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/modCosa"
         android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:paddingLeft="9dp"
         android:paddingRight="9dp"
@@ -36,7 +37,7 @@
     <Button
         android:id="@+id/delCosa"
         android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_height="0dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         app:icon="@android:drawable/ic_menu_delete"
@@ -58,4 +59,13 @@
         app:layout_constraintBottom_toBottomOf="@+id/nomCosa"
         app:layout_constraintEnd_toStartOf="@+id/modCosa"
         app:layout_constraintTop_toTopOf="@+id/nomCosa" />
+
+    <ImageView
+        android:id="@+id/imgCosa"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nomCosa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nomCosa"
+        app:srcCompat="@drawable/todoynada" />
 </androidx.constraintlayout.widget.ConstraintLayout>

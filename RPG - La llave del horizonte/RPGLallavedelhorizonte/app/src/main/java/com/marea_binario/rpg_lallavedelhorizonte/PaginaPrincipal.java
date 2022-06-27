@@ -186,7 +186,7 @@ public class PaginaPrincipal extends AppCompatActivity {
         try {
             listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
             Log.e("funkoo!!", String.valueOf(listaDeposito));
-            JSONObject perso_est = new JSONObject(Utils.getData("get/personaje/estadisticas?id="+id_perso))
+            JSONObject perso_est = new JSONObject(Utils.getData("get/conectados/estadisticas?id="+id_jugador))
                     .getJSONObject("0");
             Log.e("funko?", String.valueOf(perso_est));
             personaje.setEstadisticas(

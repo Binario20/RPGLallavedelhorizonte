@@ -2,8 +2,10 @@ package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 
 import android.content.Context;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 
@@ -13,7 +15,7 @@ public class ModCosasDeGenteItem extends LinearLayout {
     private int cantidad;
     private SuperText nomCosa, cantCosa;
     private Button modCosa, delCosa;
-
+    private ImageView imgCosa;
 
     public ModCosasDeGenteItem(Context context, String nombreCosa, int cantidad) {
         super(context);
@@ -31,6 +33,7 @@ public class ModCosasDeGenteItem extends LinearLayout {
 
         modCosa = this.findViewById(R.id.modCosa);
         delCosa = this.findViewById(R.id.delCosa);
+        imgCosa = this.findViewById(R.id.imgCosa);
     }
 
     private void initData() {
@@ -40,6 +43,10 @@ public class ModCosasDeGenteItem extends LinearLayout {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public void setImgCosa(int img_id) {
+        imgCosa.setImageResource(Data.getImg(img_id));
     }
 
     public Button getModCosa() {

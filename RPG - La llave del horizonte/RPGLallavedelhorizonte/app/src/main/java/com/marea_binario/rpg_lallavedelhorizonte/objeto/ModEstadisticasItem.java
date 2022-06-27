@@ -8,20 +8,24 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ModEstadisticasItem extends LinearLayout {
 
-    private int id_perso, vitalidad, resistencia, fuerza, velocidad, inteligencia, punteria, magia;
+    private int id_jugador, vitalidad, resistencia, fuerza, velocidad, inteligencia, punteria, magia;
     private ScrollView modEst;
     private Button showEst, acceptEst;
     private SuperText nomPerEst;
     private EditText modVitalidad, modResistencia, modFuerza, modVelocidad, modInteligencia, modPunteria, modMagia;
 
-    public ModEstadisticasItem(Context context, int id_perso, int vitalidad, int resistencia, int fuerza, int velocidad, int inteligencia, int punteria, int magia) {
+    public ModEstadisticasItem(Context context, int id_jugador, int vitalidad, int resistencia, int fuerza, int velocidad, int inteligencia, int punteria, int magia) {
         super(context);
-        this.id_perso = id_perso;
+        this.id_jugador = id_jugador;
         this.vitalidad = vitalidad;
         this.resistencia = resistencia;
         this.fuerza = fuerza;
@@ -75,22 +79,31 @@ public class ModEstadisticasItem extends LinearLayout {
         acceptEst.setOnClickListener(view -> {
             int vital,resis,fuerte,vel, intel,punt,mag,destreza;
             vital = Integer.parseInt(modVitalidad.getText().toString());
-            Log.e("vitalidad", String.valueOf(vital));
             resis = Integer.parseInt(modResistencia.getText().toString());
-            Log.e("resistencia", String.valueOf(resis));
             fuerte = Integer.parseInt(modFuerza.getText().toString());
-            Log.e("fuerza", String.valueOf(fuerte));
             vel = Integer.parseInt(modVelocidad.getText().toString());
-            Log.e("velocidad", String.valueOf(vel));
             intel = Integer.parseInt(modInteligencia.getText().toString());
-            Log.e("inteligencia", String.valueOf(intel));
             punt = Integer.parseInt(modPunteria.getText().toString());
-            Log.e("punteria", String.valueOf(punt));
             mag = Integer.parseInt(modMagia.getText().toString());
-            Log.e("magia", String.valueOf(mag));
 
             destreza = Math.round((punt + vel) >> 1); // x / 2
             Log.e("destreza", String.valueOf(destreza));
+
+            JSONObject newEst = new JSONObject();
+            try {
+                newEst.put("id_jugador",id_jugador);
+                newEst.put("vitalidad",vital);
+                newEst.put("resistencia",resis);
+                newEst.put("fuerza",fuerte);
+                newEst.put("velocidad",vel);
+                newEst.put("inteligencia",intel);
+                newEst.put("punteria",punt);
+                newEst.put("magia",mag);
+                newEst.put("destreza",destreza);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Utils.getData("put/conectados/estadisticas?upd="+newEst);
 
             modEst.setVisibility(View.GONE);
             acceptEst.setVisibility(View.GONE);

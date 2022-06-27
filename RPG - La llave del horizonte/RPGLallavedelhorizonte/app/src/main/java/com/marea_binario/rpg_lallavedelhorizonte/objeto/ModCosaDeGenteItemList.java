@@ -12,7 +12,7 @@ public class ModCosaDeGenteItemList extends LinearLayout {
 
     private String nombre;
     private SuperText nomPersoList;
-    private Button showListCosas;
+    private Button showListCosas, reloadCosas;
     private LinearLayout listaDeCosas;
 
     public ModCosaDeGenteItemList(Context context, String nombre) {
@@ -28,6 +28,7 @@ public class ModCosaDeGenteItemList extends LinearLayout {
         inflate(getContext(), R.layout.mod_cosas_de_gente_itelm, this);
         nomPersoList = this.findViewById(R.id.nomPersoList);
         showListCosas = this.findViewById(R.id.showListCosas);
+        reloadCosas = this.findViewById(R.id.reloadCosas);
         listaDeCosas = this.findViewById(R.id.showListCosas);
     }
 
@@ -44,7 +45,11 @@ public class ModCosaDeGenteItemList extends LinearLayout {
         });
     }
 
-    public void setListaDeCosas(LinearLayout listaDeCosas) {
-        this.listaDeCosas = listaDeCosas;
+    public Button getReloadCosas() {
+        return reloadCosas;
+    }
+
+    public LinearLayout getListaDeCosas() {
+        return listaDeCosas;
     }
 }
