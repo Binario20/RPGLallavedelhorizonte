@@ -5,7 +5,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.marea_binario.rpg_lallavedelhorizonte.ConnTask;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaBlanca;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ArmaNegra;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Magia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.NuevoJugador;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 
 import org.json.JSONObject;
 
@@ -96,5 +102,77 @@ public class Utils {
 
     public static Integer stringToInteger(String s) {
         return s.equalsIgnoreCase("NULL")?null:Integer.valueOf(s);
+    }
+
+    public static String getNombreCosa(int id, String tipo) {
+        switch (tipo) {
+            case Data.REGIONES:
+                for (Regiones region : Data.getRegiones())
+                    if (region.getId() == id)
+                        return region.getNombre();
+                break;
+            case Data.OBJETO:
+                for (Objeto objeto : Data.getObjetos())
+                    if (objeto.getId() == id)
+                        return objeto.getNombre();
+                break;
+            case Data.MAGIA:
+                for (Magia magia : Data.getMagia())
+                    if (magia.getId() == id)
+                        return magia.getNombre();
+                break;
+            case Data.ARMA_BLANCA:
+                for (ArmaBlanca armaBlanca : Data.getArmasBlancas())
+                    if (armaBlanca.getId() == id)
+                        return armaBlanca.getNombre();
+                break;
+            case Data.ARMA_NEGRA:
+                for (ArmaNegra armaNegra : Data.getArmasNegras())
+                    if (armaNegra.getId() == id)
+                        return armaNegra.getNombre();
+                break;
+            case Data.BESTIARIO:
+                for (Bestia bestia : Data.getBestiario())
+                    if (bestia.getId() == id)
+                        return bestia.getNombre();
+                break;
+        }
+        return "";
+    }
+
+    public static Integer getImgIdCosa(int id, String tipo) {
+        switch (tipo) {
+            case Data.REGIONES:
+                for (Regiones region : Data.getRegiones())
+                    if (region.getId() == id)
+                        return region.getImg_id();
+                break;
+            case Data.OBJETO:
+                for (Objeto objeto : Data.getObjetos())
+                    if (objeto.getId() == id)
+                        return objeto.getImg_id();
+                break;
+            case Data.MAGIA:
+                for (Magia magia : Data.getMagia())
+                    if (magia.getId() == id)
+                        return magia.getImg_id();
+                break;
+            case Data.ARMA_BLANCA:
+                for (ArmaBlanca armaBlanca : Data.getArmasBlancas())
+                    if (armaBlanca.getId() == id)
+                        return armaBlanca.getImg_id();
+                break;
+            case Data.ARMA_NEGRA:
+                for (ArmaNegra armaNegra : Data.getArmasNegras())
+                    if (armaNegra.getId() == id)
+                        return armaNegra.getImg_id();
+                break;
+            case Data.BESTIARIO:
+                for (Bestia bestia : Data.getBestiario())
+                    if (bestia.getId() == id)
+                        return bestia.getImg_id();
+                break;
+        }
+        return null;
     }
 }

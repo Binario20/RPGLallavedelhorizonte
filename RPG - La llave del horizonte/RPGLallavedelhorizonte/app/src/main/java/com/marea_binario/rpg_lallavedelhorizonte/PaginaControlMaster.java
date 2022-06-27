@@ -23,6 +23,8 @@ import com.marea_binario.rpg_lallavedelhorizonte.objeto.Bestia;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.DepositoObjetosItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ItemListItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Magia;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ModCosaDeGenteItemList;
+import com.marea_binario.rpg_lallavedelhorizonte.objeto.ModCosasDeGenteItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.ModEstadisticasItem;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
@@ -94,13 +96,9 @@ public class PaginaControlMaster extends AppCompatActivity {
 
         regionesBut.setOnClickListener(view -> listaRegiones());
 
-        personajesBut.setOnClickListener(view -> {
-            listaCosasDeGente();
-        });
+        personajesBut.setOnClickListener(view -> listaCosasDeGente());
 
-        atributosBut.setOnClickListener(view -> {
-            listaEstadisticas();
-        });
+        atributosBut.setOnClickListener(view -> listaEstadisticas());
     }
 
     private void setConfigIfLider() {
@@ -498,6 +496,57 @@ public class PaginaControlMaster extends AppCompatActivity {
 
         LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
         caja_objetos.removeAllViews();
+        Iterator<String> iter = listaPersonas.keys();
+        String nombre = "";
+        LinearLayout listCosas = null;
+        while (iter.hasNext()) {
+            try {
+                JSONObject object = listaCosasGente.getJSONObject(iter.next());
+                if (nombre.equals(object.getString("nombre"))) {
+                    String nombreCosa = Utils.getNombreCosa(
+                            Integer.parseInt(object.getString("id_cosa")),
+                            object.getString("tipo")
+                    );
+                    Integer imgIdCosa = Utils.getImgIdCosa(
+                            Integer.parseInt(object.getString("id_cosa")),
+                            object.getString("tipo")
+                    );
+                    ModCosasDeGenteItem cosa = new ModCosasDeGenteItem(
+                            this,
+                            nombreCosa,
+                            Integer.parseInt(object.getString("cantidad")));
+                    cosa.setImgCosa(imgIdCosa);
+                    listCosas.addView(cosa);
+                } else {
+                    nombre = object.getString("nombre");
+                    ModCosaDeGenteItemList perso = new ModCosaDeGenteItemList(
+                            this, nombre);
+                    listCosas = perso.getListaDeCosas();
+                    listCosas.removeAllViews();
+
+                    String nombreCosa = Utils.getNombreCosa(
+                            Integer.parseInt(object.getString("id_cosa")),
+                            object.getString("tipo")
+                    );
+                    Integer imgIdCosa = Utils.getImgIdCosa(
+                            Integer.parseInt(object.getString("id_cosa")),
+                            object.getString("tipo")
+                    );
+                    ModCosasDeGenteItem cosa = new ModCosasDeGenteItem(
+                            this,
+                            nombreCosa,
+                            Integer.parseInt(object.getString("cantidad")));
+                    cosa.setImgCosa(imgIdCosa);
+                    listCosas.addView(cosa);
+
+                    perso.getReloadCosas().setOnClickListener(view ->
+                            Utils.getData("get/cosas_adquiridas"));
+                    caja_objetos.addView(perso);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
 
     }

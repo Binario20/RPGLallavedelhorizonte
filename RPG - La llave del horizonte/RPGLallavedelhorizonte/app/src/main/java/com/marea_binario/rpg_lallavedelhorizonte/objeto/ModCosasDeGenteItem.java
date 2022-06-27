@@ -45,7 +45,7 @@ public class ModCosasDeGenteItem extends LinearLayout {
         this.cantidad = cantidad;
     }
 
-    public void setImgCosa(int img_id) {
+    public void setImgCosa(Integer img_id) {
         imgCosa.setImageResource(Data.getImg(img_id));
     }
 

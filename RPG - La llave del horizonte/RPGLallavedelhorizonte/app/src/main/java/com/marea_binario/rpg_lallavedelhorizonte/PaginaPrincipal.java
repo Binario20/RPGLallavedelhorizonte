@@ -123,9 +123,9 @@ public class PaginaPrincipal extends AppCompatActivity {
                 cosa.put("cantidad", 1);
                 cosa.put("id_cosa", arma);
                 if (personaje.getClase().equals("Tirador"))
-                    cosa.put("tipo", "arma negra");
+                    cosa.put("tipo", Data.ARMA_NEGRA);
                 else
-                    cosa.put("tipo", "arma blanca");
+                    cosa.put("tipo", Data.ARMA_BLANCA);
                 Utils.getData("post/cosa_adquirida?new="+cosa);
             }
             objeto = objetos_iniciales.getString("id_objeto");
@@ -134,7 +134,7 @@ public class PaginaPrincipal extends AppCompatActivity {
                 cosa.put("id_jugador", id_jugador);
                 cosa.put("cantidad", 1);
                 cosa.put("id_cosa", objeto);
-                cosa.put("tipo", "objeto");
+                cosa.put("tipo", Data.OBJETO);
                 Utils.getData("post/cosa_adquirida?new="+cosa);
             }
         } catch (Exception e) {
