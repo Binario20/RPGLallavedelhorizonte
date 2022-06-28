@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.R;
 import com.marea_binario.rpg_lallavedelhorizonte.SuperText;
 
@@ -77,78 +78,54 @@ public class Item extends LinearLayout {
     }
 
     public void setCustomId(int customId, String tipo) {
-        this.tipo = tipo;
         this.customId = customId;
 
-        switch (tipo){
-            case Data.OBJETO:
-                ArrayList<Objeto> objs = Data.getObjetos();
-                for (Objeto obj : objs ) {
-                    if (obj.getId()==customId){
-                        mySelf = obj;
-                        break;
-                    }
-                }
-                break;
-            case Data.ARMA_BLANCA:
-                ArrayList<ArmaBlanca> armbs = Data.getArmasBlancas();
-                for (ArmaBlanca armb : armbs ) {
-                    if (armb.getId()==customId){
-                        mySelf = armb;
-                        break;
-                    }
-                }
-                break;
-            case Data.ARMA_NEGRA:
-                ArrayList<ArmaNegra> armns = Data.getArmasNegras();
-                for (ArmaNegra armn : armns ) {
-                    if (armn.getId()==customId){
-                        mySelf = armn;
-                        break;
-                    }
-                }
-                break;
-            case Data.MAGIA:
-                ArrayList<Magia> libros = Data.getMagia();
-                for (Magia libro : libros ) {
-                    if (libro.getId()==customId){
-                        mySelf = libro;
-                        break;
-                    }
-                }
-                break;
-            case Data.BESTIARIO:
-                ArrayList<Bestia> bestias = Data.getBestiario();
-                for (Bestia bestia : bestias ) {
-                    if (bestia.getId()==customId){
-                        mySelf = bestia;
-                        break;
-                    }
-                }
-                break;
-        }
+        if (customId != -1) {
+            this.tipo = tipo;
 
-        this.img.setBackground(AppCompatResources.getDrawable(getContext(), mySelf.getImg_id()));
-        this.nombreItem = String.valueOf(mySelf.getNombre());
+            switch (tipo) {
+                case Data.OBJETO:
+                    mySelf = Utils.getObjetoById(customId);
+                    break;
+                case Data.ARMA_BLANCA:
+                    mySelf = Utils.getArmaBlancaById(customId);
+                    break;
+                case Data.ARMA_NEGRA:
+                    mySelf = Utils.getArmaNegraById(customId);
+                    break;
+                case Data.MAGIA:
+                    mySelf = Utils.getMagiaById(customId);
+                    break;
+                case Data.BESTIARIO:
+                    mySelf = Utils.getBestiarioById(customId);
+                    break;
+            }
+
+            img.setImageResource(Data.getImg(mySelf.getImg_id()));
+            text.setEncodedText(mySelf.getNombre());
+        }else{
+            img.setImageResource(Data.getImg(null));
+            text.setEncodedText("(Vacio)");
+        }
     }
 
     private String getInfo(){
         String info ="";
         switch (tipo){
             case Data.OBJETO:
-                info = ((Objeto)mySelf).toString();
+                info = Utils.getDescripcion((Objeto)mySelf, true);
                 break;
             case Data.ARMA_BLANCA:
-                info = ((ArmaBlanca)mySelf).toString();
+                info = Utils.getDescripcion((ArmaBlanca)mySelf, true);
                 break;
             case Data.ARMA_NEGRA:
-                info = ((ArmaNegra)mySelf).toString();
+                info = Utils.getDescripcion((ArmaNegra)mySelf, true);
                 break;
             case Data.MAGIA:
-                info = ((Magia)mySelf).toString();
+                info = Utils.getDescripcion((Magia)mySelf, true);
                 break;
             case Data.BESTIARIO:
-                info = ((Bestia)mySelf).toString();
+                info = Utils.getDescripcion((Bestia)mySelf, true);
                 break;
         }
         return info;

@@ -29,24 +29,24 @@ public class EscojerPersonaje extends AppCompatActivity {
 
     private void initComponents() {
         View.OnClickListener listenerPersonajeNuevo = view -> {
-          startActivity(new Intent(this, CrearPersonajeNuevo.class));
-          finish();
+            startActivity(new Intent(this, CrearPersonajeNuevo.class));
+            finish();
         };
         // GET PERSONAJES
         String personajes = null;
         JSONObject listP = null;
 
-        try{
-            personajes = Utils.getData("get/nombre_personaje");
-            listP = new JSONObject(personajes);
-        }catch (Exception e){
-            e.printStackTrace();
+        boolean getPerso = true;
+        while (getPerso) {
+            try {
+                personajes = Utils.getData("get/nombre_personaje");
+                listP = new JSONObject(personajes);
+                getPerso = false;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
-        Iterator<String> iter = null;
-        if (listP != null) {
-            iter = listP.keys();
-        }
+        Iterator<String> iter = listP.keys();
 
         // CREA TABLA (MOSTRAR PERSONAJES)
         tablaPersonajes = findViewById(R.id.tablaPersonajes);

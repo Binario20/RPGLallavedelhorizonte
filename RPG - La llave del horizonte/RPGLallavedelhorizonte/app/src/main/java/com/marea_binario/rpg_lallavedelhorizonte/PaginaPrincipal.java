@@ -122,10 +122,13 @@ public class PaginaPrincipal extends AppCompatActivity {
                 cosa.put("id_jugador", id_jugador);
                 cosa.put("cantidad", 1);
                 cosa.put("id_cosa", arma);
-                if (personaje.getClase().equals("Tirador"))
+                if (personaje.getClase().equals("Tirador")) {
                     cosa.put("tipo", Data.ARMA_NEGRA);
-                else
+                    items[0].setCustomId(Integer.parseInt(arma), Data.ARMA_NEGRA);
+                } else {
                     cosa.put("tipo", Data.ARMA_BLANCA);
+                    items[0].setCustomId(Integer.parseInt(arma), Data.ARMA_BLANCA);
+                }
                 Utils.getData("post/cosa_adquirida?new="+cosa);
             }
             objeto = objetos_iniciales.getString("id_objeto");
@@ -135,6 +138,7 @@ public class PaginaPrincipal extends AppCompatActivity {
                 cosa.put("cantidad", 1);
                 cosa.put("id_cosa", objeto);
                 cosa.put("tipo", Data.OBJETO);
+                items[1].setCustomId(Integer.parseInt(objeto), Data.OBJETO);
                 Utils.getData("post/cosa_adquirida?new="+cosa);
             }
         } catch (Exception e) {
@@ -228,10 +232,6 @@ public class PaginaPrincipal extends AppCompatActivity {
         items[2] = this.findViewById(R.id.item3);
         items[3] = this.findViewById(R.id.item4);
 
-        int i = 1;
-        for (Item item: items) {
-            item.setCustomId(i++, Data.OBJETO);
-        }
         dinerosImg = this.findViewById(R.id.dinerosImg);
         dineros = this.findViewById(R.id.dineros);
 
