@@ -39,6 +39,8 @@ public class PaginaControlMaster extends AppCompatActivity {
     private SuperText dineros;
     private ImageView PviewInM, personajesBut, atributosBut;
     private JSONObject listaDeposito, listaPersonas, listaCosasGente;
+    private String tipoCosaImg = "";
+    private int idCosaImg = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,8 @@ public class PaginaControlMaster extends AppCompatActivity {
         personajesBut.setOnClickListener(view -> listaCosasDeGente());
 
         atributosBut.setOnClickListener(view -> listaEstadisticas());
+
+       PviewInM.setOnClickListener(view -> descripcionImg());
     }
 
     private void setConfigIfLider() {
@@ -293,6 +297,9 @@ public class PaginaControlMaster extends AppCompatActivity {
         if (addImg) {
             showImg.setOnClickListener(view -> {
                 setImg(img_id);
+                tipoCosaImg = tipo;
+                idCosaImg = id_cosa;
+                Log.e("infoImg",idCosaImg+" -> "+tipoCosaImg);
                 alertEraseAlert.cancel();
             });
         } else {
@@ -326,6 +333,9 @@ public class PaginaControlMaster extends AppCompatActivity {
                     createAddCosaAlert(true,bestia.getImg_id(), Data.BESTIARIO, bestia.getId());
                 else
                     setImg(bestia.getImg_id());
+                    tipoCosaImg = Data.BESTIARIO;
+                    idCosaImg = bestia.getId();
+                    Log.e("infoImg",idCosaImg+" -> "+tipoCosaImg);
             });
             caja_objetos.addView(item);
         }
@@ -442,7 +452,12 @@ public class PaginaControlMaster extends AppCompatActivity {
 
         for(Regiones regiones : Data.getRegiones()){
             ItemListItem item = new ItemListItem(this, regiones.getId(), Data.REGIONES, regiones);
-            item.getAdd().setOnClickListener(view -> setImg(regiones.getImg_id()));
+            item.getAdd().setOnClickListener(view -> {
+                setImg(regiones.getImg_id());
+                tipoCosaImg = Data.REGIONES+regiones.getTipo();
+                idCosaImg = regiones.getId();
+                Log.e("infoImg",idCosaImg+" -> "+tipoCosaImg);
+            });
             caja_objetos.addView(item);
         }
     }
@@ -505,12 +520,10 @@ public class PaginaControlMaster extends AppCompatActivity {
                 if (nombre.equals(object.getString("nombre"))) {
                     String nombreCosa = Utils.getNombreCosa(
                             Integer.parseInt(object.getString("id_cosa")),
-                            object.getString("tipo")
-                    );
+                            object.getString("tipo"));
                     Integer imgIdCosa = Utils.getImgIdCosa(
                             Integer.parseInt(object.getString("id_cosa")),
-                            object.getString("tipo")
-                    );
+                            object.getString("tipo"));
                     ModCosasDeGenteItem cosa = new ModCosasDeGenteItem(
                             this,
                             nombreCosa,
@@ -547,7 +560,58 @@ public class PaginaControlMaster extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
 
+    private void descripcionImg() {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.item_list_display, null);
 
+        builder.setView(popupView);
+
+        androidx.appcompat.app.AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
+        caja_objetos.removeAllViews();
+        SuperText desc = new SuperText(this);
+        switch (tipoCosaImg) {
+            case Data.BESTIARIO:
+                Bestia bestia = Utils.getBestiarioById(idCosaImg);
+                String descripcion = Utils.getDescripcion(bestia, true);
+                desc.setEncodedText(descripcion);
+                break;
+            case Data.ARMA_NEGRA:
+                ArmaNegra armaNegra = Utils.getArmaNegraById(idCosaImg);
+                descripcion = Utils.getDescripcion(armaNegra, true);
+                desc.setEncodedText(descripcion);
+                break;
+            case Data.ARMA_BLANCA:
+                ArmaBlanca armaBlanca = Utils.getArmaBlancaById(idCosaImg);
+                descripcion = Utils.getDescripcion(armaBlanca, true);
+                desc.setEncodedText(descripcion);
+                break;
+            case "grupalObject":
+            case Data.OBJETO:
+                Objeto objeto = Utils.getObjetoById(idCosaImg);
+                descripcion = Utils.getDescripcion(objeto, true);
+                desc.setEncodedText(descripcion);
+                break;
+            case Data.REGIONES+"ciudad":
+                Regiones regiones = Utils.getRegionById(idCosaImg,"ciudad");
+                descripcion = Utils.getDescripcion(regiones, true);
+                desc.setEncodedText(descripcion);
+                break;
+            case Data.REGIONES+"geografia":
+                regiones = Utils.getRegionById(idCosaImg,"geografia");
+                descripcion = Utils.getDescripcion(regiones, true);
+                desc.setEncodedText(descripcion);
+                break;
+            default:
+                desc.setEncodedText("No se esta mostrando ninguna imagen.");
+                break;
+        }
+        caja_objetos.addView(desc);
     }
 }
