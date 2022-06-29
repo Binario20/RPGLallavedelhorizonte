@@ -50,22 +50,12 @@ public class PaginaControlMaster extends AppCompatActivity {
         initContent();
         initListeners();
         setConfigIfLider();
-        try {
-            listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
-            String x = Utils.getData("get/conectados/estadisticas");
-            if (x.equals("204 OK"))
-                listaPersonas = new JSONObject();
-            else
-                listaPersonas = new JSONObject(x);
-            String y = Utils.getData("get/cosas_adquiridas");
-            if (y.equals("204 OK"))
-                listaCosasGente = new JSONObject();
-            else
-                listaCosasGente = new JSONObject(y);
-            Log.e("listaCosasGente", String.valueOf(listaCosasGente));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
+        listaDeposito = Utils.getDataJSON("get/obj_grupo");
+        listaPersonas = Utils.getDataJSON("get/conectados/estadisticas");
+        Log.e("listaPersonas", String.valueOf(listaPersonas));
+        listaCosasGente = Utils.getDataJSON("get/cosas_adquiridas");
+        Log.e("listaCosasGente", String.valueOf(listaCosasGente));
     }
 
     private void initContent() {
@@ -271,11 +261,7 @@ public class PaginaControlMaster extends AppCompatActivity {
                 }
             });
             reLoad.setOnClickListener(view -> {
-                try {
-                    listaPersonas = new JSONObject(Utils.getData("get/conectados/estadisticas"));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                listaPersonas = Utils.getDataJSON("get/conectados/estadisticas");
                 Iterator<String> keys = listaPersonas.keys();
                 rg.setOrientation(RadioGroup.VERTICAL);
                 while (keys.hasNext()) {
@@ -481,7 +467,7 @@ public class PaginaControlMaster extends AppCompatActivity {
                 JSONObject object = listaPersonas.getJSONObject(iter.next());
                 ModEstadisticasItem perso = new ModEstadisticasItem(
                         this,
-                        object.getInt("id"),
+                        object.getInt("id_jugador"),
                         Integer.parseInt(object.getString("vitalidad")),
                         Integer.parseInt(object.getString("resistencia")),
                         Integer.parseInt(object.getString("fuerza")),
@@ -511,26 +497,15 @@ public class PaginaControlMaster extends AppCompatActivity {
 
         LinearLayout caja_objetos = popupView.findViewById(R.id.caja_items);
         caja_objetos.removeAllViews();
-        Iterator<String> iter = listaPersonas.keys();
+        Iterator<String> iter = listaCosasGente.keys();
         String nombre = "";
         LinearLayout listCosas = null;
         while (iter.hasNext()) {
             try {
-                JSONObject object = listaCosasGente.getJSONObject(iter.next());
-                if (nombre.equals(object.getString("nombre"))) {
-                    String nombreCosa = Utils.getNombreCosa(
-                            Integer.parseInt(object.getString("id_cosa")),
-                            object.getString("tipo"));
-                    Integer imgIdCosa = Utils.getImgIdCosa(
-                            Integer.parseInt(object.getString("id_cosa")),
-                            object.getString("tipo"));
-                    ModCosasDeGenteItem cosa = new ModCosasDeGenteItem(
-                            this,
-                            nombreCosa,
-                            Integer.parseInt(object.getString("cantidad")));
-                    cosa.setImgCosa(imgIdCosa);
-                    listCosas.addView(cosa);
-                } else {
+                String thisJSON = iter.next();
+                JSONObject object = listaCosasGente.getJSONObject(thisJSON);
+                Log.e("cosa", String.valueOf(object));
+                if (!nombre.equals(object.getString("nombre"))) {
                     nombre = object.getString("nombre");
                     ModCosaDeGenteItemList perso = new ModCosaDeGenteItemList(
                             this, nombre);
@@ -550,16 +525,148 @@ public class PaginaControlMaster extends AppCompatActivity {
                             nombreCosa,
                             Integer.parseInt(object.getString("cantidad")));
                     cosa.setImgCosa(imgIdCosa);
+                    cosa.getModCosa().setOnClickListener(view -> {
+                        try {
+                            createModCosasGenteAlert(
+                                    Integer.parseInt(object.getString("id_jugador")),
+                                    Integer.parseInt(object.getString("id_cosa")),
+                                    Integer.parseInt(object.getString("cantidad")),
+                                    cosa,
+                                    object);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    cosa.getDelCosa().setOnClickListener(view -> {
+                        try {
+                            JSONObject obj = new JSONObject();
+                            obj.put("id_jugador", object.getString("id_jugador"));
+                            obj.put("id_cosa",object.getString("id_cosa"));
+                            Utils.getData("delete/cosa_adquirida?obj="+obj);
+                            listaCosasGente.remove(thisJSON);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        alertEraseAlert.cancel();
+                    });
                     listCosas.addView(cosa);
 
-                    perso.getReloadCosas().setOnClickListener(view ->
-                            Utils.getData("get/cosas_adquiridas"));
+                    perso.getReloadCosas().setOnClickListener(view -> {
+                        listaCosasGente = Utils.getDataJSON("get/cosas_adquiridas");
+                        alertEraseAlert.cancel();
+                    });
                     caja_objetos.addView(perso);
+                } else {
+                    String nombreCosa = Utils.getNombreCosa(
+                            Integer.parseInt(object.getString("id_cosa")),
+                            object.getString("tipo"));
+                    Integer imgIdCosa = Utils.getImgIdCosa(
+                            Integer.parseInt(object.getString("id_cosa")),
+                            object.getString("tipo"));
+                    ModCosasDeGenteItem cosa = new ModCosasDeGenteItem(
+                            this,
+                            nombreCosa,
+                            Integer.parseInt(object.getString("cantidad")));
+                    cosa.setImgCosa(imgIdCosa);
+                    cosa.getModCosa().setOnClickListener(view -> {
+                        try {
+                            createModCosasGenteAlert(
+                                    Integer.parseInt(object.getString("id_jugador")),
+                                    Integer.parseInt(object.getString("id_cosa")),
+                                    Integer.parseInt(object.getString("cantidad")),
+                                    cosa,
+                                    object);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    cosa.getDelCosa().setOnClickListener(view -> {
+                        try {
+                            JSONObject obj = new JSONObject();
+                            obj.put("id_jugador", object.getString("id_jugador"));
+                            obj.put("id_cosa",object.getString("id_cosa"));
+                            Utils.getData("delete/cosa_adquirida?obj="+obj);
+                            listaCosasGente.remove(thisJSON);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        alertEraseAlert.cancel();
+                    });
+                    listCosas.addView(cosa);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void createModCosasGenteAlert(int id_jugador, int id_cosa, Integer cant, ModCosasDeGenteItem cosa, JSONObject object) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PaginaControlMaster.this);
+        builder.setCancelable(true);
+        View popupView = getLayoutInflater().inflate(R.layout.gestion_cantidad_item, null);
+
+        builder.setView(popupView);
+
+        androidx.appcompat.app.AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        // initComponents
+        Button subOne, addOne, acceptBut, turnBack, reLoad, showImg;
+        TextView howMuch, escojeTV;
+        RadioGroup rg;
+        View divCant, divShow;
+
+        rg = popupView.findViewById(R.id.forWho);
+        divCant = popupView.findViewById(R.id.divCant);
+        divShow = popupView.findViewById(R.id.divShow);
+        howMuch = popupView.findViewById(R.id.howMuch);
+        subOne = popupView.findViewById(R.id.subOne);
+        addOne = popupView.findViewById(R.id.addOne);
+        escojeTV = popupView.findViewById(R.id.escojeTV);
+        acceptBut = popupView.findViewById(R.id.acceptBut);
+        turnBack = popupView.findViewById(R.id.turnBack);
+        reLoad = popupView.findViewById(R.id.reLoad);
+        showImg = popupView.findViewById(R.id.showImg);
+        final int[] cantidad = {1};
+
+        if (cant != null) {
+            cantidad[0] = cant;
+            howMuch.setText(String.valueOf(cantidad[0]));
+        }
+
+        addOne.setOnClickListener(view -> {
+            cantidad[0]++;
+            howMuch.setText(String.valueOf(cantidad[0]));
+        });
+        subOne.setOnClickListener(view -> {
+            cantidad[0]--;
+            howMuch.setText(String.valueOf(cantidad[0]));
+        });
+
+        divCant.setVisibility(View.GONE);
+        divShow.setVisibility(View.GONE);
+        escojeTV.setVisibility(View.GONE);
+        rg.setVisibility(View.GONE);
+        reLoad.setVisibility(View.GONE);
+        showImg.setVisibility(View.GONE);
+
+        acceptBut.setOnClickListener(view -> {
+            try {
+                JSONObject obj = new JSONObject();
+                obj.put("id_jugador", id_jugador);
+                obj.put("id_cosa",id_cosa);
+                obj.put("cantidad",cantidad[0]);
+                Utils.getData("put/cosa_adquirida?obj="+obj);
+                cosa.setCantidad(cantidad[0]);
+                object.put("cantidad", cantidad[0]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            alertEraseAlert.cancel();
+        });
+
+        turnBack.setOnClickListener(v -> alertEraseAlert.cancel());
     }
 
     private void descripcionImg() {

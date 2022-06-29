@@ -15,6 +15,7 @@ import com.marea_binario.rpg_lallavedelhorizonte.objeto.Objeto;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Regiones;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Servicio;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -100,6 +101,25 @@ public class Utils {
             e.printStackTrace();
             return "{}";
         }
+    }
+
+
+    public static JSONObject getDataJSON(String url){
+        JSONObject data = new JSONObject();
+        boolean notDone = true;
+        while (notDone) {
+            try {
+                String x = getData(url);
+                if (x.equals("204 OK"))
+                    data = new JSONObject();
+                else
+                    data = new JSONObject(x);
+                notDone = false;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return data;
     }
 
     public static Integer stringToInteger(String s) {

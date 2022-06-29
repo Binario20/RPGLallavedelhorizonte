@@ -43,6 +43,7 @@ public class ModCosasDeGenteItem extends LinearLayout {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+        cantCosa.setEncodedText(String.valueOf(cantidad));
     }
 
     public void setImgCosa(Integer img_id) {

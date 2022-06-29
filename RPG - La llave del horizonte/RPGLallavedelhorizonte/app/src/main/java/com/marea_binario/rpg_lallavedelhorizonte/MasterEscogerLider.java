@@ -52,9 +52,8 @@ public class MasterEscogerLider extends AppCompatActivity {
 
     private void initJugadores(Context conte) {
         try {
-            String kk2 = Utils.getData("get/conectados");
-            Log.e("fonko?", kk2);
-            JSONObject con = new JSONObject(kk2);
+            JSONObject con = Utils.getDataJSON("get/conectados");
+            Log.e("fonko?", String.valueOf(con));
             int b = 0;
             caja_jugadores.removeAllViews();
             while ( true ) {

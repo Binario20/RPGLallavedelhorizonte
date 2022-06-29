@@ -95,12 +95,7 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
 
     private void getLists() {
-        JSONObject listJ = null;
-        try {
-            listJ = new JSONObject(Utils.getData("get/personaje/nuevo"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        JSONObject listJ = Utils.getDataJSON("get/personaje/nuevo");
         try {
             JSONObject proce = listJ.getJSONObject("Procedencia");
             //Log.e("Spinners-P", String.valueOf(proce));
@@ -225,10 +220,9 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
         // Guardar personaje
         try {
-            JSONObject persoID = new JSONObject(Utils.getData("post/personaje?new="+perso_json)).getJSONObject("0");
+            JSONObject persoID = Utils.getDataJSON("post/personaje?new="+perso_json).getJSONObject("0");
             idPer = persoID.getInt("id");
-            String data = Utils.getData("put/set_personaje?id="+idPer);
-            id_jugador = new JSONObject(data).getJSONObject("0").getInt("id");
+            id_jugador = Utils.getDataJSON("put/set_personaje?id="+idPer).getJSONObject("0").getInt("id");
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -20,19 +20,16 @@ public class ModCosaDeGenteItemList extends LinearLayout {
         this.nombre = nombre;
 
         initComponents();
-        initData();
         initListeners();
     }
 
     private void initComponents() {
-        inflate(getContext(), R.layout.mod_cosas_de_gente_itelm, this);
+        inflate(getContext(), R.layout.mod_cosas_de_gente_item_list, this);
         nomPersoList = this.findViewById(R.id.nomPersoList);
         showListCosas = this.findViewById(R.id.showListCosas);
         reloadCosas = this.findViewById(R.id.reloadCosas);
-        listaDeCosas = this.findViewById(R.id.showListCosas);
-    }
+        listaDeCosas = this.findViewById(R.id.listaDeCosas);
 
-    private void initData() {
         nomPersoList.setEncodedText(nombre);
     }
 

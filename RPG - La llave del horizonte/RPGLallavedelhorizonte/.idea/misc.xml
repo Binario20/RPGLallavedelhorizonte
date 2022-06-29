@@ -56,10 +56,12 @@
         <entry key="app/src/main/res/drawable/master.xml" value="0.2715" />
         <entry key="app/src/main/res/layout/activity_crear_personaje_avanzado.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_crear_personaje_nuevo.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_datos_objetos.xml" value="0.2598958333333333" />
         <entry key="app/src/main/res/layout/activity_elecion_rol.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_escojer_personaje.xml" value="0.35625" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2598958333333333" />
         <entry key="app/src/main/res/layout/activity_master_escoger_lider.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/activity_pagina_control_master.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_pagina_control_master.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/activity_pagina_principal.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_personaje_nuevo_by_ivan.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/confirmacion.xml" value="0.35625" />

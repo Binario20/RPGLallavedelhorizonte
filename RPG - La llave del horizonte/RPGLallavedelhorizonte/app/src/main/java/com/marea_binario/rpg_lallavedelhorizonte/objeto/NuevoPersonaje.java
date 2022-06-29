@@ -46,11 +46,11 @@ public class NuevoPersonaje extends LinearLayout {
 
         this.setOnClickListener(view -> {
             Log.e("np-cl??", String.valueOf(idPerso));
-            String data = Utils.getData("put/set_personaje?id="+idPerso);
-            Log.e("fonko?", data);
+            JSONObject data = Utils.getDataJSON("put/set_personaje?id="+idPerso);
+            Log.e("fonko?", String.valueOf(data));
             int id_jugador = -1;
             try {
-                id_jugador = new JSONObject(data).getJSONObject("0").getInt("id");
+                id_jugador = data.getJSONObject("0").getInt("id");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -59,7 +59,6 @@ public class NuevoPersonaje extends LinearLayout {
             i.putExtra("id_jugador", id_jugador);
             getContext().startActivity(i);
 //                getContext().finish();
-            //Log.e("id", String.valueOf(idPerso));
         });
     }
 }

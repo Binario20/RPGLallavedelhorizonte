@@ -33,19 +33,7 @@ public class EscojerPersonaje extends AppCompatActivity {
             finish();
         };
         // GET PERSONAJES
-        String personajes = null;
-        JSONObject listP = null;
-
-        boolean getPerso = true;
-        while (getPerso) {
-            try {
-                personajes = Utils.getData("get/nombre_personaje");
-                listP = new JSONObject(personajes);
-                getPerso = false;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        JSONObject listP = Utils.getDataJSON("get/nombre_personaje");
         Iterator<String> iter = listP.keys();
 
         // CREA TABLA (MOSTRAR PERSONAJES)
@@ -62,7 +50,7 @@ public class EscojerPersonaje extends AppCompatActivity {
                     // PONER PERSONAJES BD
                     if (iter.hasNext()) {
                         try {
-                            JSONObject perso = new JSONObject(personajes).getJSONObject(iter.next());
+                            JSONObject perso = listP.getJSONObject(iter.next());
                             //Log.e("JSON??", String.valueOf(perso));
                             tr.addView(new NuevoPersonaje(this, perso.getString("nombre"), Integer.valueOf(perso.getString("id")), 1));
                         } catch (Exception e) {

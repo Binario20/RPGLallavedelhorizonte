@@ -3,6 +3,7 @@ package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 import android.app.Dialog;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -71,6 +72,7 @@ public class Item extends LinearLayout {
         img = this.findViewById(R.id.img);
         img.setBackground(AppCompatResources.getDrawable(getContext(), R.drawable.todoynada));
         this.setOnLongClickListener(item);
+        text = this.findViewById(R.id.text);
     }
 
     public int getCustomId() {
@@ -110,7 +112,7 @@ public class Item extends LinearLayout {
     }
 
     private String getInfo(){
-        String info ="";
+        String info ="";/*
         switch (tipo){
             case Data.OBJETO:
                 info = Utils.getDescripcion((Objeto)mySelf, true);
@@ -127,7 +129,7 @@ public class Item extends LinearLayout {
             case Data.BESTIARIO:
                 info = Utils.getDescripcion((Bestia)mySelf, true);
                 break;
-        }
+        }*/
         return info;
     }
 }

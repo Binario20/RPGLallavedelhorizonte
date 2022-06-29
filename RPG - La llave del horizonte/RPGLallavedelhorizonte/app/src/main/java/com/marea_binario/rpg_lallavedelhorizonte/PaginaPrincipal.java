@@ -61,7 +61,7 @@ public class PaginaPrincipal extends AppCompatActivity {
 
     private void initData() {
         try {
-            JSONObject personaje_info = new JSONObject(Utils.getData("get/personaje?id="+id_perso));
+            JSONObject personaje_info = Utils.getDataJSON("get/personaje?id="+id_perso);
             Log.e("fonko??", String.valueOf(personaje_info));
             JSONObject perso = personaje_info.getJSONObject("Personaje").getJSONObject("0");
             personaje = new Personajes(
@@ -147,12 +147,8 @@ public class PaginaPrincipal extends AppCompatActivity {
         nombre.setEncodedText(personaje.getNombre());
 
         Utils.getDineros(dineros);
-        try {
-            listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
-            Log.e("funkoo!!", String.valueOf(listaDeposito));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        listaDeposito = Utils.getDataJSON("get/obj_grupo");
+        Log.e("funkoo!!", String.valueOf(listaDeposito));
         if (!segunda_lengua && personaje.getInteligencia() >= 4) {
             creatSegundaLenguaAlert();
         }
@@ -188,9 +184,9 @@ public class PaginaPrincipal extends AppCompatActivity {
     private void loadDataPlayer() {
         Utils.getDineros(dineros);
         try {
-            listaDeposito = new JSONObject(Utils.getData("get/obj_grupo"));
+            listaDeposito = Utils.getDataJSON("get/obj_grupo");
             Log.e("funkoo!!", String.valueOf(listaDeposito));
-            JSONObject perso_est = new JSONObject(Utils.getData("get/conectados/estadisticas?id="+id_jugador))
+            JSONObject perso_est = Utils.getDataJSON("get/conectados/estadisticas?id="+id_jugador)
                     .getJSONObject("0");
             Log.e("funko?", String.valueOf(perso_est));
             personaje.setEstadisticas(
@@ -329,12 +325,7 @@ public class PaginaPrincipal extends AppCompatActivity {
         alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertEraseAlert.show();
 
-        JSONObject lengJson = new JSONObject();
-        try {
-            lengJson = new JSONObject(Utils.getData("get/lenguas_antiguas"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        JSONObject lengJson = Utils.getDataJSON("get/lenguas_antiguas");
 
         Iterator<String> iter = lengJson.keys();
         RadioGroup rg = popupView.findViewById(R.id.lenguaRadioGroup);
