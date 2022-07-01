@@ -30,200 +30,217 @@
         app:layout_constraintBottom_toBottomOf="@+id/showEst"
         app:layout_constraintEnd_toStartOf="@+id/showEst"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/showEst" />
+        app:layout_constraintTop_toTopOf="@+id/showEst"
+        tools:ignore="HardcodedText" />
 
-    <ScrollView
+    <LinearLayout
         android:id="@+id/modEst"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:orientation="vertical"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/showEst"
+        app:layout_constraintStart_toStartOf="@+id/nomPerEst"
         app:layout_constraintTop_toBottomOf="@+id/nomPerEst">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <LinearLayout
+            <com.marea_binario.rpg_lallavedelhorizonte.SuperText
+                android:id="@+id/superText2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/newPerVitalidadTxt"
+                android:textSize="18sp" />
 
-                <com.marea_binario.rpg_lallavedelhorizonte.SuperText
-                    android:id="@+id/superText2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/newPerVitalidadTxt"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/modVitalidad"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:paddingStart="8dp"
-                    android:text="0" />
-            </LinearLayout>
-
-            <LinearLayout
+            <EditText
+                android:id="@+id/modVitalidad"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.marea_binario.rpg_lallavedelhorizonte.SuperText
-                    android:id="@+id/superText3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/newPerResistenciaTxt"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/modResistencia"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:paddingStart="8dp"
-                    android:text="0" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.marea_binario.rpg_lallavedelhorizonte.SuperText
-                    android:id="@+id/superText4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/newPerFuerzaTxt"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/modFuerza"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:paddingStart="8dp"
-                    android:text="0" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.marea_binario.rpg_lallavedelhorizonte.SuperText
-                    android:id="@+id/superText5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/newPerVelocidadTxt"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/modVelocidad"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:paddingStart="8dp"
-                    android:text="0" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.marea_binario.rpg_lallavedelhorizonte.SuperText
-                    android:id="@+id/superText6"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/newPerInteligenciaTxt"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/modInteligencia"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:paddingStart="8dp"
-                    android:text="0" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.marea_binario.rpg_lallavedelhorizonte.SuperText
-                    android:id="@+id/superText7"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/newPerPunteriaTxt"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/modPunteria"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:paddingStart="8dp"
-                    android:text="0" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <com.marea_binario.rpg_lallavedelhorizonte.SuperText
-                    android:id="@+id/superText8"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/newPerMagiaTxt"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/modMagia"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:paddingStart="8dp"
-                    android:text="0" />
-            </LinearLayout>
-
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="0"
+                tools:ignore="DuplicateSpeakableTextCheck,HardcodedText,LabelFor" />
         </LinearLayout>
-    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.marea_binario.rpg_lallavedelhorizonte.SuperText
+                android:id="@+id/superText3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/newPerResistenciaTxt"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/modResistencia"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="0"
+                tools:ignore="HardcodedText,LabelFor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.marea_binario.rpg_lallavedelhorizonte.SuperText
+                android:id="@+id/superText4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/newPerFuerzaTxt"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/modFuerza"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="0"
+                tools:ignore="HardcodedText,LabelFor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.marea_binario.rpg_lallavedelhorizonte.SuperText
+                android:id="@+id/superText5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/newPerVelocidadTxt"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/modVelocidad"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="0"
+                tools:ignore="HardcodedText,LabelFor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.marea_binario.rpg_lallavedelhorizonte.SuperText
+                android:id="@+id/superText6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/newPerInteligenciaTxt"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/modInteligencia"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="0"
+                tools:ignore="HardcodedText,LabelFor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.marea_binario.rpg_lallavedelhorizonte.SuperText
+                android:id="@+id/superText7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/newPerPunteriaTxt"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/modPunteria"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="0"
+                tools:ignore="HardcodedText,LabelFor" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.marea_binario.rpg_lallavedelhorizonte.SuperText
+                android:id="@+id/superText8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/newPerMagiaTxt"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/modMagia"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="0"
+                tools:ignore="HardcodedText,LabelFor" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/acceptEst"

@@ -88,11 +88,16 @@ public class PaginaControlMaster extends AppCompatActivity {
 
         regionesBut.setOnClickListener(view -> listaRegiones());
 
-        personajesBut.setOnClickListener(view -> listaCosasDeGente());
+        personajesBut.setOnClickListener(view -> {
+            if (listaCosasGente == null || listaCosasGente.length() == 0){
+                listaCosasGente = Utils.getDataJSON("get/cosas_adquiridas");
+            }
+            listaCosasDeGente();
+        });
 
         atributosBut.setOnClickListener(view -> listaEstadisticas());
 
-       PviewInM.setOnClickListener(view -> descripcionImg());
+        PviewInM.setOnClickListener(view -> descripcionImg());
     }
 
     private void setConfigIfLider() {
@@ -235,8 +240,9 @@ public class PaginaControlMaster extends AppCompatActivity {
             while (iter.hasNext()) {
                 try {
                     JSONObject object = listaPersonas.getJSONObject(iter.next());
+                    Log.e("listaPersonasObject", String.valueOf(object));
                     SuperRadioButton rb = new SuperRadioButton(this);
-                    rb.setId(Integer.parseInt(object.getString("id")));
+                    rb.setId(Integer.parseInt(object.getString("id_jugador")));
                     rb.setEncodedText(object.getString("nombre"));
                     rg.addView(rb);
                 } catch (Exception e) {
@@ -267,8 +273,9 @@ public class PaginaControlMaster extends AppCompatActivity {
                 while (keys.hasNext()) {
                     try {
                         JSONObject object = listaPersonas.getJSONObject(keys.next());
+                        Log.e("listaPersonasObject", String.valueOf(object));
                         SuperRadioButton rb = new SuperRadioButton(this);
-                        rb.setId(Integer.parseInt(object.getString("id")));
+                        rb.setId(Integer.parseInt(object.getString("id_jugador")));
                         rb.setEncodedText(object.getString("nombre"));
                         rg.addView(rb);
                     } catch (Exception e) {
@@ -592,7 +599,9 @@ public class PaginaControlMaster extends AppCompatActivity {
                         }
                         alertEraseAlert.cancel();
                     });
-                    listCosas.addView(cosa);
+                    if (listCosas != null) {
+                        listCosas.addView(cosa);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

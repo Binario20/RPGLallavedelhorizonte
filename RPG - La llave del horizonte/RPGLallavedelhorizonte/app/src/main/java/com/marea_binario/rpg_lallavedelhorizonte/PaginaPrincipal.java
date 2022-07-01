@@ -39,7 +39,6 @@ public class PaginaPrincipal extends AppCompatActivity {
     private final Item[] items = new Item[4];
     private int id_perso = -1, id_jugador = -1;
     private Personajes personaje = null;
-    private JSONObject objetos_iniciales;
     private JSONObject listaDeposito;
     private boolean segunda_lengua = false;
 
@@ -62,7 +61,8 @@ public class PaginaPrincipal extends AppCompatActivity {
     private void initData() {
         try {
             JSONObject personaje_info = Utils.getDataJSON("get/personaje?id="+id_perso);
-            Log.e("fonko??", String.valueOf(personaje_info));
+            Log.e("Personaje", String.valueOf(personaje_info));
+
             JSONObject perso = personaje_info.getJSONObject("Personaje").getJSONObject("0");
             personaje = new Personajes(
                     perso.getString("nombre"),
@@ -89,6 +89,35 @@ public class PaginaPrincipal extends AppCompatActivity {
             personaje.setClase(perso.getString("clase"));
             personaje.setLengua1(perso.getString("lengua"));
 
+            JSONObject objeto_inicial = personaje_info.getJSONObject("Inicio").getJSONObject("0");
+            Log.e("id_jugador", String.valueOf(id_jugador));
+            String arma, objeto;
+            arma = objeto_inicial.getString("id_arma");
+            if (!arma.equals("NULL")) {
+                JSONObject cosa = new JSONObject();
+                cosa.put("id_jugador", id_jugador);
+                cosa.put("cantidad", 1);
+                cosa.put("id_cosa", arma);
+                if (personaje.getClase().equals("Tirador")) {
+                    cosa.put("tipo", Data.ARMA_NEGRA);
+                    items[0].setCustomId(Integer.parseInt(arma), Data.ARMA_NEGRA);
+                } else {
+                    cosa.put("tipo", Data.ARMA_BLANCA);
+                    items[0].setCustomId(Integer.parseInt(arma), Data.ARMA_BLANCA);
+                }
+                Utils.getData("post/cosa_adquirida?new="+cosa);
+            }
+            objeto = objeto_inicial.getString("id_objeto");
+            if (!objeto.equals("NULL")) {
+                JSONObject cosa = new JSONObject();
+                cosa.put("id_jugador", id_jugador);
+                cosa.put("cantidad", 1);
+                cosa.put("id_cosa", objeto);
+                cosa.put("tipo", Data.OBJETO);
+                items[1].setCustomId(Integer.parseInt(objeto), Data.OBJETO);
+                Utils.getData("post/cosa_adquirida?new="+cosa);
+            }
+
             vitalidad.setEncodedText(String.valueOf(personaje.getVitalidad()));
             resistencia.setEncodedText(String.valueOf(personaje.getResistencia()));
             fuerza.setEncodedText(String.valueOf(personaje.getFuerza()));
@@ -112,35 +141,6 @@ public class PaginaPrincipal extends AppCompatActivity {
                 }
                 personaje.setHabilidades(String.valueOf(habil_str));
             }
-
-            objetos_iniciales = personaje_info.getJSONObject("Inicio").getJSONObject("0");
-            Log.e("xkno?", String.valueOf(id_jugador));
-            String arma, objeto;
-            arma = objetos_iniciales.getString("id_arma");
-            if (!arma.equals("NULL")) {
-                JSONObject cosa = new JSONObject();
-                cosa.put("id_jugador", id_jugador);
-                cosa.put("cantidad", 1);
-                cosa.put("id_cosa", arma);
-                if (personaje.getClase().equals("Tirador")) {
-                    cosa.put("tipo", Data.ARMA_NEGRA);
-                    items[0].setCustomId(Integer.parseInt(arma), Data.ARMA_NEGRA);
-                } else {
-                    cosa.put("tipo", Data.ARMA_BLANCA);
-                    items[0].setCustomId(Integer.parseInt(arma), Data.ARMA_BLANCA);
-                }
-                Utils.getData("post/cosa_adquirida?new="+cosa);
-            }
-            objeto = objetos_iniciales.getString("id_objeto");
-            if (!objeto.equals("NULL")) {
-                JSONObject cosa = new JSONObject();
-                cosa.put("id_jugador", id_jugador);
-                cosa.put("cantidad", 1);
-                cosa.put("id_cosa", objeto);
-                cosa.put("tipo", Data.OBJETO);
-                items[1].setCustomId(Integer.parseInt(objeto), Data.OBJETO);
-                Utils.getData("post/cosa_adquirida?new="+cosa);
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,18 +148,18 @@ public class PaginaPrincipal extends AppCompatActivity {
 
         Utils.getDineros(dineros);
         listaDeposito = Utils.getDataJSON("get/obj_grupo");
-        Log.e("funkoo!!", String.valueOf(listaDeposito));
-        if (!segunda_lengua && personaje.getInteligencia() >= 4) {
+        Log.e("listaDeposito", String.valueOf(listaDeposito));
+        if (personaje.getInteligencia() >= 4) {
             creatSegundaLenguaAlert();
         }
     }
 
     private void initListeners() {
         String isLider = Utils.getData("get/soy_lider");
-        Log.e("Kpasao?",isLider);
+        Log.e("soyLider?",isLider);
         while (isLider.equals("")) {
             isLider = Utils.getData("get/soy_lider");
-            Log.e("Kpasao?",isLider);
+            Log.e("soyLider?",isLider);
         }
         if (isLider.equals("true")) {
             modDinerosP.setVisibility(View.VISIBLE);
@@ -183,9 +183,9 @@ public class PaginaPrincipal extends AppCompatActivity {
 
     private void loadDataPlayer() {
         Utils.getDineros(dineros);
+        listaDeposito = Utils.getDataJSON("get/obj_grupo");
+        Log.e("funkoo!!", String.valueOf(listaDeposito));
         try {
-            listaDeposito = Utils.getDataJSON("get/obj_grupo");
-            Log.e("funkoo!!", String.valueOf(listaDeposito));
             JSONObject perso_est = Utils.getDataJSON("get/conectados/estadisticas?id="+id_jugador)
                     .getJSONObject("0");
             Log.e("funko?", String.valueOf(perso_est));
@@ -216,6 +216,30 @@ public class PaginaPrincipal extends AppCompatActivity {
         if (!img.equals("")) {
             int img_id = Integer.parseInt(img);
             fondo.setImageResource(Data.getImg(img_id));
+        }
+
+        JSONObject lista4Cosas = Utils.getDataJSON("get/cosas_adquiridas?id=" + id_jugador);
+        Log.e("lista4Cosas", String.valueOf(lista4Cosas));
+        Iterator<String> iter = lista4Cosas.keys();
+        int i = 0;
+        while (i < 4) {
+            if (iter.hasNext()) {
+                String next = iter.next();
+                try {
+                    JSONObject cosa = lista4Cosas.getJSONObject(next);
+                    int id_cosa = Integer.parseInt(cosa.getString("id_cosa"));
+                    if (items[i].getCustomId() != id_cosa) {
+                        String tipo = cosa.getString("tipo");
+                        //int cantidad = Integer.parseInt(cosa.getString("cantidad"));
+                        items[i].setCustomId(id_cosa, tipo);
+                    }
+                } catch(JSONException e){
+                e.printStackTrace();
+                }
+            } else if (items[i].getCustomId() != -1) {
+                items[i].setCustomId(-1, null);
+            }
+            i++;
         }
     }
 
