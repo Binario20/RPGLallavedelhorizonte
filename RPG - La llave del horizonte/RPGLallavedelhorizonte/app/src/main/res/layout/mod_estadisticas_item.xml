@@ -69,7 +69,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="0"
-                tools:ignore="DuplicateSpeakableTextCheck,HardcodedText,LabelFor" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -97,7 +97,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="0"
-                tools:ignore="HardcodedText,LabelFor" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -125,7 +125,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="0"
-                tools:ignore="HardcodedText,LabelFor" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -153,7 +153,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="0"
-                tools:ignore="HardcodedText,LabelFor" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -181,7 +181,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="0"
-                tools:ignore="HardcodedText,LabelFor" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -209,7 +209,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="0"
-                tools:ignore="HardcodedText,LabelFor" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -237,7 +237,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="0"
-                tools:ignore="HardcodedText,LabelFor" />
+                tools:ignore="LabelFor,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>
 
     </LinearLayout>

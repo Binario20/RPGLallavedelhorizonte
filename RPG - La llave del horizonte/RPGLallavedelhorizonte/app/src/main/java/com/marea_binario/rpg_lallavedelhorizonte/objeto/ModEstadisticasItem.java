@@ -18,7 +18,7 @@ import org.json.JSONObject;
 public class ModEstadisticasItem extends LinearLayout {
 
     private int id_jugador, vitalidad, resistencia, fuerza, velocidad, inteligencia, punteria, magia;
-    private ScrollView modEst;
+    private LinearLayout modEst;
     private Button showEst, acceptEst;
     private SuperText nomPerEst;
     private EditText modVitalidad, modResistencia, modFuerza, modVelocidad, modInteligencia, modPunteria, modMagia;

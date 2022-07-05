@@ -3,6 +3,7 @@ package com.marea_binario.rpg_lallavedelhorizonte.objeto;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
@@ -45,6 +46,7 @@ public class NuevoPersonaje extends LinearLayout {
         }
 
         this.setOnClickListener(view -> {
+            this.setBackgroundTintMode(PorterDuff.Mode.DARKEN);
             Log.e("np-cl??", String.valueOf(idPerso));
             JSONObject data = Utils.getDataJSON("put/set_personaje?id="+idPerso);
             Log.e("fonko?", String.valueOf(data));

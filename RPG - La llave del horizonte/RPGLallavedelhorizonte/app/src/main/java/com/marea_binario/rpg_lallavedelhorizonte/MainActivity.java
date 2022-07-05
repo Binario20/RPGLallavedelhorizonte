@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setObjetos() throws JSONException {
-        JSONObject objetosConn = new JSONObject(Utils.getData("get/objetos"));
+        JSONObject objetosConn = Utils.getDataJSON("get/objetos");
         ArrayList<Objeto> objetosList = new ArrayList<>();
         int i = 0;
         while(true){
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setRegiones() throws JSONException {
-        JSONObject objetosConn = new JSONObject(Utils.getData("get/regiones/no_foraneas"));
+        JSONObject objetosConn = Utils.getDataJSON("get/regiones/no_foraneas");
         JSONObject regiones = objetosConn.getJSONObject("Regiones");
         JSONObject servicios = objetosConn.getJSONObject("Servicios");
         ArrayList<Regiones> regionesList = new ArrayList<>();
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setArmasNegras() throws JSONException {
-        JSONObject proyectiles = new JSONObject(Utils.getData("get/objetos/armas/proyectil"));
+        JSONObject proyectiles = Utils.getDataJSON("get/objetos/armas/proyectil");
         ArrayList<ArmaNegra> negrasList = new ArrayList<>();
         int i = 0;
         //armas negras
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private int setArmasBlancas(int init) throws JSONException {
-        JSONObject cuerpo = new JSONObject(Utils.getData("get/objetos/armas/cuerpo?init="+init)); //48
+        JSONObject cuerpo = Utils.getDataJSON("get/objetos/armas/cuerpo?init="+init); //48
         ArrayList<ArmaBlanca> blancasList = new ArrayList<>();
         //armas blancas
         int i=0, last = 0;
@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setBestiario() throws JSONException {
-        JSONObject bestiario = new JSONObject(Utils.getData("get/bestiario"));
+        JSONObject bestiario = Utils.getDataJSON("get/bestiario");
                 ArrayList<Bestia> bestiasList = new ArrayList<>();
                 int i = 0;
                 while(true){
@@ -225,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMagia() throws JSONException {
-        JSONObject magia = new JSONObject(Utils.getData("get/magia"));
+        JSONObject magia = Utils.getDataJSON("get/magia");
         JSONObject libros = magia.getJSONObject("Libros");
         JSONObject hechizos = magia.getJSONObject("Hechizos");
         ArrayList<Magia> librosList = new ArrayList<>();
@@ -278,66 +278,66 @@ public class MainActivity extends AppCompatActivity {
     private void initData(){
         new Thread(() -> {
             // seteo objetos
-            boolean objetos = true;
-            while (objetos) {
+            boolean totOK = true;
+            while (totOK) {
                 try {
                     setObjetos();
-                    objetos = false;
+                    totOK = false;
                 } catch (JSONException ex) {
                     ex.printStackTrace();
                 }
             }
 
             //seteo regiones
-            boolean regiones = true;
-            while (regiones) {
+            totOK = true;
+            while (totOK) {
                 try {
                     setRegiones();
-                    regiones = false;
+                    totOK = false;
                 } catch (JSONException ex) {
                     ex.printStackTrace();
                 }
             }
 
             // seteo armas
-            boolean armasNegras = true;
-            while (armasNegras) {
+            totOK = true;
+            while (totOK) {
                 try {
                     setArmasNegras();
-                    armasNegras = false;
+                    totOK = false;
                 } catch (JSONException ex) {
                     ex.printStackTrace();
                 }
             }
 
-            boolean armasBlancas = true;
-            while (armasBlancas) {
+            totOK = true;
+            while (totOK) {
                 try {
                     int last = setArmasBlancas(0);
                     setArmasBlancas(last);
-                    armasBlancas = false;
+                    totOK = false;
                 } catch (JSONException ex) {
                     ex.printStackTrace();
                 }
             }
 
             // seteo bestiario
-            boolean bestiario = true;
-            while (bestiario) {
+            totOK = true;
+            while (totOK) {
                 try {
                     setBestiario();
-                    bestiario = false;
+                    totOK = false;
                 } catch (JSONException ex) {
                     ex.printStackTrace();
                 }
             }
 
             //seteo magia
-            boolean magia = true;
-            while (magia) {
+            totOK = true;
+            while (totOK) {
                 try {
                     setMagia();
-                    magia = false;
+                    totOK = false;
                 } catch (JSONException ex) {
                     ex.printStackTrace();
                 }
