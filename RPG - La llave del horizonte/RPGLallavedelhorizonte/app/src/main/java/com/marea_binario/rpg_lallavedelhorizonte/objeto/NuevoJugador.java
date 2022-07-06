@@ -28,7 +28,7 @@ public class NuevoJugador extends androidx.appcompat.widget.AppCompatButton {
         super(context);
         this.id = id;
         this.nombre = nombre;
-        this.setText(this.nombre);
+        this.setText(Utils.fixEncode(this.nombre));
         setColorBut();
         this.setHeight(30);
         this.setOnClickListener(view -> cambiarLider());

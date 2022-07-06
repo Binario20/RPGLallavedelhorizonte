@@ -2,24 +2,32 @@ package com.marea_binario.rpg_lallavedelhorizonte;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.marea_binario.rpg_lallavedelhorizonte.Data.Data;
 import com.marea_binario.rpg_lallavedelhorizonte.Data.Utils;
 import com.marea_binario.rpg_lallavedelhorizonte.objeto.Personajes;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 public class CrearPersonajeNuevo extends AppCompatActivity {
 
@@ -34,13 +42,55 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
     private HashMap<String, String> listLenguasEspecies = new HashMap<>();
     private HashMap<String, String> listLenguas = new HashMap<>();
     private Integer idPer, id_jugador;
-    private boolean totOK = false;
+    private boolean totOK = true;
+    private final int NumeroAbsurdameteGrande = 999999999;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personaje_nuevo_by_ivan);
         initComponents();
+    }
+
+    private boolean verificarCampo(SuperText st, EditText et){
+        int color = Color.TRANSPARENT;
+        if (et.getText().toString().trim().equalsIgnoreCase("")){
+            color = Color.RED;
+            totOK = false;
+        }
+        st.setBackgroundColor(color);
+        return color == Color.TRANSPARENT;
+    }
+
+    private boolean verificarCampoSpinner(SuperText st, Spinner sp, HashMap<String, String> lista){
+        int color = Color.TRANSPARENT;
+        if (lista.get(sp.getSelectedItem()).equalsIgnoreCase("")){
+            color = Color.RED;
+            totOK = false;
+        }
+        st.setBackgroundColor(color);
+        return color == Color.TRANSPARENT;
+    }
+
+    private boolean verificarCampoConRango(SuperText st, EditText et, float min, float max){
+        boolean beffore = totOK;
+        int color = Color.RED;
+        if(verificarCampo(st, et)){
+            try{
+                totOK = false;
+                float num = Float.parseFloat(et.getText().toString().trim());
+                if(min <= num && num <= max){
+                    color = Color.TRANSPARENT;
+                    totOK = beffore;
+                }
+                st.setBackgroundColor(color);
+            }catch (Exception e){
+                st.setBackgroundColor(color);
+                totOK = false;
+            }
+        }
+        return color == Color.TRANSPARENT;
     }
 
     private void initComponents() {
@@ -54,7 +104,7 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         newPerClaseIn = this.findViewById(R.id.newPerClaseIn);
         newPerVitalidadIn = this.findViewById(R.id.newPerVitalidadIn);
         newPerFuerzaIn = this.findViewById(R.id.newPerFuerzaIn);
-        newPerResistenciaIn = this.findViewById(R.id.newPerResistenciaIn);
+        newPerResistenciaIn = this.findViewById(R.id.newPerResistencia);
         newPerVelocidadIn = this.findViewById(R.id.newPerVelocidadIn);
         newPerInteligenciaIn = this.findViewById(R.id.newPerInteligenciaIn);
         newPerPunteriaIn = this.findViewById(R.id.newPerPunteriaIn);
@@ -168,44 +218,112 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
     private Personajes savePersonaje() {
         Personajes newPersonaje = null;
+        String name = "", sexo = "", error = "";
+        Integer lengua = -1;
+        int proc = -1, especie = -1, edad = -1, vital = -1, resis = -1, fuerza = -1, velo = -1, intel = -1, punt = -1, magia = -1;
+        float altura = -1, peso = -1;
+
         try {
             // Get data
-            String name = newPerNombreIn.getText().toString();
-            int proc = Integer.parseInt(listProcedencias.get(newPerProcedenciaIn.getSelectedItem()));
-            int especie = Integer.parseInt(listEspecies.get(newPerEspecieIn.getSelectedItem()));
-            int edad = Integer.parseInt(newPerEdadIn.getText().toString());
-            float altura = Float.parseFloat(newPerAlturaIn.getText().toString());
-            float peso = Float.parseFloat(newPerPesoIn.getText().toString());
-            String sexo = newPerSexsoIn.getSelectedItem().toString();
-            int clase = Integer.parseInt(listClases.get(newPerClaseIn.getSelectedItem()));
-            String l = listLenguasEspecies.get(String.valueOf(especie));
-            Integer lengua;
-            if (l.trim().equals("NULL")) {
-                Log.e("funko??",l);
-                lengua = null;
-            } else {
-                Log.e("fonko?",l);
-                lengua = Integer.valueOf(l);
+            if(verificarCampo(this.findViewById(R.id.newPerNombre), newPerNombreIn)){
+                name = newPerNombreIn.getText().toString();
             }
 
-            int vital = Integer.parseInt(newPerVitalidadIn.getText().toString());
-            int resis = Integer.parseInt(newPerResistenciaIn.getText().toString());
-            int fuerza = Integer.parseInt(newPerFuerzaIn.getText().toString());
-            int velo = Integer.parseInt(newPerVelocidadIn.getText().toString());
-            int intel = Integer.parseInt(newPerInteligenciaIn.getText().toString());
-            int punt = Integer.parseInt(newPerPunteriaIn.getText().toString());
-            int magia = Integer.parseInt(newPerMagiaIn.getText().toString());
+            if(verificarCampoSpinner(this.findViewById(R.id.newPerProcedencia), newPerProcedenciaIn, listProcedencias)){
+                proc = Integer.parseInt(Objects.requireNonNull(listProcedencias.get(newPerProcedenciaIn.getSelectedItem())));
+            }
+
+            if(verificarCampoSpinner(this.findViewById(R.id.newPerEspecie), newPerEspecieIn, listProcedencias)) {
+                especie = Integer.parseInt(Objects.requireNonNull(listProcedencias.get(newPerEspecieIn.getSelectedItem())));
+                String l = listLenguasEspecies.get(String.valueOf(especie));
+                if (l.trim().equals("NULL")) {
+                    lengua = null;
+                } else {
+                    lengua = Integer.valueOf(l);
+                }
+            }
+
+            if(verificarCampoConRango(this.findViewById(R.id.newPerEdad), newPerEdadIn, 14, NumeroAbsurdameteGrande)){
+                edad = Integer.parseInt(newPerEdadIn.getText().toString());
+            }
+
+            if(verificarCampoConRango(this.findViewById(R.id.newPerAltura), newPerAlturaIn, 0.5F, NumeroAbsurdameteGrande)){
+                altura = Float.parseFloat(newPerAlturaIn.getText().toString());
+            }
+
+            if(verificarCampoConRango(this.findViewById(R.id.newPerPeso), newPerPesoIn, 25, NumeroAbsurdameteGrande)){
+                peso = Float.parseFloat(newPerPesoIn.getText().toString());
+            }
+
+            HashMap<String , String> lolipop = new HashMap<>();
+            String[] myResArray = getResources().getStringArray(R.array.newPerSexoSpin);
+            List<String> myResArrayList = Arrays.asList(myResArray);
+            int k = 0;
+            for (String seso: myResArrayList) {
+                lolipop.put(String.valueOf(k), seso);
+                k++;
+            }
+
+            if(verificarCampoSpinner(this.findViewById(R.id.newPerSexso), newPerSexsoIn, lolipop)) {
+                sexo = newPerSexsoIn.getSelectedItem().toString();
+            }
+
+            int clase = Integer.parseInt(listClases.get(newPerClaseIn.getSelectedItem()));
+
+            if(verificarCampoConRango(this.findViewById(R.id.newPerVitalidad), newPerVitalidadIn, 1, 10)){
+                vital = Integer.parseInt(newPerVitalidadIn.getText().toString());
+            }
+            if(verificarCampoConRango(this.findViewById(R.id.newPerResistencia), newPerResistenciaIn, 1, 10)){
+                resis = Integer.parseInt(newPerResistenciaIn.getText().toString());
+            }
+            if(verificarCampoConRango(this.findViewById(R.id.newPerFuerza), newPerFuerzaIn, 1, 10)){
+                fuerza = Integer.parseInt(newPerFuerzaIn.getText().toString());
+            }
+            if(verificarCampoConRango(this.findViewById(R.id.newPerVelocidad), newPerVelocidadIn, 1, 10)){
+                velo = Integer.parseInt(newPerVelocidadIn.getText().toString());
+            }
+            if(verificarCampoConRango(this.findViewById(R.id.newPerInteligencia), newPerInteligenciaIn, 1, 10)){
+                intel = Integer.parseInt(newPerInteligenciaIn.getText().toString());
+            }
+            if(verificarCampoConRango(this.findViewById(R.id.newPerPunteria), newPerPunteriaIn, 1, 10)){
+                punt = Integer.parseInt(newPerPunteriaIn.getText().toString());
+            }
+            if(verificarCampoConRango(this.findViewById(R.id.newPerMagia), newPerMagiaIn, 1, 10)){
+                magia = Integer.parseInt(newPerMagiaIn.getText().toString());
+            }
+
+            int color = Color.TRANSPARENT;
+
+            if (vital + resis + fuerza + velo + intel + punt + magia > 25){
+                color = Color.RED;
+                totOK = false;
+            }
+            newPerVitalidadIn.setBackgroundColor(color);
+            newPerResistenciaIn.setBackgroundColor(color);
+            newPerFuerzaIn.setBackgroundColor(color);
+            newPerVelocidadIn.setBackgroundColor(color);
+            newPerInteligenciaIn.setBackgroundColor(color);
+            newPerPunteriaIn.setBackgroundColor(color);
+            newPerMagiaIn.setBackgroundColor(color);
 
             String perso = newPerPersonalidadIn.getText().toString();
             String fisico = newPerFisicoIn.getText().toString();
 
-            newPersonaje = new Personajes(name, proc, especie, edad, altura, peso, sexo, clase,lengua,
-                    vital, resis, fuerza, velo, intel, punt, magia, perso, fisico);
-            newPersonaje.setProcedencia(listProcedencias.get(newPerProcedenciaIn.getSelectedItem()));
-            newPersonaje.setEspecie(listEspecies.get(newPerEspecieIn.getSelectedItem()));
-            newPersonaje.setClase(listClases.get(newPerClaseIn.getSelectedItem()));
-            newPersonaje.setLengua1(listLenguas.get(String.valueOf(lengua)));
-            totOK = true;
+            if (!totOK){
+                error = "Los datos no son adecuados o inexistentes";
+                if(Color.RED == color){
+                    error += "\nLa suma de los campos de estadisticas supera el limite";
+                }
+                advertenciaErrores(error);
+            }else{
+                newPersonaje = new Personajes(name, proc, especie, edad, altura, peso, sexo, clase,lengua,
+                        vital, resis, fuerza, velo, intel, punt, magia, perso, fisico);
+                newPersonaje.setProcedencia(listProcedencias.get(newPerProcedenciaIn.getSelectedItem()));
+                newPersonaje.setEspecie(listEspecies.get(newPerEspecieIn.getSelectedItem()));
+                newPersonaje.setClase(listClases.get(newPerClaseIn.getSelectedItem()));
+                newPersonaje.setLengua1(listLenguas.get(String.valueOf(lengua)));
+            }
+//            totOK = true;
         } catch (Exception e) {
             e.printStackTrace();
             totOK = false;
@@ -226,5 +344,28 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void advertenciaErrores(String mensaje) {
+        //Toast.makeText(this, Data.getLider(), Toast.LENGTH_SHORT).show();
+        Log.e("lider", Data.getLider());
+        AlertDialog.Builder builder = new AlertDialog.Builder(CrearPersonajeNuevo.this);
+        builder.setCancelable(true);
+        View alertEraseView = getLayoutInflater().inflate(R.layout.advertencia, null);
+
+        TextView textViewAlert = alertEraseView.findViewById(R.id.textViewAlert);
+        Button okBtn = alertEraseView.findViewById(R.id.okBtn);
+
+        okBtn.setText("Ok");
+
+        textViewAlert.setText(mensaje);
+
+        builder.setView(alertEraseView);
+
+        AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
+
+        okBtn.setOnClickListener(view2 -> alertEraseAlert.cancel());
     }
 }

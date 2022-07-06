@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.19484412470023982" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/drawable/dialog_bg.xml" value="0.121" />
+        <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/drawable/master.xml" value="0.3635" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_datos_objetos.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_elecion_rol.xml" value="0.16799999999999998" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_escojer_personaje.xml" value="0.10989583333333333" />
@@ -12,8 +13,9 @@
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_master_escoger_lider.xml" value="0.10989583333333333" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_pagina_control_master.xml" value="0.536" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_pagina_principal.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_personaje_nuevo_by_ivan.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/confirmacion.xml" value="0.10989583333333333" />
+        <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/activity_personaje_nuevo_by_ivan.xml" value="0.5" />
+        <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/advertencia.xml" value="0.5" />
+        <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/confirmacion.xml" value="0.33" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/deposito_objetos_item.xml" value="0.6" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/display_personaje.xml" value="0.4" />
         <entry key="..\:/Users/isanc/AndroidStudioProjects/RPGLallavedelhorizonte/RPG - La llave del horizonte/RPGLallavedelhorizonte/app/src/main/res/layout/escoje_segunda_lengua.xml" value="0.10989583333333333" />

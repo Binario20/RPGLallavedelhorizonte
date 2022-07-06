@@ -182,7 +182,7 @@
                 android:orientation="horizontal">
 
                 <com.marea_binario.rpg_lallavedelhorizonte.SuperText
-                    android:id="@+id/newPerSexo"
+                    android:id="@+id/newPerSexso"
                     android:layout_width="260dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -296,7 +296,7 @@
                     android:textSize="20sp" />
 
                 <EditText
-                    android:id="@+id/newPerResistenciaIn"
+                    android:id="@+id/newPerResistencia"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

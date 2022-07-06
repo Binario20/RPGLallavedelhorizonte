@@ -95,38 +95,38 @@ public class MasterEscogerLider extends AppCompatActivity {
         //Toast.makeText(this, Data.getLider(), Toast.LENGTH_SHORT).show();
         Log.e("lider", Data.getLider());
         AlertDialog.Builder builder = new AlertDialog.Builder(MasterEscogerLider.this);
-            builder.setCancelable(true);
-            View alertEraseView = getLayoutInflater().inflate(R.layout.confirmacion, null);
+        builder.setCancelable(true);
+        View alertEraseView = getLayoutInflater().inflate(R.layout.confirmacion, null);
 
-            TextView textViewAlert = alertEraseView.findViewById(R.id.textViewAlert);
-            Button leftButton = alertEraseView.findViewById(R.id.leftButton);
-            Button rightButton = alertEraseView.findViewById(R.id.rightButton);
+        TextView textViewAlert = alertEraseView.findViewById(R.id.textViewAlert);
+        Button leftButton = alertEraseView.findViewById(R.id.leftButton);
+        Button rightButton = alertEraseView.findViewById(R.id.rightButton);
 
-            leftButton.setText(getApplicationContext().getString(R.string.yes));
-            rightButton.setText(getApplicationContext().getString(R.string.no));
+        leftButton.setText(getApplicationContext().getString(R.string.yes));
+        rightButton.setText(getApplicationContext().getString(R.string.no));
 
-            leftButton.setBackgroundColor(Color.GREEN);
-            rightButton.setBackgroundColor(Color.RED);
+        leftButton.setBackgroundColor(Color.GREEN);
+        rightButton.setBackgroundColor(Color.RED);
 
-            if (Data.getLider().equals(Data.MASTER)) {
-                textViewAlert.setText(getApplicationContext().getString(R.string.acceptMaster));
-            } else {
-                textViewAlert.setText(getApplicationContext().getString(R.string.acceptJugador));
-            }
-            builder.setView(alertEraseView);
+        if (Data.getLider().equals(Data.MASTER)) {
+            textViewAlert.setText(getApplicationContext().getString(R.string.acceptMaster));
+        } else {
+            textViewAlert.setText(getApplicationContext().getString(R.string.acceptJugador));
+        }
+        builder.setView(alertEraseView);
 
-            AlertDialog alertEraseAlert = builder.create();
-            alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            alertEraseAlert.show();
+        AlertDialog alertEraseAlert = builder.create();
+        alertEraseAlert.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertEraseAlert.show();
 
-            leftButton.setOnClickListener(view2 -> {
-                startActivity(new Intent(getApplicationContext(), PaginaControlMaster.class));
-                // Aceptar Lider
-                Integer lider = Data.getLider_id();
-                Utils.getData("put/set_lider-on?id="+lider);
-                alertEraseAlert.cancel();
-                finish();
-            });
-            rightButton.setOnClickListener(view2 -> alertEraseAlert.cancel());
+        leftButton.setOnClickListener(view2 -> {
+            startActivity(new Intent(getApplicationContext(), PaginaControlMaster.class));
+            // Aceptar Lider
+            Integer lider = Data.getLider_id();
+            Utils.getData("put/set_lider-on?id="+lider);
+            alertEraseAlert.cancel();
+            finish();
+        });
+        rightButton.setOnClickListener(view2 -> alertEraseAlert.cancel());
     }
 }
