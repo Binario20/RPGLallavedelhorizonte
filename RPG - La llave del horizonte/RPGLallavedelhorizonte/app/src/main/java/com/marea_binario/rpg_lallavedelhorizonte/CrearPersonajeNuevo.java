@@ -63,15 +63,15 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
         return color == Color.TRANSPARENT;
     }
 
-    private boolean verificarCampoSpinner(SuperText st, Spinner sp, HashMap<String, String> lista){
-        int color = Color.TRANSPARENT;
-        if (lista.get(sp.getSelectedItem()).equalsIgnoreCase("")){
-            color = Color.RED;
-            totOK = false;
-        }
-        st.setBackgroundColor(color);
-        return color == Color.TRANSPARENT;
-    }
+    //private boolean verificarCampoSpinner(SuperText st, Spinner sp, HashMap<String, String> lista){
+    //    int color = Color.TRANSPARENT;
+    //    if (Objects.requireNonNull(lista.get(sp.getSelectedItem())).equalsIgnoreCase("")){
+    //        color = Color.RED;
+    //        totOK = false;
+    //    }
+    //    st.setBackgroundColor(color);
+    //    return color == Color.TRANSPARENT;
+    //}
 
     private boolean verificarCampoConRango(SuperText st, EditText et, float min, float max){
         boolean beffore = totOK;
@@ -146,6 +146,7 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
     private void getLists() {
         JSONObject listJ = Utils.getDataJSON("get/personaje/nuevo");
+        Log.e("crear personaje", String.valueOf(listJ));
         try {
             JSONObject proce = listJ.getJSONObject("Procedencia");
             //Log.e("Spinners-P", String.valueOf(proce));
@@ -160,7 +161,7 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
             JSONObject espec = listJ.getJSONObject("Especie");
             //Log.e("Spinners-E", String.valueOf(espec));
-            Iterator<String> iterE = proce.keys();
+            Iterator<String> iterE = espec.keys();
             while (iterE.hasNext()) {
                 JSONObject line = espec.getJSONObject(iterE.next());
                 String key = line.getString("nombre");
@@ -174,7 +175,7 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
             JSONObject clase = listJ.getJSONObject("Clase");
             //Log.e("Spinners-C", String.valueOf(clase));
-            Iterator<String> iterC = proce.keys();
+            Iterator<String> iterC = clase.keys();
             while (iterC.hasNext()) {
                 JSONObject line = clase.getJSONObject(iterC.next());
                 String key = line.getString("clase");
@@ -218,77 +219,88 @@ public class CrearPersonajeNuevo extends AppCompatActivity {
 
     private Personajes savePersonaje() {
         Personajes newPersonaje = null;
-        String name = "", sexo = "", error = "";
+        String name = "", sexo = "", error;
         Integer lengua = -1;
         int proc = -1, especie = -1, edad = -1, vital = -1, resis = -1, fuerza = -1, velo = -1, intel = -1, punt = -1, magia = -1;
         float altura = -1, peso = -1;
 
         try {
             // Get data
-            if(verificarCampo(this.findViewById(R.id.newPerNombre), newPerNombreIn)){
+            SuperText nom = this.findViewById(R.id.newPerNombre);
+            if(verificarCampo(nom, newPerNombreIn)){
                 name = newPerNombreIn.getText().toString();
             }
 
-            if(verificarCampoSpinner(this.findViewById(R.id.newPerProcedencia), newPerProcedenciaIn, listProcedencias)){
-                proc = Integer.parseInt(Objects.requireNonNull(listProcedencias.get(newPerProcedenciaIn.getSelectedItem())));
-            }
+            //if(verificarCampoSpinner(this.findViewById(R.id.newPerProcedencia), newPerProcedenciaIn, listProcedencias)){
+            proc = Integer.parseInt(Objects.requireNonNull(listProcedencias.get(newPerProcedenciaIn.getSelectedItem())));
+            //}
 
-            if(verificarCampoSpinner(this.findViewById(R.id.newPerEspecie), newPerEspecieIn, listProcedencias)) {
-                especie = Integer.parseInt(Objects.requireNonNull(listProcedencias.get(newPerEspecieIn.getSelectedItem())));
-                String l = listLenguasEspecies.get(String.valueOf(especie));
-                if (l.trim().equals("NULL")) {
-                    lengua = null;
-                } else {
-                    lengua = Integer.valueOf(l);
-                }
+            //if(verificarCampoSpinner(this.findViewById(R.id.newPerEspecie), newPerEspecieIn, listProcedencias)) {
+            especie = Integer.parseInt(Objects.requireNonNull(listEspecies.get(newPerEspecieIn.getSelectedItem())));
+            String l = listLenguasEspecies.get(String.valueOf(especie));
+            if (l.trim().equals("NULL")) {
+                lengua = null;
+            } else {
+                lengua = Integer.valueOf(l);
             }
+            //}
 
-            if(verificarCampoConRango(this.findViewById(R.id.newPerEdad), newPerEdadIn, 14, NumeroAbsurdameteGrande)){
+            SuperText edat = this.findViewById(R.id.newPerEdad);
+            if(verificarCampoConRango(edat , newPerEdadIn, 14, NumeroAbsurdameteGrande)){
                 edad = Integer.parseInt(newPerEdadIn.getText().toString());
             }
 
-            if(verificarCampoConRango(this.findViewById(R.id.newPerAltura), newPerAlturaIn, 0.5F, NumeroAbsurdameteGrande)){
+            SuperText alcada = this.findViewById(R.id.newPerAltura);
+            if(verificarCampoConRango(alcada, newPerAlturaIn, 0.5F, NumeroAbsurdameteGrande)){
                 altura = Float.parseFloat(newPerAlturaIn.getText().toString());
             }
 
-            if(verificarCampoConRango(this.findViewById(R.id.newPerPeso), newPerPesoIn, 25, NumeroAbsurdameteGrande)){
+            SuperText pes = this.findViewById(R.id.newPerPeso);
+            if(verificarCampoConRango(pes, newPerPesoIn, 25, NumeroAbsurdameteGrande)){
                 peso = Float.parseFloat(newPerPesoIn.getText().toString());
             }
 
             HashMap<String , String> lolipop = new HashMap<>();
             String[] myResArray = getResources().getStringArray(R.array.newPerSexoSpin);
-            List<String> myResArrayList = Arrays.asList(myResArray);
+            String[] myResArrayList = myResArray;
             int k = 0;
             for (String seso: myResArrayList) {
                 lolipop.put(String.valueOf(k), seso);
                 k++;
             }
 
-            if(verificarCampoSpinner(this.findViewById(R.id.newPerSexso), newPerSexsoIn, lolipop)) {
-                sexo = newPerSexsoIn.getSelectedItem().toString();
-            }
+            //if(verificarCampoSpinner(this.findViewById(R.id.newPerSexso), newPerSexsoIn, lolipop)) {
+            sexo = newPerSexsoIn.getSelectedItem().toString();
+            //}
 
             int clase = Integer.parseInt(listClases.get(newPerClaseIn.getSelectedItem()));
 
-            if(verificarCampoConRango(this.findViewById(R.id.newPerVitalidad), newPerVitalidadIn, 1, 10)){
+            SuperText vitalidad = this.findViewById(R.id.newPerVitalidad);
+            if(verificarCampoConRango(vitalidad, newPerVitalidadIn, 1, 10)){
                 vital = Integer.parseInt(newPerVitalidadIn.getText().toString());
             }
-            if(verificarCampoConRango(this.findViewById(R.id.newPerResistencia), newPerResistenciaIn, 1, 10)){
+            SuperText resistencia = this.findViewById(R.id.newPerPreferencia);
+            if(verificarCampoConRango(resistencia, newPerResistenciaIn, 1, 10)){
                 resis = Integer.parseInt(newPerResistenciaIn.getText().toString());
             }
-            if(verificarCampoConRango(this.findViewById(R.id.newPerFuerza), newPerFuerzaIn, 1, 10)){
+            SuperText fuer = this.findViewById(R.id.newPerFuerza);
+            if(verificarCampoConRango(fuer, newPerFuerzaIn, 1, 10)){
                 fuerza = Integer.parseInt(newPerFuerzaIn.getText().toString());
             }
-            if(verificarCampoConRango(this.findViewById(R.id.newPerVelocidad), newPerVelocidadIn, 1, 10)){
+            SuperText velocidad = this.findViewById(R.id.newPerVelocidad);
+            if(verificarCampoConRango(velocidad, newPerVelocidadIn, 1, 10)){
                 velo = Integer.parseInt(newPerVelocidadIn.getText().toString());
             }
-            if(verificarCampoConRango(this.findViewById(R.id.newPerInteligencia), newPerInteligenciaIn, 1, 10)){
+            SuperText inteligencia = this.findViewById(R.id.newPerInteligencia);
+            if(verificarCampoConRango(inteligencia, newPerInteligenciaIn, 1, 10)){
                 intel = Integer.parseInt(newPerInteligenciaIn.getText().toString());
             }
-            if(verificarCampoConRango(this.findViewById(R.id.newPerPunteria), newPerPunteriaIn, 1, 10)){
+            SuperText punteria = this.findViewById(R.id.newPerPunteria);
+            if(verificarCampoConRango(punteria, newPerPunteriaIn, 1, 10)){
                 punt = Integer.parseInt(newPerPunteriaIn.getText().toString());
             }
-            if(verificarCampoConRango(this.findViewById(R.id.newPerMagia), newPerMagiaIn, 1, 10)){
+            SuperText mago = this.findViewById(R.id.newPerMagia);
+            if(verificarCampoConRango(mago, newPerMagiaIn, 1, 10)){
                 magia = Integer.parseInt(newPerMagiaIn.getText().toString());
             }
 
