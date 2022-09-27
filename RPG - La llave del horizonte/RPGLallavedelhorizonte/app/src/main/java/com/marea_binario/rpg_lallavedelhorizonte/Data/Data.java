@@ -47,6 +47,8 @@ public class Data {
 
     public static int[] imgObjetosArray = new int[122];
 
+    public static int[] imgPersoArray = new int[10];
+
     private static LinearLayout lider_layout, master_layout;
 
     private static ArrayList<Drawable> listaImagenes;
@@ -168,7 +170,7 @@ public class Data {
         imgObjetosArray[62] = R.drawable.lefko;
         imgObjetosArray[63] = R.drawable.zafeiri;
         imgObjetosArray[64] = R.drawable.pente;
-        imgObjetosArray[65] = 0;
+        imgObjetosArray[65] = R.drawable.rio_micros;
         imgObjetosArray[66] = R.drawable.rio_tessera;
         imgObjetosArray[67] = R.drawable.rio_tessera_monta_a;
         imgObjetosArray[68] = R.drawable.sierra_de_fotia;
@@ -234,6 +236,28 @@ public class Data {
             return Data.getRandomWallPaper();
         }
         return imgObjetosArray[img_id];
+    }
+
+    public static void setImgPerso() {
+        imgPersoArray[0] = R.drawable.binario;
+        imgPersoArray[1] = R.drawable.edredorn;
+        imgPersoArray[2] = R.drawable.elfumi;
+        imgPersoArray[3] = R.drawable.flora;
+        imgPersoArray[4] = 0;
+        imgPersoArray[5] = R.drawable.kirikignacio;
+        imgPersoArray[6] = R.drawable.marea;
+        imgPersoArray[7] = R.drawable.matiyah;
+        imgPersoArray[8] = 0;
+        imgPersoArray[9] = R.drawable.yilda;
+    }
+
+    public static int getImgPerso(Integer img_id) {
+        if (img_id == null) {
+            return R.drawable.todoynada;
+        } else if(imgPersoArray[img_id]==0){
+            return R.drawable.todoynada;
+        }
+        return imgPersoArray[img_id];
     }
 
     public static void setRegiones(ArrayList<Regiones> regiones) {
